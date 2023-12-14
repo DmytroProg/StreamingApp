@@ -1,4 +1,6 @@
-﻿using System;
+﻿using StreamingApp.WPF.Navigations;
+using StreamingApp.WPF.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +15,21 @@ namespace StreamingApp.WPF
     /// </summary>
     public partial class App : Application
     {
+        private readonly NavigationStore _navigationStore;
+
+        public App()
+        {
+            _navigationStore = new NavigationStore();
+            _navigationStore.CurrectViewModel = new TestViewModel();
+        }
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            MainWindow = new MainWindow()
+            {
+                DataContext = new MainViewModel(_navigationStore),
+            };
+            MainWindow.Show();
+        }
     }
 }
