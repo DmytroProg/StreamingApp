@@ -20,7 +20,7 @@ namespace StreamingApp.WPF
         public App()
         {
             _navigationStore = new NavigationStore();
-            _navigationStore.CurrectViewModel = new TestViewModel();
+            _navigationStore.CurrectViewModel = new LoginViewModel();
         }
 
         protected override void OnStartup(StartupEventArgs e)
