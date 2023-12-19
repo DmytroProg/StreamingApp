@@ -22,50 +22,6 @@
                 </Style.Triggers>
             </Style>
 
-            <Style TargetType="TabControl">
-                <Setter Property="Background" Value="#1C1B24"/>
-                <Setter Property="BorderThickness" Value="0"/>
-                <Setter Property="Padding" Value="10"/>
-            </Style>
-
-            <Style TargetType="TabItem">
-                <Setter Property="Foreground" Value="White"/>
-                <Setter Property="FontSize" Value="14"/>
-                <Setter Property="FontWeight" Value="DemiBold"/>
-                <Setter Property="Background" Value="#1C1B24"/>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="TabItem">
-                            <Border Name="Border">
-                                <ContentPresenter ContentSource="Header" Margin="40,5,60,5"></ContentPresenter>
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsSelected" Value="True">
-                                    <Setter TargetName="Border" Property="Background" Value="#1C1B24"/>
-                                    <Setter TargetName="Border" Property="Border.CornerRadius" Value="0"/>
-                                </Trigger>
-                                <MultiTrigger>
-                                    <MultiTrigger.Conditions>
-                                        <Condition Property="IsSelected" Value="True"/>
-                                        <Condition Property="Tag" Value="users"/>
-                                    </MultiTrigger.Conditions>
-                                    <Setter TargetName="Border" Property="Background" Value="#1C1B24"/>
-                                    <Setter TargetName="Border" Property="Border.CornerRadius" Value="0,15,0,0"/>
-                                </MultiTrigger>
-                                <MultiTrigger>
-                                    <MultiTrigger.Conditions>
-                                        <Condition Property="IsSelected" Value="True"/>
-                                        <Condition Property="Tag" Value="chat"/>
-                                    </MultiTrigger.Conditions>
-                                    <Setter TargetName="Border" Property="Background" Value="#1C1B24"/>
-                                    <Setter TargetName="Border" Property="Border.CornerRadius" Value="15,0,0,0"/>
-                                </MultiTrigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-
             <Style TargetType="Label">
                 <Setter Property="FontFamily" Value="Cooper Std Black"></Setter>
                 <Setter Property="Foreground" Value="White"></Setter>
@@ -88,33 +44,64 @@
         <WrapPanel>
             <Ellipse Width="40" Height="40" Margin="30,4,0,0">
                 <Ellipse.Fill>
-                    <ImageBrush ImageSource="/Images/user.JPG"/>
+                    <ImageBrush x:Name="userAvatar" ImageSource="/Images/user.JPG"/>
                 </Ellipse.Fill>
             </Ellipse>
-            <Label Margin="0,0,0,0" FontSize="20">User</Label>
+            <Label Name="userNickLB" Margin="0,0,0,0" FontSize="20">User</Label>
         </WrapPanel>
-        <Border Grid.Column="1" Grid.ColumnSpan="2" Margin="40,10,100,10" Background="White">
-            <TextBox  Width="500" HorizontalAlignment="Left" Margin="4" BorderThickness="0"/>
+        <Border Grid.Column="1" Grid.ColumnSpan="2" Width="510" Margin="80,10,100,10" Background="White">
+            <TextBox x:Name="searchTB"  Width="500" HorizontalAlignment="Left" Margin="4" BorderThickness="0"/>
         </Border>
-        <Image Source="/Images/s1.png" Grid.Column ="2" Margin="250,0,30,0" Height="35" Cursor="Hand"></Image>
+        <Image x:Name="searchBT" Source="/Images/s1.png" Grid.Column ="2" Margin="270,0,30,0" Height="35" Cursor="Hand"></Image>
 
-        <StackPanel Grid.Row="1">
-
+        <StackPanel x:Name="actionSP" Grid.Row="1" Visibility="Hidden">
+            <StackPanel.Background>
+                <ImageBrush ImageSource="/Images/29.jpg" Stretch="UniformToFill"/>
+            </StackPanel.Background>
+            <Border x:Name="startStreamBT" Margin="40,5,40,10" Height="35" Width="200">
+                <Label HorizontalAlignment="Center">Start Stream</Label>
+            </Border>
+            <Border x:Name="startChatBT" Margin="40,3,40,10" Height="35" Width="200">
+                <Label HorizontalAlignment="Center">Chat</Label>
+            </Border>
+            <Border x:Name="connectChatBT" Margin="40,3,40,10" Height="35" Width="200">
+                <Label HorizontalAlignment="Center">Connect to Server</Label>
+            </Border>
+            <Border x:Name="HelpBT" Margin="40,3,40,10" Height="35" Width="200">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Setter Property="Background" Value="DarkRed"></Setter>
+                        <Setter Property="CornerRadius" Value="10"></Setter>
+                        <Setter Property="Cursor" Value="Hand"></Setter>
+                        <Setter Property="Margin" Value="40"></Setter>
+                        <Setter Property="Opacity" Value="0.9"></Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="Red"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <Label HorizontalAlignment="Center">Help Me</Label>
+            </Border>
+        </StackPanel>
+        
+        <StackPanel x:Name="logoSP"  Grid.Row="1">
             <Image Source="/Images/logo.png" Grid.Column ="2" Width="250" Cursor="Hand" Margin="0,50,0,0"></Image>
         </StackPanel>
 
         <TabControl Grid.Row="2" Grid.RowSpan="2">
-            <TabItem Header="Users" Margin="-2,0,-6,0" Tag="users">
-                <Label FontSize="26" HorizontalAlignment="Center">Sign in or register</Label>
+            <TabItem Name="usersTabItem" Header="Users" Margin="-2,0,-6,0" Tag="users">
+                <Label Name="userLogoTabItem" FontSize="26" HorizontalAlignment="Center">Sign in or register</Label>
             </TabItem>
 
 
-            <TabItem Header="Chat" Margin="7,0,-20,0" Tag="chat">
-                <Label FontSize="26" HorizontalAlignment="Center">Sign in or register</Label>
+            <TabItem Name="chatTabItem" Header="Chat" Margin="7,0,-20,0" Tag="chat">
+                <Label Name="chatLogoTabItem" FontSize="26" HorizontalAlignment="Center">Sign in or register</Label>
             </TabItem>
         </TabControl>
 
-        <Grid Name="mainPage" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="3">
+        <Grid Name="mainControls" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="3">
             <Grid.Resources>
                 <DataTemplate DataType="{x:Type vms:LoginViewModel}">
                     <views:LoginView />

@@ -3,10 +3,55 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:StreamingApp.WPF">
     <Application.Resources>
-        <!--<ResourceDictionary>
-            <SolidColorBrush>
+        <ResourceDictionary>
+            
+            <Style TargetType="TabControl">
+                <Setter Property="Background" Value="#1C1B24"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Padding" Value="10"/>
+            </Style>
 
-            </SolidColorBrush>
-        </ResourceDictionary>-->
+            <Style TargetType="TabItem">
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="FontWeight" Value="DemiBold"/>
+                <Setter Property="Background" Value="#1C1B24"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="TabItem">
+                            <Border Name="Border">
+                                <ContentPresenter ContentSource="Header" Margin="40,5,60,5"></ContentPresenter>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter TargetName="Border" Property="Background" Value="#1C1B24"/>
+                                    <Setter TargetName="Border" Property="Border.CornerRadius" Value="0"/>
+                                </Trigger>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsSelected" Value="True"/>
+                                        <Condition Property="Tag" Value="users"/>
+                                    </MultiTrigger.Conditions>
+                                    <Setter TargetName="Border" Property="Background" Value="#1C1B24"/>
+                                    <Setter TargetName="Border" Property="Border.CornerRadius" Value="0,15,0,0"/>
+                                </MultiTrigger>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsSelected" Value="True"/>
+                                        <Condition Property="Tag" Value="chat"/>
+                                    </MultiTrigger.Conditions>
+                                    <Setter TargetName="Border" Property="Background" Value="#1C1B24"/>
+                                    <Setter TargetName="Border" Property="Border.CornerRadius" Value="15,0,0,0"/>
+                                </MultiTrigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <!--<SolidColorBrush>
+
+            </SolidColorBrush>-->
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

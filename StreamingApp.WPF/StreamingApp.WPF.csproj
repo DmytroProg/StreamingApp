@@ -53,12 +53,12 @@
     <None Remove="Images\8.jpg" />
     <None Remove="Images\9.jpg" />
     <None Remove="Images\logo.png" />
-    <None Remove="Images\noAvatar.png" />
     <None Remove="Images\s1.png" />
-    <None Remove="Images\s3.png" />
-    <None Remove="Images\s4.png" />
-    <None Remove="Images\s5.png" />
     <None Remove="Images\user.JPG" />
+    <None Remove="Images\v1.mp4" />
+    <None Remove="Images\v2.mp4" />
+    <None Remove="Images\v3.mp4" />
+    <None Remove="Images\v4.mp4" />
   </ItemGroup>
 
   <ItemGroup>
@@ -197,22 +197,22 @@
     <Content Include="Images\logo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\noAvatar.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Images\s1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\s3.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Images\s4.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Images\s5.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Images\user.JPG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\v1.mp4">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\v2.mp4">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\v3.mp4">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\v4.mp4">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
