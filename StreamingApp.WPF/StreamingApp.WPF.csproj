@@ -11,4 +11,8 @@
     <Folder Include="Images\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\StreamingApp.BLL\StreamingApp.BLL.csproj" />
+  </ItemGroup>
+
 </Project>
