@@ -4,7 +4,10 @@
              xmlns:local="clr-namespace:StreamingApp.WPF">
     <Application.Resources>
         <ResourceDictionary>
-            
+
+            <SolidColorBrush x:Key="Primary" Color="DarkGoldenrod"/>
+            <SolidColorBrush x:Key="PrimaryLight" Color="Gold"/>
+
             <Style TargetType="TabControl">
                 <Setter Property="Background" Value="#1C1B24"/>
                 <Setter Property="BorderThickness" Value="0"/>
@@ -47,6 +50,34 @@
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
+            </Style>
+
+            <Style TargetType="Button">
+                <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="Padding" Value="10 5"/>
+                <Setter Property="TextBlock.FontFamily" Value="Cooper Std Black"></Setter>
+                <Setter Property="TextBlock.FontWeight" Value="DemiBold"></Setter>
+                <Setter Property="Background" Value="{StaticResource Primary}"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border CornerRadius="10"
+                                    Padding="{TemplateBinding Padding}"
+                                    Background="{TemplateBinding Background}">
+                                <ContentPresenter/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{StaticResource PrimaryLight}"></Setter>
+                    </Trigger>
+                </Style.Triggers>
             </Style>
 
             <!--<SolidColorBrush>

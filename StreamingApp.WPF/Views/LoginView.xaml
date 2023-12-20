@@ -52,15 +52,25 @@
         <StackPanel Margin="0,40,0,40">
             <TextBlock>Login</TextBlock>
             <Border Grid.ColumnSpan="2" Background="Black" BorderThickness="2" BorderBrush="White" Width="250">
-                <TextBox Name="loginTB" Margin="5" FontSize="22" TextAlignment="Center"></TextBox>
+                <TextBox Name="loginTB" 
+                         Margin="5" 
+                         FontSize="22" 
+                         TextAlignment="Center"
+                         Text="{Binding Login}"></TextBox>
             </Border>
             <TextBlock>Password</TextBlock>
             <Border Grid.ColumnSpan="2" Background="Black" BorderThickness="2" BorderBrush="White" Width="250">
-                <TextBox Name="passTB" Margin="5" FontSize="22" TextAlignment="Center"></TextBox>
+                <TextBox Name="passTB"
+                         Margin="5"
+                         FontSize="22"
+                         TextAlignment="Center"
+                         Text="{Binding Password}"></TextBox>
             </Border>
-            <Border x:Name="loginBT" Margin="40,40,40,20" Height="40" Width="250">
-                <Label HorizontalAlignment="Center">Login</Label>
-            </Border>
+            <Button Margin="40,40,40,20"
+                    Padding="10"
+                    MaxWidth="250"
+                    Content="Login"
+                    Command="{Binding LoginCommand}"/>
 
             <Border x:Name="registerBT" Height="40" Width="250">
                 <Label HorizontalAlignment="Center">Registration</Label>

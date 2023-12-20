@@ -19,7 +19,7 @@ public abstract class ControllerBase
         _logger = logger;
         _tcpClient = tcpClient;
         _presenter = presenter;
-        _tcpClient.Received += _tcpClient_Received;
+        //_tcpClient.Received += _tcpClient_Received;
     }
 
     private void _tcpClient_Received(ResponseBase response)

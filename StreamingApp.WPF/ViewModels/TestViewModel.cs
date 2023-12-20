@@ -10,4 +10,9 @@ internal class TestViewModel : ViewModelBase
     {
         Message = "Hello world!";
     }
+
+    public TestViewModel(string message)
+    {
+        Message = message;
+    }
 }

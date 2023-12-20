@@ -218,6 +218,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="MvvmLightLibs" Version="5.4.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\StreamingApp.BLL\StreamingApp.BLL.csproj" />
   </ItemGroup>
 

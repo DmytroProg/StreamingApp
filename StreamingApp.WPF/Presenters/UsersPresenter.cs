@@ -21,6 +21,10 @@ internal class UsersPresenter : IPresenter
 
     public void ChangeView(ResponseBase response)
     {
-        _navigationStore.CurrectViewModel = new TestViewModel();
+        _navigationStore.CurrectViewModel = response switch
+        {
+            LoginResponse loginResponse => new TestViewModel(loginResponse.User.ToString()),
+            _ => new ErrorViewModel()
+        };
     }
 }

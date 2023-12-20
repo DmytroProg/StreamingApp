@@ -9,6 +9,9 @@
         <TextBlock HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    FontSize="36"
+                   Margin="20 10"
+                   TextWrapping="WrapWithOverflow"
+                   Foreground="White"
                    Text="{Binding Message}"/>
     </Grid>
 </UserControl>

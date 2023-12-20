@@ -21,12 +21,15 @@ namespace StreamingApp.WPF
         private readonly NavigationStore _navigationStore;
         private readonly IPresenter _usersPresenter;
 
+        public static UsersController UsersController { get; private set; }
+
         public App()
         {
             _navigationStore = new NavigationStore();
+            _navigationStore.CurrectViewModel = new LoginViewModel();
             _usersPresenter = new UsersPresenter(_navigationStore);
 
-            var controller = new UsersController(null, null, _usersPresenter);
+            UsersController = new UsersController(null, null, _usersPresenter);
         }
 
         protected override void OnStartup(StartupEventArgs e)
