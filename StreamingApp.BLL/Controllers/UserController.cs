@@ -5,16 +5,16 @@ using StreamingApp.BLL.Responses;
 
 namespace StreamingApp.BLL.Controllers;
 
-public class UsersController : ControllerBase
+public class UserController : ControllerBase
 {
     public static User? CurrentUser { get; private set; }
 
-    public UsersController(ITcpClient tcpClient, IPresenter presenter) 
+    public UserController(ITcpClient tcpClient, IPresenter presenter) 
         : this(null, tcpClient, presenter)
     {
     }
 
-    public UsersController(ILogger? logger, ITcpClient tcpClient, IPresenter presenter)
+    public UserController(ILogger? logger, ITcpClient tcpClient, IPresenter presenter)
         : base(logger, tcpClient, presenter)
     {
     }

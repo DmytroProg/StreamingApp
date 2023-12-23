@@ -18,6 +18,8 @@ namespace StreamingApp.WPF
     /// </summary>
     public partial class App : Application
     {
+        public static UserController UserController { get; private set; } = null!;
+
         private readonly NavigationStore _navigationStore;
         private readonly IPresenter _usersPresenter;
 
@@ -26,7 +28,7 @@ namespace StreamingApp.WPF
             _navigationStore = new NavigationStore();
             _usersPresenter = new UsersPresenter(_navigationStore);
 
-            var controller = new UsersController(null, null, _usersPresenter);
+            UserController = new UserController(null, null, _usersPresenter);
         }
 
         protected override void OnStartup(StartupEventArgs e)
