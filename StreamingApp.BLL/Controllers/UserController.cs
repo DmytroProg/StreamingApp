@@ -1,6 +1,7 @@
 ﻿using StreamingApp.BLL.Controllers.Base;
 using StreamingApp.BLL.Interfaces;
 using StreamingApp.BLL.Models;
+using StreamingApp.BLL.Requests;
 using StreamingApp.BLL.Responses;
 
 namespace StreamingApp.BLL.Controllers;
@@ -39,6 +40,55 @@ public class UserController : ControllerBase
             _presenter.ChangeView(response);
         }
         catch(Exception ex)
+        {
+            _logger?.LogError(ex);
+        }
+    }
+
+    public void Register(User user)
+    {
+        try
+        {
+            //TODO validation
+            //Create request
+            //Send request to server and get response
+            var response = new LoginResponse()
+            {
+                User = new User()
+                {
+                    Login = user.Login,
+                    Password = user.Password,
+                    Name = user.Name
+                }
+            };
+            _presenter.ChangeView(response);
+        }
+        catch (Exception ex)
+        {
+            _logger?.LogError(ex);
+        }
+    }
+
+    public void Connect(TcpConfig config)
+    {
+        try
+        {
+            //TODO validation
+            //Create request
+            //Send request to server and get response
+            var response = new ConnectResponse()
+            {
+                Meeting = new Meeting()
+                {
+                    Title = "Test meeting",
+                    Admin = CurrentUser!,
+                    Messages = new List<MessageBase>(),
+                    Users = new List<User>()
+                }
+            };
+            _presenter.ChangeView(response);
+        }
+        catch (Exception ex)
         {
             _logger?.LogError(ex);
         }

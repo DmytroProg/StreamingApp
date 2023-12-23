@@ -21,7 +21,7 @@ namespace StreamingApp.WPF
         {
             _navigationStore = new NavigationStore();
             _navigationStore.CurrectViewModel = new LoginViewModel();
-            _usersPresenter = new UsersPresenter(_navigationStore);
+            _usersPresenter = new UserPresenter(_navigationStore);
 
             UserController = new UserController(null, null, _usersPresenter);
         }

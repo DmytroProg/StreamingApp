@@ -2,19 +2,14 @@
 using StreamingApp.BLL.Responses;
 using StreamingApp.WPF.Navigations;
 using StreamingApp.WPF.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StreamingApp.WPF.Presenters;
 
-internal class UsersPresenter : IPresenter
+internal class UserPresenter : IPresenter
 {
     private readonly NavigationStore _navigationStore;
 
-    public UsersPresenter(NavigationStore navigationStore)
+    public UserPresenter(NavigationStore navigationStore)
     {
         _navigationStore = navigationStore;
     }
@@ -23,7 +18,8 @@ internal class UsersPresenter : IPresenter
     {
         _navigationStore.CurrectViewModel = response switch
         {
-            LoginResponse loginResponse => new TestViewModel(loginResponse.User.ToString()),
+            LoginResponse loginResponse => new ConnectViewModel(),
+            ConnectResponse connectResponse => new TestViewModel(connectResponse.Meeting.Title),
             _ => new ErrorViewModel()
         };
     }

@@ -106,6 +106,12 @@
                 <DataTemplate DataType="{x:Type vms:LoginViewModel}">
                     <views:LoginView />
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type vms:RegistrationViewModel}">
+                    <views:RegistrationView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vms:ConnectViewModel}">
+                    <views:ConnectView />
+                </DataTemplate>
                 <DataTemplate DataType="{x:Type vms:TestViewModel}">
                     <views:TestView />
                 </DataTemplate>

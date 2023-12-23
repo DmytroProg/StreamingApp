@@ -54,16 +54,27 @@
         <StackPanel Margin="0,40,0,40">
             <TextBlock>Port</TextBlock>
             <Border Grid.ColumnSpan="2" Background="Black" BorderThickness="2" BorderBrush="White" Width="250">
-                <TextBox Name="portTB" Margin="5" FontSize="22" TextAlignment="Center"></TextBox>
+                <TextBox Name="portTB" 
+                         Margin="5" 
+                         FontSize="22" 
+                         TextAlignment="Center"
+                         Text="{Binding Port}"></TextBox>
             </Border>
             <TextBlock>IP Address</TextBlock>
             <Border Grid.ColumnSpan="2" Background="Black" BorderThickness="2" BorderBrush="White" Width="250">
-                <TextBox Name="ipAddressTB" Margin="5" FontSize="22" TextAlignment="Center"></TextBox>
+                <TextBox 
+                    Name="ipAddressTB" 
+                    Margin="5" 
+                    FontSize="22" 
+                    TextAlignment="Center"
+                    Text="{Binding IPAddress}"></TextBox>
             </Border>
 
-            <Border x:Name="confirmBT" Margin="0,40,0,0" Height="40" Width="250">
-                <Label HorizontalAlignment="Center">Connect</Label>
-            </Border>
+            <Button Margin="40,40,40,20"
+                    Padding="10"
+                    MaxWidth="250"
+                    Content="Connect"
+                    Command="{Binding ConnectCommand}"/>
         </StackPanel>
 
         
