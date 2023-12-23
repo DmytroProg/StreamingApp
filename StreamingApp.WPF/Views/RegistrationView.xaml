@@ -52,11 +52,20 @@
         <StackPanel Margin="0,40,0,40">
             <TextBlock>Nickname</TextBlock>
             <Border Grid.ColumnSpan="2" Background="Black" BorderThickness="2" BorderBrush="White" Width="250">
-                <TextBox Name="nickRegisterTB" Margin="5" FontSize="22" TextAlignment="Center"></TextBox>
+                <TextBox 
+                    Name="nickRegisterTB" Margin="5" 
+                    FontSize="22" 
+                    TextAlignment="Center"
+                    Text="{Binding Nickname}"></TextBox>
             </Border>
             <TextBlock>Password</TextBlock>
             <Border Grid.ColumnSpan="2" Background="Black" BorderThickness="2" BorderBrush="White" Width="250">
-                <TextBox Name="PassRegisterTB" Margin="5" FontSize="22" TextAlignment="Center"></TextBox>
+                <TextBox 
+                    Name="PassRegisterTB" 
+                    Margin="5" 
+                    FontSize="22" 
+                    TextAlignment="Center"
+                    Text="{Binding Password}"></TextBox>
             </Border>
             <Grid Width="250">
                 <Grid.ColumnDefinitions>
@@ -85,9 +94,11 @@
                 </Border>
             </Grid>
 
-            <Border x:Name="confirmBT" Margin="0,40,0,0" Height="40" Width="250">
-                <Label HorizontalAlignment="Center">Confirm</Label>
-            </Border>
+            <Button Margin="40,40,40,20"
+        Padding="10"
+        MaxWidth="250"
+        Content="Register"
+        Command="{Binding RegisterCommand}"/>
         </StackPanel>
     </Grid>
 </UserControl>

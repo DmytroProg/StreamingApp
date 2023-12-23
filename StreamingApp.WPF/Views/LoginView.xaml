@@ -72,9 +72,11 @@
                     Content="Login"
                     Command="{Binding LoginCommand}"/>
 
-            <Border x:Name="registerBT" Height="40" Width="250">
-                <Label HorizontalAlignment="Center">Registration</Label>
-            </Border>
+            <Button Margin="40,0,40,20"
+                    Padding="10"
+                    MaxWidth="250"
+                    Content="Register"
+                    Command="{Binding GoToRegistrationCommand}"/>
         </StackPanel>
     </Grid>
 </UserControl>
