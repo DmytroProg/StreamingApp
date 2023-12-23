@@ -8,7 +8,7 @@ namespace StreamingApp.BLL.Interfaces;
 public interface ITcpClient
 {
     void Send(RequestBase request, TcpClient client);
-    void Connect(IPAddress iPAddress, int port);
+    void Connect(IConfig config);
 
     event Action<ResponseBase> Received; 
 }

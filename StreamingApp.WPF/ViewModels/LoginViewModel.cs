@@ -42,6 +42,6 @@ class LoginViewModel : ViewModelBase
 
     public void LoginUser()
     {
-        App.UsersController.Login(Login, Password);
+        App.UserController.Login(Login, Password);
     }
 }
