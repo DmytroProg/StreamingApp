@@ -1,0 +1,52 @@
+How to Add Controllers
+
+В BLL в папці Controllers додаємо файл <Name>Controller.cs
+Наслідуємо його від ControllerBase
+
+////////////////////////////////////////////////////////////////
+public class <Name>Controller : ControllerBase
+{
+
+    public <Name>Controller(ITcpClient tcpClient, IPresenter presenter) 
+        : this(null, tcpClient, presenter)
+    {
+    }
+
+    public <Name>Controller(ILogger? logger, ITcpClient tcpClient, IPresenter presenter)
+        : base(logger, tcpClient, presenter)
+    {
+    }
+}
+/////////////////////////////////////////////////////////////////
+
+logger - обєкт для логування повідомлень та помилок
+tcpClient - клієнт для передачі даних
+presenter - клас-презентер для роботи з view-моделями.
+
+Для кожного контроллера потрібно додати свій клас-презентер
+Для цього потрібно в StreamingApp.WPF в папку Presenters додати клас <Name>Presenter
+та імплементувати інтерфейс IPresenter.
+
+//////////////////////////////////////////////////////////////////////
+internal class <Name>Presenter : IPresenter
+{
+    private readonly NavigationStore _navigationStore;
+
+    public <Name>Presenter(NavigationStore navigationStore)
+    {
+        _navigationStore = navigationStore;
+    }
+
+    public void ChangeView(ResponseBase response)
+    {
+        _navigationStore.CurrectViewModel = response switch
+        {
+            _ => new ErrorViewModel()
+        };
+    }
+}
+///////////////////////////////////////////////////////////////////////
+
+Метод ChangeView використовується в контроллері для того, щоб змінити UI.
+В цьому методі в обєкті навігації _navigationStore змінюється CurrentViewModel
+залежно від респонса який прилетів.
