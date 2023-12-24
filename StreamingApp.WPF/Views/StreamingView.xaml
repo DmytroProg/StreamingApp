@@ -1,0 +1,13 @@
+﻿<UserControl x:Class="StreamingApp.WPF.Views.StreamingView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:StreamingApp.WPF.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="550" Loaded="UserControl_Loaded">
+    <Grid>
+        <MediaElement x:Name="mediaElement" LoadedBehavior="Manual" UnloadedBehavior="Stop"  Stretch="UniformToFill"/>
+        <Canvas Name="polotno" Background="Transparent" MouseLeftButtonDown="polotno_MouseLeftButtonDown" MouseMove="polotno_MouseMove"></Canvas>
+    </Grid>
+</UserControl>
