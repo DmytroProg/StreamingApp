@@ -1,0 +1,82 @@
+﻿<UserControl x:Class="StreamingApp.WPF.Views.ConnectView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:StreamingApp.WPF.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="550" Loaded="UserControl_Loaded">
+    <Grid>
+        <!--<Grid.Background>
+            <ImageBrush ImageSource="/Images/35.jpg" Stretch="UniformToFill"></ImageBrush>
+        </Grid.Background>-->
+        <Grid.Resources>
+            <Style TargetType="Border">
+                <Setter Property="Background" Value="DarkGoldenrod"></Setter>
+                <Setter Property="CornerRadius" Value="10"></Setter>
+                <Setter Property="Cursor" Value="Hand"></Setter>
+                <Setter Property="Margin" Value="60,5,60,10"></Setter>
+                <Setter Property="Opacity" Value="0.9"></Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="Gold"></Setter>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style TargetType="TextBox">
+                <Setter Property="BorderThickness" Value="0"></Setter>
+                <Setter Property="Background" Value="Black"></Setter>
+                <Setter Property="Foreground" Value="White"></Setter>
+                <Setter Property="FontFamily" Value="Comic Sans MS"></Setter>
+            </Style>
+
+            <Style TargetType="TextBlock">
+                <Setter Property="FontFamily" Value="Cooper Std Black"></Setter>
+                <Setter Property="Foreground" Value="White"></Setter>
+                <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+                <Setter Property="FontSize" Value="24"></Setter>
+                <Setter Property="FontWeight" Value="DemiBold"></Setter>
+            </Style>
+
+            <Style TargetType="Label">
+                <Setter Property="FontFamily" Value="Cooper Std Black"></Setter>
+                <Setter Property="Foreground" Value="White"></Setter>
+                <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+                <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+                <Setter Property="FontSize" Value="18"></Setter>
+                <Setter Property="FontWeight" Value="DemiBold"></Setter>
+            </Style>
+        </Grid.Resources>
+        <MediaElement Name="bg" LoadedBehavior="Manual" UnloadedBehavior="Stop"  Stretch="UniformToFill" IsMuted="True"/>
+     
+        <StackPanel Margin="0,40,0,40">
+            <TextBlock>Port</TextBlock>
+            <Border Grid.ColumnSpan="2" Background="Black" BorderThickness="2" BorderBrush="White" Width="250">
+                <TextBox Name="portTB" 
+                         Margin="5" 
+                         FontSize="22" 
+                         TextAlignment="Center"
+                         Text="{Binding Port}"></TextBox>
+            </Border>
+            <TextBlock>IP Address</TextBlock>
+            <Border Grid.ColumnSpan="2" Background="Black" BorderThickness="2" BorderBrush="White" Width="250">
+                <TextBox 
+                    Name="ipAddressTB" 
+                    Margin="5" 
+                    FontSize="22" 
+                    TextAlignment="Center"
+                    Text="{Binding IPAddress}"></TextBox>
+            </Border>
+
+            <Button Margin="40,40,40,20"
+                    Padding="10"
+                    MaxWidth="250"
+                    Content="Connect"
+                    Command="{Binding ConnectCommand}"/>
+        </StackPanel>
+
+        
+    </Grid>
+</UserControl>
