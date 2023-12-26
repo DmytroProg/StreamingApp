@@ -7,6 +7,7 @@
 
             <SolidColorBrush x:Key="Primary" Color="DarkGoldenrod"/>
             <SolidColorBrush x:Key="PrimaryLight" Color="Gold"/>
+            <SolidColorBrush x:Key="MainColor" Color="#060405"/>
 
             <Style TargetType="TabControl">
                 <Setter Property="Background" Value="#1C1B24"/>
@@ -80,9 +81,36 @@
                 </Style.Triggers>
             </Style>
 
-            <!--<SolidColorBrush>
+            <Style x:Key="CustomScrollBar" TargetType="ScrollBar">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ScrollBar">
+                            <Border Background="#060405" CornerRadius="10" Width="10" Margin="0,10,0,10">
+                                <Track x:Name="PART_Track" IsDirectionReversed="True">
+                                    <Track.Thumb>
+                                        <Thumb>
+                                            <Thumb.Style>
+                                                <Style TargetType="Thumb">
+                                                    <Setter Property="Background" Value="DarkGray"/>
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="Thumb">
+                                                                <Border Background="{TemplateBinding Background}" CornerRadius="5"/>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </Thumb.Style>
+                                        </Thumb>
+                                    </Track.Thumb>
+                                </Track>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
 
-            </SolidColorBrush>-->
+            <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource CustomScrollBar}" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>
