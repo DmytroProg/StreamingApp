@@ -4,7 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"  
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vms="clr-namespace:StreamingApp.WPF.ViewModels"
+        xmlns:cvms="clr-namespace:StreamingApp.WPF.ViewModels.ControlsViewModels"
         xmlns:views="clr-namespace:StreamingApp.WPF.Views"
+        xmlns:controls="clr-namespace:StreamingApp.WPF.Controls"
         mc:Ignorable="d"
         Title="Streaming App" Height="650" Width="1000">
     <Grid Background="#060405">
@@ -93,29 +95,36 @@
         <TabControl Grid.Row="2" Grid.RowSpan="2">
             <TabItem Name="usersTabItem" Header="Users" Margin="-2,0,-6,-1" Tag="users">
                 <TabItem.Content>
-                    <ContentControl Content="{Binding UsersListViewModel}">
-                        <ContentControl.ContentTemplate>
-                            <DataTemplate>
-                                <views:UsersListView />
+                    <Grid>
+                        <Grid.Resources>
+                            <DataTemplate DataType="{x:Type cvms:UsersListViewModel}">
+                                <controls:UsersListView/>
                             </DataTemplate>
-                        </ContentControl.ContentTemplate>
-                    </ContentControl>
+                            <DataTemplate DataType="{x:Type cvms:LoginActionViewModel}">
+                                <controls:LoginActionControl/>
+                            </DataTemplate>
+                        </Grid.Resources>
+                        <ContentControl Content="{Binding UsersListViewModel}"></ContentControl>
+                    </Grid>
                 </TabItem.Content>
                 <!--<Label Name="userLogoTabItem" FontSize="26" HorizontalAlignment="Center">Sign in or register</Label>-->
             </TabItem>
 
 
             <TabItem Name="chatTabItem" Header="Chat" Margin="7,0,-20,-1" Tag="chat">
-                <!--<TabItem.Content>
-                    <ContentControl Content="{Binding ChatViewModel}">
-                        <ContentControl.ContentTemplate>
-                            <DataTemplate>
+                <TabItem.Content>
+                    <Grid>
+                        <Grid.Resources>
+                            <DataTemplate DataType="{x:Type vms:ChatViewModel}">
                                 <views:ChatView />
                             </DataTemplate>
-                        </ContentControl.ContentTemplate>
-                    </ContentControl>
-                </TabItem.Content>-->
-                <Label Name="chatLogoTabItem" FontSize="26" HorizontalAlignment="Center">Sign in or register</Label>
+                            <DataTemplate DataType="{x:Type cvms:LoginActionViewModel}">
+                                <controls:LoginActionControl/>
+                            </DataTemplate>
+                        </Grid.Resources>
+                        <ContentControl Content="{Binding ChatViewModel}"></ContentControl>
+                    </Grid>
+                </TabItem.Content>
             </TabItem>
         </TabControl>
 

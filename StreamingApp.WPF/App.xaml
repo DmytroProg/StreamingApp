@@ -5,6 +5,8 @@
     <Application.Resources>
         <ResourceDictionary>
 
+            <BooleanToVisibilityConverter x:Key="BoolToVisible"/>
+
             <SolidColorBrush x:Key="Primary" Color="DarkGoldenrod"/>
             <SolidColorBrush x:Key="PrimaryLight" Color="Gold"/>
             <SolidColorBrush x:Key="MainColor" Color="#060405"/>

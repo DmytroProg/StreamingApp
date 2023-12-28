@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace StreamingApp.WPF.ViewModels;
 
-class ChatViewModel : ViewModelBase
+internal class ChatViewModel : ViewModelBase
 {
-    public ChatViewModel() { }
 }

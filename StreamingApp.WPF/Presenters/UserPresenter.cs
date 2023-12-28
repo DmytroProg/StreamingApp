@@ -19,7 +19,7 @@ internal class UserPresenter : IPresenter
         _navigationStore.CurrectViewModel = response switch
         {
             LoginResponse loginResponse => new ConnectViewModel(),
-            ConnectResponse connectResponse => new TestViewModel(connectResponse.Meeting.Title),
+            ConnectResponse connectResponse => new ChatViewModel(),
             _ => new ErrorViewModel()
         };
     }

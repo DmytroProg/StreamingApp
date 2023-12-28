@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace StreamingApp.WPF.Views.MessagesViews
+namespace StreamingApp.WPF.Controls
 {
     /// <summary>
-    /// Interaction logic for TextMessageView.xaml
+    /// Interaction logic for UserPanel.xaml
     /// </summary>
-    public partial class TextMessageView : UserControl
+    public partial class UserPanel : UserControl
     {
-        public TextMessageView()
+        public UserPanel()
         {
             InitializeComponent();
         }
