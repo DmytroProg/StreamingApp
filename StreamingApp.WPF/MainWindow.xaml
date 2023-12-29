@@ -107,7 +107,6 @@
                         <ContentControl Content="{Binding UsersListViewModel}"></ContentControl>
                     </Grid>
                 </TabItem.Content>
-                <!--<Label Name="userLogoTabItem" FontSize="26" HorizontalAlignment="Center">Sign in or register</Label>-->
             </TabItem>
 
 
