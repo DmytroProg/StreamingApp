@@ -1,4 +1,4 @@
-﻿using StreamingApp.BLL.Controllers;
+﻿using StreamingApp.WPF.Controllers;
 using StreamingApp.BLL.Interfaces;
 using StreamingApp.WPF.Navigations;
 using StreamingApp.WPF.Presenters;

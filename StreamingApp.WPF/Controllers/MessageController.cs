@@ -6,6 +6,7 @@ using StreamingApp.BLL.Responses;
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using System.Windows.Markup.Localizer;
 
 namespace StreamingApp.WPF.Controllers;
 
@@ -25,13 +26,19 @@ public class MessageController : ControllerBase
     {
         try
         {
-            if (message is TextMessage textMessage) 
-                textMessage.Text = "Some text";
             if (message == null) return;
-            message.SenderId = user.Id;
+
+            message.SenderId = UserController.CurrentUser!.Id;
+            message.ReceiverId = user.Id;
             message.CreatedAt = DateTime.Now;
-            var response = await _tcpClient.SendRequestAsync(
-                new SendMessageRequest { Message = message });
+
+            var request = new SendMessageRequest()
+            {
+                Message = message,
+            };
+            
+            var response = await _tcpClient.SendRequestAsync(request);
+
             _presenter.ChangeView(response);
         }
         catch (Exception ex)
@@ -40,37 +47,27 @@ public class MessageController : ControllerBase
         }
     }
 
-    public async Task SendFileAsync(string filePath, User user)
+    public FileMessage GetMessageFromFile(string filePath)
     {
+        if (string.IsNullOrEmpty(filePath.Trim())) 
+            throw new ArgumentNullException(nameof(filePath));
+
         try
         {
-            if (string.IsNullOrEmpty(filePath)) return;
             string fileName = Path.GetFileName(filePath.Trim());
             byte[] fileData = File.ReadAllBytes(filePath.Trim());
 
-            var fileRequest = new LoadFileRequest
+            return new FileMessage()
             {
-                UniqueFileName = fileName, 
-                OriginalFileName = fileName
+                OriginalFileName = fileName,
+                Data = fileData,
+                UniqueFileName = string.Empty,
             };
-
-            ResponseBase response = null;
-            Action<ResponseBase> handler = (r) =>
-            {
-                response = r;
-            };
-
-            _tcpClient.Received += handler;
-            await _tcpClient.SendFileAsync(fileRequest, fileData);
-
-            while (response == null){await Task.Delay(100);}
-
-            _tcpClient.Received -= handler;
-            _presenter.ChangeView(response);
         }
         catch (Exception ex)
         {
             _logger?.LogError(ex);
+            return null;
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System.Net.Sockets;
-
-namespace StreamingApp.BLL.Models;
+﻿namespace StreamingApp.BLL.Models;
 
 [Serializable]
 public class User

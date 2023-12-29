@@ -9,7 +9,7 @@ namespace StreamingApp.WPF.Controllers;
 
 public class UserController : ControllerBase
 {
-    public static User? CurrentUser { get; private set; }
+    public static User CurrentUser { get; private set; } = null!;
 
     public UserController(ITcpClient tcpClient, IPresenter presenter) 
         : this(null, tcpClient, presenter)

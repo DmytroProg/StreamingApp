@@ -7,6 +7,5 @@ public interface ITcpClient
 {
     Task<ResponseBase> SendRequestAsync(RequestBase request);
     Task ConnectAsync(IConfig config);
-    Task SendFileAsync(LoadFileRequest fileRequest, byte[] fileData);
     event Action<ResponseBase> Received;
 }
