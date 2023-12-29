@@ -7,8 +7,8 @@ namespace StreamingApp.BLL.Interfaces;
 
 public interface ITcpClient
 {
-    void Send(RequestBase request, TcpClient client);
-    void Connect(IConfig config);
-
-    event Action<ResponseBase> Received; 
+    Task<ResponseBase> SendRequestAsync(RequestBase request);
+    Task ConnectAsync(IConfig config);
+    Task SendFileAsync(LoadFileRequest fileRequest, byte[] fileData);
+    event Action<ResponseBase> Received;
 }

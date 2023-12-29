@@ -29,32 +29,6 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
 
-                <!--<Grid Margin="-5,5,5,8">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.62*"></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition Width="0.6*"></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Ellipse Grid.Column="0" Width="40" Height="40">
-                        <Ellipse.Fill>
-                            <ImageBrush ImageSource="/Images/user.JPG"/>
-                        </Ellipse.Fill>
-                    </Ellipse>
-                    <Label Grid.Column="1" Content="Dmitro" Foreground="White"></Label>
-                    <Button Grid.Column="2" Background="#1C1B24" Command="{Binding JoinChatCommand}">
-                        <Button.Content>
-                            <Image Source="/Images/se4.png" Height="30" Width="23"/>
-                        </Button.Content>
-                    </Button>
-
-                    <Button Grid.Column="3" Background="#1C1B24" Command="{Binding JoinVideoCommand}">
-                        <Button.Content>
-                            <Image Source="/Images/br1.png" Height="30" Width="50"/>
-                        </Button.Content>
-                    </Button>
-                </Grid>-->
-
             </StackPanel>
         </ScrollViewer>
 
