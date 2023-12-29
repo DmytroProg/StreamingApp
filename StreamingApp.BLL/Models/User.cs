@@ -9,6 +9,7 @@ public class User
     public string Name { get; set; } = null!;
     public string Login { get; set; } = null!;
     public string Password { get; set; } = null!;
+    public string AvatarImage { get; set; } = null!;
 
     public override string ToString()
     {
