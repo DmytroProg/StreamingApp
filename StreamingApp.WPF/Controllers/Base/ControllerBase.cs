@@ -1,7 +1,6 @@
 ﻿using StreamingApp.BLL.Interfaces;
-using StreamingApp.BLL.Responses;
 
-namespace StreamingApp.BLL.Controllers.Base;
+namespace StreamingApp.WPF.Controllers.Base;
 
 public abstract class ControllerBase
 {

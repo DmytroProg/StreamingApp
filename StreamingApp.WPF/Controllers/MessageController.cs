@@ -1,17 +1,13 @@
-﻿using StreamingApp.BLL.Controllers.Base;
+﻿using StreamingApp.WPF.Controllers.Base;
 using StreamingApp.BLL.Interfaces;
 using StreamingApp.BLL.Models;
 using StreamingApp.BLL.Requests;
 using StreamingApp.BLL.Responses;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Net.Sockets;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace StreamingApp.BLL.Controllers;
+namespace StreamingApp.WPF.Controllers;
 
 public class MessageController : ControllerBase
 {

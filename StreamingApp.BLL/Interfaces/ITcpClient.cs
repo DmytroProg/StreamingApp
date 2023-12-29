@@ -1,7 +1,5 @@
 ﻿using StreamingApp.BLL.Requests;
 using StreamingApp.BLL.Responses;
-using System.Net;
-using System.Net.Sockets;
 
 namespace StreamingApp.BLL.Interfaces;
 
