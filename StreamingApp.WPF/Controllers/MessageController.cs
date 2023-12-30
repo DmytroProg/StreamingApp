@@ -2,22 +2,21 @@
 using StreamingApp.BLL.Interfaces;
 using StreamingApp.BLL.Models;
 using StreamingApp.BLL.Requests;
-using StreamingApp.BLL.Responses;
 using System;
 using System.IO;
 using System.Threading.Tasks;
-using System.Windows.Markup.Localizer;
+using StreamingApp.BLL.Interfaces.Presenters;
 
 namespace StreamingApp.WPF.Controllers;
 
 public class MessageController : ControllerBase
 {
-    public MessageController(ITcpClient tcpClient, IPresenter presenter)
+    public MessageController(ITcpClient tcpClient, IMessagePresenter presenter)
         : this(null, tcpClient, presenter)
     {
     }
 
-    public MessageController(ILogger? logger, ITcpClient tcpClient, IPresenter presenter)
+    public MessageController(ILogger? logger, ITcpClient tcpClient, IMessagePresenter presenter)
         : base(logger, tcpClient, presenter)
     {
     }

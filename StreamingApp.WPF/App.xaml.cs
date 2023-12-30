@@ -1,9 +1,12 @@
 ﻿using StreamingApp.WPF.Controllers;
-using StreamingApp.BLL.Interfaces;
 using StreamingApp.WPF.Navigations;
 using StreamingApp.WPF.Presenters;
 using StreamingApp.WPF.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using System.Windows;
+using CompositionRoot;
+using StreamingApp.BLL.Interfaces.Presenters;
 
 namespace StreamingApp.WPF
 {
@@ -13,17 +16,18 @@ namespace StreamingApp.WPF
     public partial class App : Application
     {
         public static UserController UserController { get; private set; } = null!;
+        public static MessageController MessageController { get; private set; } = null!;
 
         private readonly NavigationStore _navigationStore;
-        private readonly IPresenter _usersPresenter;
 
         public App()
         {
-            _navigationStore = new NavigationStore();
+            using var host = CreateHostBuilder().Build();
+            _navigationStore = host.Services.GetRequiredService<NavigationStore>();
             _navigationStore.CurrectViewModel = new LoginViewModel(_navigationStore);
-            _usersPresenter = new UserPresenter(_navigationStore);
 
-            UserController = new UserController(null, null, _usersPresenter);
+            UserController = host.Services.GetRequiredService<UserController>();
+            MessageController = host.Services.GetRequiredService<MessageController>();
         }
 
         protected override void OnStartup(StartupEventArgs e)
@@ -33,6 +37,23 @@ namespace StreamingApp.WPF
                 DataContext = new MainViewModel(_navigationStore),
             };
             MainWindow.Show();
+        }
+
+        private IHostBuilder CreateHostBuilder()
+        {
+            return Host.CreateDefaultBuilder()
+                .ConfigureServices(services =>
+                {
+                    services.AddDefaultServices();
+                    services.AddWindowsServices();
+
+                    services.AddSingleton<NavigationStore>();
+                    services.AddSingleton<IUserPresenter, UserPresenter>();
+                    services.AddSingleton<IMessagePresenter, MessagePresenter>();
+
+                    services.AddSingleton<UserController>();
+                    services.AddSingleton<MessageController>();
+                });
         }
     }
 }

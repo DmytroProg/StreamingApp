@@ -1,4 +1,5 @@
 ﻿using StreamingApp.BLL.Interfaces;
+using StreamingApp.BLL.Interfaces.Presenters;
 using StreamingApp.BLL.Responses;
 using StreamingApp.WPF.Navigations;
 using StreamingApp.WPF.ViewModels;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace StreamingApp.WPF.Presenters;
 
-internal class MessagePresenter : IPresenter
+internal class MessagePresenter : IMessagePresenter
 {
     private readonly NavigationStore _navigationStore;
     public MessagePresenter(NavigationStore navigationStore)

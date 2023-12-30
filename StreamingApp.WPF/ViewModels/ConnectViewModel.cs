@@ -1,5 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Command;
-using StreamingApp.BLL.Models;
+using StreamingApp.Networking.Configs;
 using StreamingApp.WPF.ViewModels.Base;
 using System.Windows.Input;
 

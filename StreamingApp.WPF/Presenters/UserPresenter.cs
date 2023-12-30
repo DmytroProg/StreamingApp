@@ -1,11 +1,12 @@
 ﻿using StreamingApp.BLL.Interfaces;
+using StreamingApp.BLL.Interfaces.Presenters;
 using StreamingApp.BLL.Responses;
 using StreamingApp.WPF.Navigations;
 using StreamingApp.WPF.ViewModels;
 
 namespace StreamingApp.WPF.Presenters;
 
-internal class UserPresenter : IPresenter
+internal class UserPresenter : IUserPresenter
 {
     private readonly NavigationStore _navigationStore;
 

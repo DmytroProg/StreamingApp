@@ -4,6 +4,7 @@ using StreamingApp.BLL.Models;
 using StreamingApp.BLL.Responses;
 using System;
 using System.Collections.Generic;
+using StreamingApp.BLL.Interfaces.Presenters;
 
 namespace StreamingApp.WPF.Controllers;
 
@@ -11,12 +12,12 @@ public class UserController : ControllerBase
 {
     public static User CurrentUser { get; private set; } = null!;
 
-    public UserController(ITcpClient tcpClient, IPresenter presenter) 
+    public UserController(ITcpClient tcpClient, IUserPresenter presenter) 
         : this(null, tcpClient, presenter)
     {
     }
 
-    public UserController(ILogger? logger, ITcpClient tcpClient, IPresenter presenter)
+    public UserController(ILogger? logger, ITcpClient tcpClient, IUserPresenter presenter)
         : base(logger, tcpClient, presenter)
     {
     }
