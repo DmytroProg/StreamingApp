@@ -51,7 +51,6 @@ public class MessageController : ControllerBase
     {
         if (string.IsNullOrEmpty(filePath.Trim())) 
             throw new ArgumentNullException(nameof(filePath));
-
         try
         {
             string fileName = Path.GetFileName(filePath.Trim());
