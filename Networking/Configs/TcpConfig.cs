@@ -1,7 +1,7 @@
 ﻿using StreamingApp.BLL.Interfaces;
 using System.Net;
 
-namespace StreamingApp.BLL.Models;
+namespace StreamingApp.Networking.Configs;
 
 public class TcpConfig : IConfig
 {

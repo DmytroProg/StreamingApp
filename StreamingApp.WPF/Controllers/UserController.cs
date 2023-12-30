@@ -70,7 +70,7 @@ public class UserController : ControllerBase
         }
     }
 
-    public void Connect(TcpConfig config)
+    public void Connect(IConfig config)
     {
         try
         {
