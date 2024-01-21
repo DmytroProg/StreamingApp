@@ -3,10 +3,82 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Server.WPF"
+        xmlns:local="clr-namespace:Server.WPF.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="860" Width="860" Background="Transparent"
+        AllowsTransparency="True" WindowStyle="None" ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen" MouseLeftButtonDown="Window_MouseLeftButtonDown">
+    <Window.DataContext>
+        <local:MainViewModel></local:MainViewModel>
+    </Window.DataContext>
     <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Images/fon1.png" Stretch="UniformToFill" Opacity="2"></ImageBrush>
+        </Grid.Background>
+        <Grid.Resources>
 
+            <Style TargetType="Button">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="Height" Value="100"/>
+                <Setter Property="Width" Value="100"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border CornerRadius="50"
+                     Opacity="0.9"
+                Background="Transparent">
+                                <ContentPresenter/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            
+            <Style TargetType="TextBlock">
+                <Setter Property="Foreground" Value="White"></Setter>
+                <Setter Property="FontSize" Value="26"></Setter>
+                <Setter Property="Opacity" Value="0.9"></Setter>
+                <Setter Property="FontWeight" Value="DemiBold"></Setter>
+            </Style>
+
+        </Grid.Resources>
+
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <TextBlock Margin="25,0,0,0">SteamingAppServer</TextBlock>
+            <TextBlock Foreground="Red" HorizontalAlignment="Center">Waiting for connection...</TextBlock>
+        </StackPanel>
+
+        <TextBlock Grid.Row="2" Grid.Column="1" FontSize="36" Margin="0,0,0,0">Connected Users:</TextBlock>
+        <TextBlock Grid.Row="2" Grid.Column="1" Grid.RowSpan="2" Foreground="Green" FontSize="160" Margin="95,40,0,0">0</TextBlock>
+        <StackPanel Grid.Row="4" Grid.Column="1">
+            <TextBlock Margin="50,0,0,0" >Memory usage:</TextBlock>
+            <TextBlock FontSize="56" Margin="100,0,0,0" >0 %</TextBlock>
+        </StackPanel>
+        <Button Grid.Row="4" Margin="180,0,0,40" Command="{Binding ListenCommand}">
+            <Button.Content>
+                <Image Source="/Images/c5.png" Stretch="Fill" Opacity="0.9"/>
+            </Button.Content>
+        </Button>
+        <Button Grid.Row="4" Grid.Column="2" Margin="0,0,180,40" Command="{Binding SettingsCommand}">
+            <Button.Content>
+                <Image Source="/Images/s9.png" Stretch="Fill" Opacity="0.9"/>
+            </Button.Content>
+        </Button>
+        <Popup Name="settingsPop" IsOpen="{Binding IsSettingsPopupOpen}"></Popup>
     </Grid>
 </Window>

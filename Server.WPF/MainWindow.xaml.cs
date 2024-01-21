@@ -20,9 +20,15 @@ namespace Server.WPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        private bool isCursorOverImage = false;
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed && !isCursorOverImage) DragMove();
         }
     }
 }

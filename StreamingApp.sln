@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StreamingApp.WPF", "Streami
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StreamingApp.BLL", "StreamingApp.BLL\StreamingApp.BLL.csproj", "{C353EF00-7FE1-4203-83B9-0D84E1E553C2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StreamingApp.DAL", "StreamingApp.DAL\StreamingApp.DAL.csproj", "{0FC2B1FD-4975-4090-9DAA-DD59B36A4ECF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server.DAL", "StreamingApp.DAL\Server.DAL.csproj", "{0FC2B1FD-4975-4090-9DAA-DD59B36A4ECF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompositionRoot", "CompositionRoot\CompositionRoot.csproj", "{074305DB-632C-4575-A563-8B6A4CB7375A}"
 EndProject
@@ -21,7 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tutorials", "Tutorials", "{
 		HowToAddControllers.txt = HowToAddControllers.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server.WPF", "Server.WPF\Server.WPF.csproj", "{6B8420DB-3BB4-409C-82E2-3A5ABE214496}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server.WPF", "Server.WPF\Server.WPF.csproj", "{6B8420DB-3BB4-409C-82E2-3A5ABE214496}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
