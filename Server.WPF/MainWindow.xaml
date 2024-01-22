@@ -42,6 +42,20 @@
                 <Setter Property="FontWeight" Value="DemiBold"></Setter>
             </Style>
 
+            <Style TargetType="Border">
+                <Setter Property="CornerRadius" Value="10"></Setter>
+                <Setter Property="Cursor" Value="Hand"></Setter>
+                <Setter Property="Margin" Value="60,5,60,10"></Setter>
+                <Setter Property="Opacity" Value="0.8"></Setter>
+            </Style>
+
+            <Style TargetType="TextBox">
+                <Setter Property="BorderThickness" Value="0"></Setter>
+                <Setter Property="Background" Value="Black"></Setter>
+                <Setter Property="Foreground" Value="White"></Setter>
+                <Setter Property="FontFamily" Value="Comic Sans MS"></Setter>
+            </Style>
+
         </Grid.Resources>
 
         <Grid.RowDefinitions>
@@ -79,6 +93,37 @@
                 <Image Source="/Images/s9.png" Stretch="Fill" Opacity="0.9"/>
             </Button.Content>
         </Button>
-        <Popup Name="settingsPop" IsOpen="{Binding IsSettingsPopupOpen}"></Popup>
+        <Popup Name="settingsPop" Placement="Left" AllowsTransparency="True" Height="460" Width="460" IsOpen="{Binding IsSettingsPopupOpen}">
+            <Grid>
+                <Grid.Background>
+                    <ImageBrush ImageSource="/Images/fon1.png" Stretch="UniformToFill"></ImageBrush>
+                </Grid.Background>
+                <StackPanel Margin="0,90,0,0">
+                    <TextBlock HorizontalAlignment="Center">Port</TextBlock>
+                    <Border Background="Black" BorderThickness="2" BorderBrush="White" Width="250">
+                        <TextBox Name="portTB" 
+                          Margin="5" 
+                          FontSize="22" 
+                          TextAlignment="Center"
+                          Text="{Binding Port}"></TextBox>
+                    </Border>
+                    <TextBlock HorizontalAlignment="Center">IP Address</TextBlock>
+                    <Border Grid.ColumnSpan="2" Background="Black" BorderThickness="2" BorderBrush="White" Width="250">
+                        <TextBox 
+                          Name="ipAddressTB" 
+                          Margin="5" 
+                          FontSize="22" 
+                          TextAlignment="Center"
+                          Text="{Binding IPAddress}"></TextBox>
+                    </Border>
+
+                    <Button Command="{Binding ClosePopupCommand}">
+                        <Button.Content>
+                            <Image Source="/Images/clo1.png" Stretch="Fill" Opacity="0.9"/>
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Popup>
     </Grid>
 </Window>

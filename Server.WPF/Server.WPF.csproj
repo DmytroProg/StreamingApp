@@ -9,12 +9,40 @@
 
   <ItemGroup>
     <None Remove="Images\c5.png" />
+    <None Remove="Images\clo1.png" />
+    <None Remove="Images\clo2.png" />
+    <None Remove="Images\clo3.png" />
+    <None Remove="Images\clo4.png" />
+    <None Remove="Images\clo5.png" />
+    <None Remove="Images\clo6.png" />
+    <None Remove="Images\clo7.png" />
     <None Remove="Images\fon1.png" />
     <None Remove="Images\s9.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="Images\c5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\clo1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\clo2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\clo3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\clo4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\clo5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\clo6.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\clo7.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\fon1.png">

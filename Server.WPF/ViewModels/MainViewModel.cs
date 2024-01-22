@@ -47,11 +47,13 @@ internal class MainViewModel : ViewModelBase
     }
     public ICommand ListenCommand { get; }
     public ICommand SettingsCommand { get; }
+    public ICommand ClosePopupCommand { get; }
 
     public MainViewModel()
     {
         ListenCommand = new RelayCommand(Connect);
         SettingsCommand = new RelayCommand(Settings);
+        ClosePopupCommand = new RelayCommand(ClosePopup);
     }
 
     private void Settings()
@@ -59,6 +61,7 @@ internal class MainViewModel : ViewModelBase
         try
         {
             IsSettingsPopupOpen = true;
+            //MessageBox.Show($"IsSettingsPopupOpen: {IsSettingsPopupOpen}");
         }
         catch (Exception ex)
         {
@@ -76,5 +79,10 @@ internal class MainViewModel : ViewModelBase
         {
             MessageBox.Show(ex.Message);
         }
+    }
+
+    private void ClosePopup()
+    {
+        IsSettingsPopupOpen = false;
     }
 }
