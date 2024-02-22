@@ -377,6 +377,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CompositionRoot\CompositionRoot.csproj" />
+    <ProjectReference Include="..\ScreenLib\ScreenLib.csproj" />
     <ProjectReference Include="..\StreamingApp.BLL\StreamingApp.BLL.csproj" />
   </ItemGroup>
 
