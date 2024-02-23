@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StreamingApp.WPF.Windows;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,21 @@ namespace StreamingApp.WPF.Views
     /// </summary>
     public partial class ScreenShareControl : UserControl
     {
+        private DrawWindow _drawWindow;
         public ScreenShareControl()
         {
             InitializeComponent();
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            _drawWindow = new DrawWindow();
+            _drawWindow.Show();
+        }
+
+        ~ScreenShareControl()
+        {
+            _drawWindow.Close();
         }
     }
 }
