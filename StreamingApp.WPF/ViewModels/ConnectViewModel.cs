@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using StreamingApp.Networking.Configs;
 using StreamingApp.WPF.ViewModels.Base;
+using System.Net.Sockets;
 using System.Windows.Input;
 
 namespace StreamingApp.WPF.ViewModels;
@@ -37,11 +38,12 @@ internal class ConnectViewModel : ViewModelBase
 
     public void Connect()
     {
-        var tcpConfig = new TcpConfig()
-        {
-            IPAddress = System.Net.IPAddress.Parse(IPAddress.Trim()),
-            Port = Port
-        };
+        var tcpConfig = new TcpConfig();
+        //var tcpConfig = new TcpConfig()
+        //{
+        //    IPAddress = System.Net.IPAddress.Parse(IPAddress.Trim()),
+        //    Port = Port
+        //};
         App.UserController.Connect(tcpConfig);
     }
 }

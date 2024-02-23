@@ -17,6 +17,7 @@ namespace StreamingApp.WPF
     {
         public static UserController UserController { get; private set; } = null!;
         public static MessageController MessageController { get; private set; } = null!;
+        public static ScreenShareController ScreenShareController { get; private set; } = null!;
 
         private readonly NavigationStore _navigationStore;
 
@@ -28,6 +29,7 @@ namespace StreamingApp.WPF
 
             UserController = host.Services.GetRequiredService<UserController>();
             MessageController = host.Services.GetRequiredService<MessageController>();
+            ScreenShareController = host.Services.GetRequiredService<ScreenShareController>();
         }
 
         protected override void OnStartup(StartupEventArgs e)
@@ -50,9 +52,11 @@ namespace StreamingApp.WPF
                     services.AddSingleton<NavigationStore>();
                     services.AddSingleton<IUserPresenter, UserPresenter>();
                     services.AddSingleton<IMessagePresenter, MessagePresenter>();
+                    services.AddSingleton<IScreenSharePresenter, ScreenSharePresenter>();
 
                     services.AddSingleton<UserController>();
                     services.AddSingleton<MessageController>();
+                    services.AddSingleton<ScreenShareController>();
                 });
         }
     }
