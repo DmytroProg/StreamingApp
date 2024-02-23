@@ -6,6 +6,8 @@ namespace StreamingApp.WPF.ViewModels;
 
 internal class ScreenShareViewModel : ViewModelBase
 {
+    private const int SleepTime = 100;
+
     private readonly ImageSourceConverter _converter;
     private readonly Thread _updateScreenThread;
     private ImageSource? _imageSource;
@@ -37,7 +39,7 @@ internal class ScreenShareViewModel : ViewModelBase
             var buffer = App.ScreenShareController.SendFrame();
             CurrentScreen = (ImageSource?)_converter.ConvertFrom(buffer);
             
-            Thread.Sleep(100);
+            Thread.Sleep(SleepTime);
         }
     }
 }
