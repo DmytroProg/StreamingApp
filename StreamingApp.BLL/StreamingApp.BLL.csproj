@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Services\" />
+    <ProjectReference Include="..\StreamingApp.DAL\Server.DAL.csproj" />
   </ItemGroup>
 
 </Project>
