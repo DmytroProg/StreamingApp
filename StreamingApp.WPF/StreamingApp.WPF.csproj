@@ -96,6 +96,7 @@
     <None Remove="Images\se7.png" />
     <None Remove="Images\se8.png" />
     <None Remove="Images\send.png" />
+    <None Remove="Images\stream.png" />
     <None Remove="Images\user.JPG" />
     <None Remove="Images\v1.mp4" />
     <None Remove="Images\v2.mp4" />
@@ -366,6 +367,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\send.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\stream.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\user.JPG">

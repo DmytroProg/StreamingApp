@@ -56,38 +56,16 @@
         </Border>
         <Image x:Name="searchBT" Source="/Images/s1.png" Grid.Column ="2" Margin="270,0,30,0" Height="35" Cursor="Hand"></Image>
 
-        <StackPanel x:Name="actionSP" Grid.Row="1" Visibility="Hidden">
+        <StackPanel x:Name="actionSP" Grid.Row="1" Margin="10" Visibility="Hidden">
             <StackPanel.Background>
                 <ImageBrush ImageSource="/Images/29.jpg" Stretch="UniformToFill"/>
             </StackPanel.Background>
-            <Border x:Name="startStreamBT" Margin="40,5,40,10" Height="35" Width="200">
-                <Label HorizontalAlignment="Center">Start Stream</Label>
-            </Border>
-            <Border x:Name="startChatBT" Margin="40,3,40,10" Height="35" Width="200">
-                <Label HorizontalAlignment="Center">Chat</Label>
-            </Border>
-            <Border x:Name="connectChatBT" Margin="40,3,40,10" Height="35" Width="200">
-                <Label HorizontalAlignment="Center">Connect to Server</Label>
-            </Border>
-            <Border x:Name="HelpBT" Margin="40,3,40,10" Height="35" Width="200">
-                <Border.Style>
-                    <Style TargetType="Border">
-                        <Setter Property="Background" Value="DarkRed"></Setter>
-                        <Setter Property="CornerRadius" Value="10"></Setter>
-                        <Setter Property="Cursor" Value="Hand"></Setter>
-                        <Setter Property="Margin" Value="40"></Setter>
-                        <Setter Property="Opacity" Value="0.9"></Setter>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="Red"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Border.Style>
-                <Label HorizontalAlignment="Center">Help Me</Label>
-            </Border>
+            <Button x:Name="connectBT" Width="180" Opacity="0.9" Margin="5">Connect to Server</Button>
+            <Button x:Name="startStreamBT" Width="180" Opacity="0.9" Margin="5">Start Stream</Button>
+            <Button x:Name="chatBT" Width="180" Opacity="0.9" Margin="5">Chat</Button>
+            <Button x:Name="helpBt" Width="180" Opacity="0.85" Background="Red" Margin="10">Help Me</Button>
         </StackPanel>
-        
+
         <StackPanel x:Name="logoSP"  Grid.Row="1">
             <Image Source="/Images/logo.png" Grid.Column ="2" Width="250" Cursor="Hand" Margin="0,50,0,0"></Image>
         </StackPanel>
