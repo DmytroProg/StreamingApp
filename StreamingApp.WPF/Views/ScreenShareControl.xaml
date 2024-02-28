@@ -10,7 +10,6 @@
     <Grid>
         <Image Margin="20"
                Source="{Binding CurrentScreen, UpdateSourceTrigger=PropertyChanged}">
-            
         </Image>
     </Grid>
 </UserControl>

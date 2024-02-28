@@ -114,6 +114,22 @@
             </Style>
 
             <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource CustomScrollBar}" />
+
+            <Style TargetType="ToolTip">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ToolTip">
+                            <Border Background="LightGray"
+                                        BorderBrush="Gray"
+                                        BorderThickness="1"
+                                        CornerRadius="5">
+                                <ContentPresenter Margin="5"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>
