@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Server.DAL.Entities;
-using Server.DAL.Models;
-using Server.DAL.Repositories;
+﻿using Server.DAL.Repositories;
 using StreamingApp.BLL.Interfaces;
 using StreamingApp.BLL.Models;
 using StreamingApp.BLL.Retranslators;
 
 namespace StreamingApp.BLL.Services
 {
-    public class UserServise : IServise<User>
+    public class UserServise : IService<User>
     {
         private UserRepository _userRepository;
         private UserRetranslator _userRetranslator;
@@ -34,6 +27,20 @@ namespace StreamingApp.BLL.Services
             if (user != null)
                 return _userRetranslator.TranslateUserInfoToUser(user);
             return null;
+        }
+
+        public async Task<IEnumerable<User>> QueryMany(Predicate<User> query)
+        {
+            return (await _userRepository.GetAllObjectsAsync())
+                .Where(user => query(_userRetranslator.TranslateUserInfoToUser(user)))
+                .Select(_userRetranslator.TranslateUserInfoToUser);
+        }
+
+        public async Task<User> QueryOne(Predicate<User> query)
+        {
+            return _userRetranslator.TranslateUserInfoToUser(
+                (await _userRepository.GetAllObjectsAsync())
+                .FirstOrDefault(user => query(_userRetranslator.TranslateUserInfoToUser(user))));
         }
     }
 }

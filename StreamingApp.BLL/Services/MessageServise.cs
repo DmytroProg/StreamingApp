@@ -2,15 +2,10 @@
 using StreamingApp.BLL.Interfaces;
 using StreamingApp.BLL.Models;
 using StreamingApp.BLL.Retranslators;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StreamingApp.BLL.Services
 {
-    public class MessageServise : IServise<MessageBase>
+    public class MessageServise : IService<MessageBase>
     {
         private MessageRepository _messageRepository;
         private MessageRetranslator _messageRetranslator;
@@ -32,6 +27,16 @@ namespace StreamingApp.BLL.Services
             if (message != null)
                 return _messageRetranslator.TranslateMessageBaseInfoToMessageBase(message);
             return null;
+        }
+
+        public Task<IEnumerable<MessageBase>> QueryMany(Predicate<MessageBase> query)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<MessageBase> QueryOne(Predicate<MessageBase> query)
+        {
+            throw new NotImplementedException();
         }
     }
 }
