@@ -3,9 +3,10 @@ using StreamingApp.BLL.Responses;
 
 namespace StreamingApp.BLL.Interfaces;
 
-public interface ITcpServer
-{
-    Task SendResponseAsync(ResponseBase request);
-    Task ConnectAsync(IConfig config);
-    event Func<RequestBase, Task> Received;
+    public interface ITcpServer
+    {
+        Task StartListenAsync(IConfig config);
+        Task SendResponseAsync(TcpClient client, ResponseBase response);
+        event Action<RequestBase, TcpClient>? RequestReceived;
+    }
 }
