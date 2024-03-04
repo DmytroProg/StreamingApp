@@ -66,7 +66,7 @@ public class UseCaseInteractor
             Id = 0,
             Admin = new(),
             Messages = new(),
-            Title = "Roma Pidor",
+            Title = "Test Meeting",
             UserId = 0,
             Users = new(),
         };
