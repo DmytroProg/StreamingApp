@@ -33,7 +33,9 @@ public class UseCaseInteractor
         {
             await _tcpServer.StartListenAsync(config);
         }
-        catch(Exception ex) { }
+        catch(Exception ex) {
+            _logger.LogError(ex);
+        }
     }
     private async Task _tcpServer_Received(RequestBase request, TcpClient client)
     {
