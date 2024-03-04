@@ -21,31 +21,24 @@ namespace StreamingApp.Networking.Network
             _formatter = new BinaryFormatter();
         }
 
-        public async Task<ResponseBase> SendRequestAsync(RequestBase request)
+        public async Task SendRequestAsync(RequestBase request)
         {
-            if (_networkStream is null)
-                throw new NullReferenceException(nameof(_networkStream));
+            //if (_networkStream is null)
+            //    throw new NullReferenceException(nameof(_networkStream));
 
             try
             {
+                _networkStream = _tcpClient?.GetStream();
                 using var ms = new MemoryStream();
 
                 _formatter.Serialize(ms, request);
                 await _networkStream.WriteAsync(ms.ToArray(), 0, (int)ms.Length);
                 await _networkStream.FlushAsync();
-                var response = _formatter.Deserialize(_networkStream) as ResponseBase;
-
-                if (response is null)
-                    return new ErrorResponse() {
-                        ErrorMessage = "response is null"
-                    };
-
-                return response;
             }
             catch (Exception ex) { 
-                return new ErrorResponse(){ 
-                    ErrorMessage = ex.Message
-                }; 
+                //return new ErrorResponse(){ 
+                //    ErrorMessage = ex.Message
+                //}; 
             }
         }
 
@@ -59,21 +52,28 @@ namespace StreamingApp.Networking.Network
                     await _tcpClient.ConnectAsync(tcpConfig.IPAddress, tcpConfig.Port);
                     _networkStream = _tcpClient.GetStream();
                 }
+
+                Thread responseThread = new(ReceiveResponses)
+                {
+                    IsBackground = true,
+                };
+                responseThread.Start();
             }
             catch (Exception ex) {}
         }
 
         private void ReceiveResponses()
         {
-            if (_networkStream is null)
-                throw new NullReferenceException(nameof(_networkStream));
+            //if (_networkStream is null)
+            //    throw new NullReferenceException(nameof(_networkStream));
 
             try
             {
-                var streamReader = new StreamReader(_networkStream, Encoding.UTF8);
-
+                StreamReader streamReader = null;
                 while (true)
                 {
+                    streamReader = new StreamReader(_networkStream, Encoding.UTF8);
+                    if (!_networkStream.DataAvailable) continue;
                     var response = (ResponseBase)_formatter.Deserialize(streamReader.BaseStream);
                     Received?.Invoke(response);
                 }

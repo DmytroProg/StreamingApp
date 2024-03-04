@@ -6,6 +6,6 @@ namespace StreamingApp.BLL.Requests;
 [Serializable]
 public class ConnectRequest : RequestBase
 {
-    public IConfig Config { get; set; } = null!;
+    public int MeetingCode { get; set; }
     public User User { get; set; } = null!;
 }

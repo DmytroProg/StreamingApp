@@ -1,31 +1,19 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using StreamingApp.Networking.Configs;
 using StreamingApp.WPF.ViewModels.Base;
-using System.Net.Sockets;
 using System.Windows.Input;
 
 namespace StreamingApp.WPF.ViewModels;
 
 internal class ConnectViewModel : ViewModelBase
 {
-    private string _iPAddress;
-    private int _port;
+    private int _meetingCode;
 
-    public string IPAddress {
-        get => _iPAddress;
+    public int MeetingCode {
+        get => _meetingCode;
         set
         {
-            _iPAddress = value;
-            OnPropertyChanged();
-        }
-    }
-
-    public int Port
-    {
-        get => _port;
-        set
-        {
-            _port = value;
+            _meetingCode = value;
             OnPropertyChanged();
         }
     }
@@ -38,12 +26,11 @@ internal class ConnectViewModel : ViewModelBase
 
     public void Connect()
     {
-        var tcpConfig = new TcpConfig();
         //var tcpConfig = new TcpConfig()
         //{
         //    IPAddress = System.Net.IPAddress.Parse(IPAddress.Trim()),
         //    Port = Port
         //};
-        App.UserController.Connect(tcpConfig);
+        App.UserController.Connect(MeetingCode);
     }
 }

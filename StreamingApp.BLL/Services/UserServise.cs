@@ -38,9 +38,9 @@ namespace StreamingApp.BLL.Services
 
         public async Task<User> QueryOne(Predicate<User> query)
         {
-            return _userRetranslator.TranslateUserInfoToUser(
-                (await _userRepository.GetAllObjectsAsync())
-                .FirstOrDefault(user => query(_userRetranslator.TranslateUserInfoToUser(user))));
+            var data = (await _userRepository.GetAllObjectsAsync())
+                .FirstOrDefault(user => query(_userRetranslator.TranslateUserInfoToUser(user)));
+            return _userRetranslator.TranslateUserInfoToUser(data);
         }
     }
 }

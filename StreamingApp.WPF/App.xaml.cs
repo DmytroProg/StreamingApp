@@ -8,56 +8,55 @@ using System.Windows;
 using CompositionRoot;
 using StreamingApp.BLL.Interfaces.Presenters;
 
-namespace StreamingApp.WPF
+namespace StreamingApp.WPF;
+
+/// <summary>
+/// Interaction logic for App.xaml
+/// </summary>
+public partial class App : Application
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
-    public partial class App : Application
+    public static UserController UserController { get; private set; } = null!;
+    public static MessageController MessageController { get; private set; } = null!;
+    public static ScreenShareController ScreenShareController { get; private set; } = null!;
+
+    private readonly NavigationStore _navigationStore;
+
+    public App()
     {
-        public static UserController UserController { get; private set; } = null!;
-        public static MessageController MessageController { get; private set; } = null!;
-        public static ScreenShareController ScreenShareController { get; private set; } = null!;
+        using var host = CreateHostBuilder().Build();
+        _navigationStore = host.Services.GetRequiredService<NavigationStore>();
+        _navigationStore.CurrectViewModel = new LoginViewModel(_navigationStore);
 
-        private readonly NavigationStore _navigationStore;
+        UserController = host.Services.GetRequiredService<UserController>();
+        MessageController = host.Services.GetRequiredService<MessageController>();
+        ScreenShareController = host.Services.GetRequiredService<ScreenShareController>();
+    }
 
-        public App()
+    protected override void OnStartup(StartupEventArgs e)
+    {
+        MainWindow = new MainWindow()
         {
-            using var host = CreateHostBuilder().Build();
-            _navigationStore = host.Services.GetRequiredService<NavigationStore>();
-            _navigationStore.CurrectViewModel = new LoginViewModel(_navigationStore);
+            DataContext = new MainViewModel(_navigationStore),
+        };
+        MainWindow.Show();
+    }
 
-            UserController = host.Services.GetRequiredService<UserController>();
-            MessageController = host.Services.GetRequiredService<MessageController>();
-            ScreenShareController = host.Services.GetRequiredService<ScreenShareController>();
-        }
-
-        protected override void OnStartup(StartupEventArgs e)
-        {
-            MainWindow = new MainWindow()
+    private IHostBuilder CreateHostBuilder()
+    {
+        return Host.CreateDefaultBuilder()
+            .ConfigureServices(services =>
             {
-                DataContext = new MainViewModel(_navigationStore),
-            };
-            MainWindow.Show();
-        }
+                services.AddDefaultServices();
+                services.AddWindowsServices();
 
-        private IHostBuilder CreateHostBuilder()
-        {
-            return Host.CreateDefaultBuilder()
-                .ConfigureServices(services =>
-                {
-                    services.AddDefaultServices();
-                    services.AddWindowsServices();
+                services.AddSingleton<NavigationStore>();
+                services.AddSingleton<IUserPresenter, UserPresenter>();
+                services.AddSingleton<IMessagePresenter, MessagePresenter>();
+                services.AddSingleton<IScreenSharePresenter, ScreenSharePresenter>();
 
-                    services.AddSingleton<NavigationStore>();
-                    services.AddSingleton<IUserPresenter, UserPresenter>();
-                    services.AddSingleton<IMessagePresenter, MessagePresenter>();
-                    services.AddSingleton<IScreenSharePresenter, ScreenSharePresenter>();
-
-                    services.AddSingleton<UserController>();
-                    services.AddSingleton<MessageController>();
-                    services.AddSingleton<ScreenShareController>();
-                });
-        }
+                services.AddSingleton<UserController>();
+                services.AddSingleton<MessageController>();
+                services.AddSingleton<ScreenShareController>();
+            });
     }
 }
