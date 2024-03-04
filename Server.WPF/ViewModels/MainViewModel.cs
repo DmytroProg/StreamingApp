@@ -1,10 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -69,11 +64,11 @@ internal class MainViewModel : ViewModelBase
         }
     }
 
-    private void Connect()
+    private async void Connect()
     {
         try
         {
-            
+            await App.ServerController.ConnectServerAsync();
         }
         catch (Exception ex)
         {

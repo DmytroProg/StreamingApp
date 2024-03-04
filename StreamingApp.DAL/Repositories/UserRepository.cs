@@ -12,20 +12,20 @@ namespace Server.DAL.Repositories
 {
     public class UserRepository : IRepository<UserInfo>
     {
-        private InMemoryDbContext _context;
+        private readonly InMemoryDbContext _context;
         public UserRepository()
         {
             _context = new InMemoryDbContext();
         }
         public async Task AddObjectAsync(UserInfo obj)
         {
-            await _context.User.AddAsync(obj);
+            _context.User.Add(obj);
             await _context.SaveChangesAsync();
         }
 
         public async Task DeleteObjectAsync(int id)
         {
-            var obj = await _context.User.FindAsync(id);
+            var obj = await GetObjectByIdAsync(id);
             _context.User.Remove(obj);
             await _context.SaveChangesAsync();
         }

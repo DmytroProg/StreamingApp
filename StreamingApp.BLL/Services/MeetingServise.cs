@@ -2,15 +2,10 @@
 using StreamingApp.BLL.Interfaces;
 using StreamingApp.BLL.Models;
 using StreamingApp.BLL.Retranslators;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StreamingApp.BLL.Services
 {
-    public class MeetingServise : IServise<Meeting>
+    public class MeetingServise : IService<Meeting>
     {
         private MeetingRepository _meetingRepository;
         private MeetingRetranslator _meetingRetranslator;
@@ -32,6 +27,16 @@ namespace StreamingApp.BLL.Services
             if (meeting != null)
                 return _meetingRetranslator.TranslateMeetingInfoToMeeting(meeting);
             return null;
+        }
+
+        public Task<IEnumerable<Meeting>> QueryMany(Predicate<Meeting> query)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Meeting> QueryOne(Predicate<Meeting> query)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -9,6 +9,7 @@ namespace StreamingApp.WPF.ViewModels;
 internal class RegistrationViewModel : ViewModelBase
 {
     private string _nickname;
+    private string _login;
     private string _password;
 
     public string Nickname
@@ -17,6 +18,16 @@ internal class RegistrationViewModel : ViewModelBase
         set
         {
             _nickname = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public string Login
+    {
+        get => _login;
+        set
+        {
+            _login = value;
             OnPropertyChanged();
         }
     }
@@ -41,8 +52,9 @@ internal class RegistrationViewModel : ViewModelBase
     {
         var user = new User() { 
             Name = Nickname,
-            Login = "",
+            Login = Login,
             Password = Password,
+            AvatarImage = "img"
         };
 
         App.UserController.Register(user);

@@ -1,5 +1,6 @@
 ﻿namespace StreamingApp.BLL.Models;
 
+[Serializable]
 public class Meeting
 {
     public int Id { get; set; }

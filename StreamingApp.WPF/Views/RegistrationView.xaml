@@ -29,7 +29,7 @@
                 <Setter Property="Foreground" Value="White"></Setter>
                 <Setter Property="VerticalAlignment" Value="Center"></Setter>
                 <Setter Property="HorizontalAlignment" Value="Center"></Setter>
-                <Setter Property="FontSize" Value="24"></Setter>
+                <Setter Property="FontSize" Value="20"></Setter>
                 <Setter Property="FontWeight" Value="DemiBold"></Setter>
             </Style>
 
@@ -45,7 +45,7 @@
                 <Setter Property="Foreground" Value="White"></Setter>
                 <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
                 <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
-                <Setter Property="FontSize" Value="18"></Setter>
+                <Setter Property="FontSize" Value="16"></Setter>
                 <Setter Property="FontWeight" Value="DemiBold"></Setter>
             </Style>
         </Grid.Resources>
@@ -57,6 +57,14 @@
                     FontSize="22" 
                     TextAlignment="Center"
                     Text="{Binding Nickname}"></TextBox>
+            </Border>
+            <TextBlock>Login</TextBlock>
+            <Border Grid.ColumnSpan="2" Background="Black" BorderThickness="2" BorderBrush="White" Width="250">
+                <TextBox 
+                    Name="loginRegisterTB" Margin="5" 
+                    FontSize="22" 
+                    TextAlignment="Center"
+                    Text="{Binding Login}"></TextBox>
             </Border>
             <TextBlock>Password</TextBlock>
             <Border Grid.ColumnSpan="2" Background="Black" BorderThickness="2" BorderBrush="White" Width="250">

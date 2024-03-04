@@ -36,9 +36,9 @@ public class MessageController : ControllerBase
                 Message = message,
             };
             
-            var response = await _tcpClient.SendRequestAsync(request);
+            await _tcpClient.SendRequestAsync(request);
 
-            _presenter.ChangeView(response);
+            ///_presenter.ChangeView(response);
         }
         catch (Exception ex)
         {

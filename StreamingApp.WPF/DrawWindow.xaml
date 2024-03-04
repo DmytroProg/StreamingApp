@@ -8,11 +8,13 @@
         WindowState="Maximized"
         AllowsTransparency="True"
         WindowStyle="None"
+        Topmost="True"
         Background="Transparent"
         Title="DrawWindow" Height="80" Width="800"
         Loaded="Window_Loaded">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
@@ -90,6 +92,7 @@
         </Popup>
 
         <Canvas x:Name="canvas"
+                Grid.Row="1"
                 Opacity="0"
                 Background="Black"
                 MouseDown="canvas_MouseDown"

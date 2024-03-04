@@ -49,22 +49,13 @@
         <MediaElement Name="bg" LoadedBehavior="Manual" UnloadedBehavior="Stop"  Stretch="UniformToFill" IsMuted="True"/>
      
         <StackPanel Margin="0,40,0,40">
-            <TextBlock>Port</TextBlock>
+            <TextBlock>Meeting code</TextBlock>
             <Border Grid.ColumnSpan="2" Background="Black" BorderThickness="2" BorderBrush="White" Width="250">
                 <TextBox Name="portTB" 
                          Margin="5" 
                          FontSize="22" 
                          TextAlignment="Center"
-                         Text="{Binding Port}"></TextBox>
-            </Border>
-            <TextBlock>IP Address</TextBlock>
-            <Border Grid.ColumnSpan="2" Background="Black" BorderThickness="2" BorderBrush="White" Width="250">
-                <TextBox 
-                    Name="ipAddressTB" 
-                    Margin="5" 
-                    FontSize="22" 
-                    TextAlignment="Center"
-                    Text="{Binding IPAddress}"></TextBox>
+                         Text="{Binding MeetingCode, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             </Border>
 
             <Button Margin="40,40,40,20"
