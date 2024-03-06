@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StreamingApp.WPF", "Streami
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StreamingApp.BLL", "StreamingApp.BLL\StreamingApp.BLL.csproj", "{C353EF00-7FE1-4203-83B9-0D84E1E553C2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server.DAL", "StreamingApp.DAL\Server.DAL.csproj", "{0FC2B1FD-4975-4090-9DAA-DD59B36A4ECF}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompositionRoot", "CompositionRoot\CompositionRoot.csproj", "{074305DB-632C-4575-A563-8B6A4CB7375A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StreamingApp.Tests", "StreamingApp.Tests\StreamingApp.Tests.csproj", "{9C450D87-0AAD-4224-BCC5-20F45F715C3B}"
@@ -16,14 +14,12 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Networking", "Networking\Networking.csproj", "{A7D5CA94-85B6-41E2-8206-A5E1FB116DF5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tutorials", "Tutorials", "{95A4BE2C-1A87-4B29-AECE-DFBADC15A1C5}"
-	ProjectSection(SolutionItems) = preProject
-		HowToAddChanges.txt = HowToAddChanges.txt
-		HowToAddControllers.txt = HowToAddControllers.txt
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server.WPF", "Server.WPF\Server.WPF.csproj", "{6B8420DB-3BB4-409C-82E2-3A5ABE214496}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScreenLib", "ScreenLib\ScreenLib.csproj", "{A2C75BC3-0A93-44E9-B700-01B05F07A613}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server.DAL", "Server.DAL\Server.DAL.csproj", "{EC32FC26-01D6-412B-BA43-72DE530D911A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,10 +35,6 @@ Global
 		{C353EF00-7FE1-4203-83B9-0D84E1E553C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C353EF00-7FE1-4203-83B9-0D84E1E553C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C353EF00-7FE1-4203-83B9-0D84E1E553C2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0FC2B1FD-4975-4090-9DAA-DD59B36A4ECF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0FC2B1FD-4975-4090-9DAA-DD59B36A4ECF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0FC2B1FD-4975-4090-9DAA-DD59B36A4ECF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0FC2B1FD-4975-4090-9DAA-DD59B36A4ECF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{074305DB-632C-4575-A563-8B6A4CB7375A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{074305DB-632C-4575-A563-8B6A4CB7375A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{074305DB-632C-4575-A563-8B6A4CB7375A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -63,6 +55,10 @@ Global
 		{A2C75BC3-0A93-44E9-B700-01B05F07A613}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2C75BC3-0A93-44E9-B700-01B05F07A613}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2C75BC3-0A93-44E9-B700-01B05F07A613}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC32FC26-01D6-412B-BA43-72DE530D911A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC32FC26-01D6-412B-BA43-72DE530D911A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC32FC26-01D6-412B-BA43-72DE530D911A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC32FC26-01D6-412B-BA43-72DE530D911A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
