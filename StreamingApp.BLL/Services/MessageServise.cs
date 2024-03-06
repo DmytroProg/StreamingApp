@@ -1,42 +1,40 @@
-﻿using Server.DAL.Repositories;
-using StreamingApp.BLL.Interfaces;
+﻿using StreamingApp.BLL.Interfaces;
+using StreamingApp.BLL.Interfaces.DataAccess;
 using StreamingApp.BLL.Models;
 using StreamingApp.BLL.Retranslators;
 
 namespace StreamingApp.BLL.Services
 {
-    public class MessageServise //: IService<MessageBase>
+    public class MessageServise : IService<TextMessage>
     {
-        private MessageRepository _messageRepository;
-        private MessageRetranslator _messageRetranslator;
+        private IMessageRepository _messageRepository;
 
-        //public MessageServise()
-        //{
-        //    _messageRepository = new MessageRepository();
-        //    _messageRetranslator = new MessageRetranslator();
-        //}
+        public MessageServise(IMessageRepository repository)
+        {
+            _messageRepository = repository;
+        }
 
-        //public async Task AddAsync(MessageBase obj)
-        //{
-        //    await _messageRepository.AddObjectAsync(_messageRetranslator.TranslateMessageBaseToMessageBaseInfo(obj));
-        //}
+        public async Task AddAsync(TextMessage obj)
+        {
+            await _messageRepository.AddObjectAsync(obj);
+        }
 
-        //public async Task<MessageBase> GetByIdAsync(int id)
-        //{
-        //    var message = await _messageRepository.GetObjectByIdAsync(id);
-        //    if (message != null)
-        //        return _messageRetranslator.TranslateMessageBaseInfoToMessageBase(message);
-        //    return null;
-        //}
+        public async Task<TextMessage> GetByIdAsync(int id)
+        {
+            var message = await _messageRepository.GetObjectByIdAsync(id);
+            if (message != null)
+                return message;
+            return null;
+        }
 
-        //public Task<IEnumerable<MessageBase>> QueryMany(Predicate<MessageBase> query)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public Task<IEnumerable<TextMessage>> QueryMany(Predicate<TextMessage> query)
+        {
+            throw new NotImplementedException();
+        }
 
-        //public Task<MessageBase> QueryOne(Predicate<MessageBase> query)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public Task<TextMessage> QueryOne(Predicate<TextMessage> query)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -1,6 +1,12 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Networking.Network;
+using Server.DAL.Entities;
+using Server.DAL.Implementations;
+using Server.DAL.Repositories;
 using StreamingApp.BLL.Interfaces;
+using StreamingApp.BLL.Interfaces.DataAccess;
+using StreamingApp.BLL.Models;
 using StreamingApp.BLL.UseCase;
 using StreamingApp.Networking.Network;
 using System.Runtime.Versioning;
@@ -19,6 +25,13 @@ public static class HostExtention
     {
         services.AddSingleton<ITcpClient, TcpClientUser>();
         services.AddSingleton<ITcpServer, TcpClientServer>();
+    }
+
+    public static void AddDbRepositories(this IServiceCollection services)
+    {
+        services.AddTransient<IUserRepository, UserRepository>();
+        services.AddTransient<IMessageRepository, MessageRepository>();
+        services.AddTransient<IMeetingRepository, MeetingRepository>();
     }
 
     [SupportedOSPlatform("windows")]

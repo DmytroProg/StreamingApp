@@ -35,6 +35,7 @@ public partial class App : Application
         return Host.CreateDefaultBuilder()
             .ConfigureServices(services =>
             {
+                services.AddDbRepositories();
                 services.AddWindowsServices();
                 services.AddServerServices();
 

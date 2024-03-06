@@ -1,31 +1,28 @@
-﻿using Server.DAL.Repositories;
-using StreamingApp.BLL.Interfaces;
+﻿using StreamingApp.BLL.Interfaces;
+using StreamingApp.BLL.Interfaces.DataAccess;
 using StreamingApp.BLL.Models;
-using StreamingApp.BLL.Retranslators;
 
 namespace StreamingApp.BLL.Services
 {
     public class MeetingServise : IService<Meeting>
     {
-        private MeetingRepository _meetingRepository;
-        private MeetingRetranslator _meetingRetranslator;
+        private IMeetingRepository _meetingRepository;
 
-        public MeetingServise()
+        public MeetingServise(IMeetingRepository repository)
         {
-            _meetingRepository = new MeetingRepository();
-            _meetingRetranslator = new MeetingRetranslator();
+            _meetingRepository = repository;
         }
 
         public async Task AddAsync(Meeting obj)
         {
-            await _meetingRepository.AddObjectAsync(_meetingRetranslator.TranslateMeetingToMeetingInfo(obj));
+            await _meetingRepository.AddObjectAsync(obj);
         }
 
         public async Task<Meeting> GetByIdAsync(int id)
         {
             var meeting = await _meetingRepository.GetObjectByIdAsync(id);
             if (meeting != null)
-                return _meetingRetranslator.TranslateMeetingInfoToMeeting(meeting);
+                return meeting;
             return null;
         }
 

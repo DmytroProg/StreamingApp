@@ -1,4 +1,5 @@
 ﻿using StreamingApp.BLL.Interfaces;
+using StreamingApp.BLL.Interfaces.DataAccess;
 using StreamingApp.BLL.Models;
 using StreamingApp.BLL.Requests;
 using StreamingApp.BLL.Responses;
@@ -17,13 +18,13 @@ public class UseCaseInteractor
 
     private List<TcpClient> _sendClients;
 
-    public UseCaseInteractor(ITcpServer tcpServer, ILogger logger)
+    public UseCaseInteractor(ITcpServer tcpServer, IUserRepository repository, ILogger logger)
     {
         _tcpServer = tcpServer;
         _tcpServer.RequestReceived += _tcpServer_Received;
         _clients = new();
         _meetings = new();
-        _userService = new UserServise();
+        _userService = new UserService(repository);
         _logger = logger;
     }
 

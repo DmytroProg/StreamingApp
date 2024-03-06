@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Networking\Networking.csproj" />
+    <ProjectReference Include="..\Server.DAL\Server.DAL.csproj" />
     <ProjectReference Include="..\StreamingApp.BLL\StreamingApp.BLL.csproj" />
   </ItemGroup>
   
