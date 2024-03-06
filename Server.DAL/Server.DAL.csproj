@@ -10,4 +10,8 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.16" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\StreamingApp.BLL\StreamingApp.BLL.csproj" />
+  </ItemGroup>
+
 </Project>
