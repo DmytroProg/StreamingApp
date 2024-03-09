@@ -30,7 +30,7 @@ public static class HostExtention
     public static void AddDbRepositories(this IServiceCollection services)
     {
         services.AddTransient<IUserRepository, UserRepository>();
-        services.AddTransient<IMessageRepository, MessageRepository>();
+        services.AddTransient<ITextMessageRepository, TextMessageRepository>();
         services.AddTransient<IMeetingRepository, MeetingRepository>();
     }
 

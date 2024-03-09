@@ -17,10 +17,12 @@ namespace Networking.Network
         private NetworkStream _networkStream;
         private IFormatter _formatter;
         public event Func<RequestBase, TcpClient, Task>? RequestReceived;
+        private readonly ILogger _logger;
 
-        public TcpClientServer()
+        public TcpClientServer(ILogger logger)
         {
             _formatter = new BinaryFormatter();
+            _logger = logger;
         }
 
         public async Task SendResponseAsync(TcpClient client, ResponseBase response)
@@ -36,6 +38,7 @@ namespace Networking.Network
             }
             catch (Exception ex){
                 int a = 0;
+                _logger.LogError(ex);
             }
         }
 
@@ -58,6 +61,7 @@ namespace Networking.Network
             }
             catch (Exception ex){
                 int a = 0;
+                _logger.LogError(ex);
             }
         }
 
@@ -89,7 +93,7 @@ namespace Networking.Network
             }
             catch(Exception ex)
             {
-
+                _logger.LogError(ex);
             }
         }
     }

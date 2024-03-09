@@ -74,7 +74,7 @@
 
         <StackPanel Grid.Row="1" Grid.Column="1">
             <TextBlock Margin="25,0,0,0">SteamingAppServer</TextBlock>
-            <TextBlock Foreground="Red" HorizontalAlignment="Center">Waiting for connection...</TextBlock>
+            <TextBlock Foreground="{Binding StatusTextColor}" Text="{Binding StatusText}" HorizontalAlignment="Center"></TextBlock>
         </StackPanel>
 
         <TextBlock Grid.Row="2" Grid.Column="1" FontSize="36" Margin="0,0,0,0">Connected Users:</TextBlock>
