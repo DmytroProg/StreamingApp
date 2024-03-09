@@ -1,6 +1,4 @@
-﻿using Server.DAL.Entities;
-using Server.DAL.Implementations;
-using Server.DAL.Interfaces;
+﻿using Server.DAL.Implementations;
 using StreamingApp.BLL.Interfaces.DataAccess;
 using StreamingApp.BLL.Models;
 

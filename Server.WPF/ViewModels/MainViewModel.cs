@@ -20,15 +20,7 @@ internal class MainViewModel : ViewModelBase
 
     public ObservableCollection<User> Users { get; set; }
 
-    public int ConnectedUsersCount
-    {
-        get => _connectedUsersCount;
-        set
-        {
-            _connectedUsersCount = value;
-            OnPropertyChanged();
-        }
-    }
+    public int ConnectedUsersCount => App.ServerController.UsersCount;
 
     public string StatusText
     {
@@ -91,7 +83,7 @@ internal class MainViewModel : ViewModelBase
         Users = new ObservableCollection<User>();
         StatusTextColor = Brushes.Red;
         StatusText = "Waiting for connection...";
-        ConnectedUsersCount = 0;
+        App.ServerController.ViewModel = this;
     }
 
     private void Settings()

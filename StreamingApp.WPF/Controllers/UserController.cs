@@ -106,7 +106,7 @@ public class UserController : ControllerBase
         }
     }
 
-    public async Task Connect(int meetingCode)
+    public async Task Connect(string meetingCode)
     {
         try
         {
