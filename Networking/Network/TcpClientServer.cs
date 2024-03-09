@@ -71,7 +71,11 @@ namespace Networking.Network
             {
                 TcpClient client = await _listener.AcceptTcpClientAsync();
 
-                await Task.Run(() => Listen(client));
+                var thread = new Thread(() => Listen(client))
+                {
+                    IsBackground = true
+                };
+                thread.Start();
             }
         }
 

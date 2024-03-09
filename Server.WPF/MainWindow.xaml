@@ -78,7 +78,13 @@
         </StackPanel>
 
         <TextBlock Grid.Row="2" Grid.Column="1" FontSize="36" Margin="0,0,0,0">Connected Users:</TextBlock>
-        <TextBlock Grid.Row="2" Grid.Column="1" Grid.RowSpan="2" Foreground="Green" FontSize="160" Margin="95,40,0,0">0</TextBlock>
+        <TextBlock Grid.Row="2" 
+                   Grid.Column="1" 
+                   Grid.RowSpan="2" 
+                   Foreground="Green" 
+                   FontSize="160" 
+                   Margin="95,40,0,0"
+                   Text="{Binding ConnectedUsersCount}"></TextBlock>
         <StackPanel Grid.Row="4" Grid.Column="1">
             <TextBlock Margin="50,0,0,0" >Memory usage:</TextBlock>
             <TextBlock FontSize="56" Margin="100,0,0,0" >0 %</TextBlock>

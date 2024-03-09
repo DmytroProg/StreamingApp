@@ -1,28 +1,30 @@
 ﻿using StreamingApp.BLL.Interfaces;
 using StreamingApp.BLL.Interfaces.DataAccess;
+using StreamingApp.BLL.Interfaces.Services;
 using StreamingApp.BLL.Models;
 using StreamingApp.BLL.Retranslators;
 
 namespace StreamingApp.BLL.Services
 {
-    public class MessageServise : IService<TextMessage>
+    public class MessageService : IService<TextMessage>
     {
         private ITextMessageRepository _messageRepository;
         private readonly ILogger _logger;
 
-        public MessageServise(ITextMessageRepository repository, ILogger logger)
+        public MessageService(ITextMessageRepository repository, ILogger logger)
         {
             _messageRepository = repository;
             _logger = logger;
         }
 
-        public async Task AddAsync(TextMessage obj)
+        public async Task<TextMessage> AddAsync(TextMessage obj)
         {
             //await _messageRepository.AddObjectAsync(obj);
             try
             {
-                await _messageRepository.AddObjectAsync(obj);
+                var item = await _messageRepository.AddObjectAsync(obj);
                 _logger.LogInfo("Text message added well.");
+                return item;
             }
             catch (Exception ex)
             {

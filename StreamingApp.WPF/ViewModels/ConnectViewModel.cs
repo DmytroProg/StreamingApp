@@ -7,9 +7,9 @@ namespace StreamingApp.WPF.ViewModels;
 
 internal class ConnectViewModel : ViewModelBase
 {
-    private int _meetingCode;
+    private string _meetingCode;
 
-    public int MeetingCode {
+    public string MeetingCode {
         get => _meetingCode;
         set
         {

@@ -1,8 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Server.DAL.Entities;
-using Server.DAL.Implementations;
-using Server.DAL.Interfaces;
-using Server.DAL.Models;
+﻿using Server.DAL.Implementations;
 using StreamingApp.BLL.Interfaces.DataAccess;
 using StreamingApp.BLL.Models;
 
@@ -12,5 +8,12 @@ public class MeetingRepository : GenericRepository<Meeting>, IMeetingRepository
 {
     public MeetingRepository() : base()
     {
+    }
+
+    public async Task AddUserToMeetingAsync(int id, User user)
+    {
+        var meeting = await GetObjectByIdAsync(id);
+        meeting.Users.Add(user);
+        await _dbContext.SaveChangesAsync();
     }
 }

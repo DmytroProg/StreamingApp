@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 namespace Server.WPF.ViewModels;
 
-internal abstract class ViewModelBase : INotifyPropertyChanged
+public abstract class ViewModelBase : INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler? PropertyChanged;
 
