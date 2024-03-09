@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Server.DAL.Entities;
 using Server.DAL.Interfaces.Base;
+using StreamingApp.BLL.Interfaces;
 
 namespace Server.DAL.Implementations;
 
@@ -14,7 +15,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
     }
     public async Task AddObjectAsync(T obj)
     {
-        _dbContext.Set<T>().Add(obj); 
+        _dbContext.Set<T>().Add(obj);
         await _dbContext.SaveChangesAsync();
     }
 

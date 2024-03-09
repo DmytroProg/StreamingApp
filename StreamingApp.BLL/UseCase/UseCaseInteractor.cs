@@ -24,7 +24,7 @@ public class UseCaseInteractor
         _tcpServer.RequestReceived += _tcpServer_Received;
         _clients = new();
         _meetings = new();
-        _userService = new UserService(repository);
+        _userService = new UserService(repository, logger);
         _logger = logger;
     }
 
@@ -91,6 +91,7 @@ public class UseCaseInteractor
         catch (Exception ex)
         {
             int a = 0;
+            _logger.LogError(ex);
             return null;
         }
     }

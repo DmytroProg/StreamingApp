@@ -15,10 +15,12 @@ namespace StreamingApp.Networking.Network
         private NetworkStream? _networkStream;
         private readonly IFormatter _formatter;
         public event Action<ResponseBase>? Received;
+        private readonly ILogger _logger;
 
-        public TcpClientUser()
+        public TcpClientUser(ILogger logger)
         {
             _formatter = new BinaryFormatter();
+            _logger = logger;   
         }
 
         public async Task SendRequestAsync(RequestBase request)
@@ -38,7 +40,8 @@ namespace StreamingApp.Networking.Network
             catch (Exception ex) { 
                 //return new ErrorResponse(){ 
                 //    ErrorMessage = ex.Message
-                //}; 
+                //};
+                _logger.LogError(ex);
             }
         }
 
@@ -59,7 +62,7 @@ namespace StreamingApp.Networking.Network
                 };
                 responseThread.Start();
             }
-            catch (Exception ex) {}
+            catch (Exception ex) { _logger.LogError(ex); }
         }
 
         private void ReceiveResponses()
@@ -78,7 +81,7 @@ namespace StreamingApp.Networking.Network
                     Received?.Invoke(response);
                 }
             }
-            catch (Exception ex){}
+            catch (Exception ex){ _logger.LogError(ex); }
         }
     }
 }
