@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using StreamingApp.Networking.Configs;
+using StreamingApp.WPF.Navigations;
 using StreamingApp.WPF.ViewModels.Base;
 using System.Windows.Input;
 
@@ -8,6 +9,7 @@ namespace StreamingApp.WPF.ViewModels;
 internal class ConnectViewModel : ViewModelBase
 {
     private string _meetingCode;
+    private NavigationStore _navigationStore;
 
     public string MeetingCode {
         get => _meetingCode;
@@ -19,9 +21,13 @@ internal class ConnectViewModel : ViewModelBase
     }
 
     public ICommand ConnectCommand { get; }
+    public ICommand CreateCommand { get; }
 
-    public ConnectViewModel() {
+    public ConnectViewModel(NavigationStore navigationStore) {
+        _navigationStore = navigationStore;
         ConnectCommand = new RelayCommand(Connect);
+        CreateCommand = new NavigationCommand(
+            new NavigationService(_navigationStore, () => new CreateMeetingViewModel()));
     }
 
     public void Connect()
