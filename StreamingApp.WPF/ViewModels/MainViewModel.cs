@@ -7,6 +7,27 @@ namespace StreamingApp.WPF.ViewModels;
 internal class MainViewModel : ViewModelBase
 {
     private NavigationStore _navigationStore;
+    private bool _isActive;
+    private bool _isActiveLogo;
+    public bool IsActive
+    {
+        get => _isActive; 
+        set
+        {
+            _isActive = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public bool IsActiveLogo
+    {
+        get => _isActiveLogo;
+        set
+        {
+            _isActiveLogo = value;
+            OnPropertyChanged();
+        }
+    }
 
     public ViewModelBase? CurrectViewModel { get => _navigationStore.CurrectViewModel; }
     public ViewModelBase UsersListViewModel { get; set; }
@@ -20,6 +41,8 @@ internal class MainViewModel : ViewModelBase
         this._navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
 
         UsersListViewModel = ChatViewModel = new LoginActionViewModel();
+        IsActive = false;
+        IsActiveLogo = true;
     }
 
     private void OnCurrentViewModelChanged()
@@ -36,6 +59,16 @@ internal class MainViewModel : ViewModelBase
             UsersListViewModel = new UsersListViewModel();
             OnPropertyChanged(nameof(ChatViewModel));
             OnPropertyChanged(nameof(UsersListViewModel));
+        }
+        if (!(CurrectViewModel is RegistrationViewModel) && !(CurrectViewModel is LoginViewModel))
+        {
+            IsActive = true;
+            IsActiveLogo = false;
+        }
+        else 
+        {
+            IsActive = false;
+            IsActiveLogo = true;
         }
     }
 }

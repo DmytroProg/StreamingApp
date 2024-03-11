@@ -56,18 +56,38 @@
         </Border>
         <Image x:Name="searchBT" Source="/Images/s1.png" Grid.Column ="2" Margin="270,0,30,0" Height="35" Cursor="Hand"></Image>
 
-        <StackPanel x:Name="actionSP" Grid.Row="1" Margin="10" Visibility="Hidden">
+        <StackPanel x:Name="actionSP" Grid.Row="1" Margin="10">
             <StackPanel.Background>
                 <ImageBrush ImageSource="/Images/29.jpg" Stretch="UniformToFill"/>
             </StackPanel.Background>
-            <Button x:Name="connectBT" Width="180" Opacity="0.9" Margin="5">Connect to Server</Button>
-            <Button x:Name="startStreamBT" Width="180" Opacity="0.9" Margin="5">Start Stream</Button>
-            <Button x:Name="chatBT" Width="180" Opacity="0.9" Margin="5">Chat</Button>
-            <Button x:Name="helpBt" Width="180" Opacity="0.85" Background="Red" Margin="10">Help Me</Button>
+            <Button x:Name="connectBT" Width="180" Opacity="0.9" Margin="10">Start Stream</Button>
+            <Button x:Name="startStreamBT" Width="180" Opacity="0.9" Margin="10">Stop Stream</Button>
+            <Button x:Name="chatBT" Width="180" Opacity="0.9" Margin="10">Share Stream</Button>
+            <StackPanel.Style>
+                <Style TargetType="StackPanel">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsActive}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
         </StackPanel>
 
-        <StackPanel x:Name="logoSP"  Grid.Row="1">
-            <Image Source="/Images/logo.png" Grid.Column ="2" Width="250" Cursor="Hand" Margin="0,50,0,0"></Image>
+        <StackPanel x:Name="logoSP" Grid.Row="1">
+            <Image Source="/Images/logo.png" Grid.Column="2" Width="250" Cursor="Hand" Margin="0,50,0,0">
+                <Image.Style>
+                    <Style TargetType="Image">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsActiveLogo}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
         </StackPanel>
 
         <TabControl Grid.Row="2" Grid.RowSpan="2">
@@ -126,6 +146,9 @@
                     <views:TestView />
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type vms:ScreenShareViewModel}">
+                    <views:ScreenShareControl />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vms:CreateMeetingViewModel}">
                     <views:ScreenShareControl />
                 </DataTemplate>
             </Grid.Resources>
