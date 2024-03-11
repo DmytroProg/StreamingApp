@@ -13,7 +13,7 @@
     </Window.DataContext>
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="/Images/fon1.png" Stretch="UniformToFill" Opacity="2"></ImageBrush>
+            <ImageBrush ImageSource="/Images/fon2.png" Stretch="UniformToFill" Opacity="2"></ImageBrush>
         </Grid.Background>
         <Grid.Resources>
 
@@ -89,20 +89,20 @@
             <TextBlock Margin="50,0,0,0" >Memory usage:</TextBlock>
             <TextBlock FontSize="56" Margin="100,0,0,0" >0 %</TextBlock>
         </StackPanel>
-        <Button Grid.Row="4" Margin="180,0,0,40" Command="{Binding ListenCommand}">
+        <Button Height="150" Width="150" Grid.Row="4" Margin="150,-10,-90,3" Command="{Binding ListenCommand}">
             <Button.Content>
-                <Image Source="/Images/c5.png" Stretch="Fill" Opacity="0.9"/>
+                <Image Source="/Images/c33.png" Stretch="Fill" Opacity="0.9"/>
             </Button.Content>
         </Button>
-        <Button Grid.Row="4" Grid.Column="2" Margin="0,0,180,40" Command="{Binding SettingsCommand}">
+        <Button Height="150" Width="150" Grid.Row="4" Grid.Column="2" Margin="-90,0,160,20" Command="{Binding SettingsCommand}">
             <Button.Content>
-                <Image Source="/Images/s9.png" Stretch="Fill" Opacity="0.9"/>
+                <Image Source="/Images/s8.png" Stretch="Fill" Opacity="0.9"/>
             </Button.Content>
         </Button>
         <Popup Name="settingsPop" Placement="Left" AllowsTransparency="True" Height="460" Width="460" IsOpen="{Binding IsSettingsPopupOpen}">
             <Grid>
                 <Grid.Background>
-                    <ImageBrush ImageSource="/Images/fon1.png" Stretch="UniformToFill"></ImageBrush>
+                    <ImageBrush ImageSource="/Images/fon2.png" Stretch="UniformToFill"></ImageBrush>
                 </Grid.Background>
                 <StackPanel Margin="0,90,0,0">
                     <TextBlock HorizontalAlignment="Center">Port</TextBlock>
