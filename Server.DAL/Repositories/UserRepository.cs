@@ -11,9 +11,9 @@ public class UserRepository : GenericRepository<User>, IUserRepository
     {
     }
 
-    public async Task<User> QueryOne(Predicate<User> predicate)
+    public async Task<User> FindByLogin(string login, string password)
     {
-        return await _dbContext.User.FirstOrDefaultAsync(u => predicate(u))
-            ?? throw new ArgumentNullException();
+        return (await _dbContext.User.FirstOrDefaultAsync(u => u.Login == login 
+        && u.Password == password)) ?? throw new ArgumentNullException();
     }
 }

@@ -12,4 +12,9 @@ public class UserService : GenericService<User>, IUserService
         : base(repository, logger)
     {
     }
+
+    public Task<User> GetByLoginAsync(string login, string password)
+    {
+        return (_repository as IUserRepository).FindByLogin(login, password);
+    }
 }

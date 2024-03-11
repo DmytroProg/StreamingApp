@@ -49,9 +49,4 @@ public class GenericService<T> : IService<T> where T : class
             throw;
         }
     }
-
-    public Task<T> QueryOne(Predicate<T> query)
-    {
-        return _repository.QueryOne(query);
-    }
 }

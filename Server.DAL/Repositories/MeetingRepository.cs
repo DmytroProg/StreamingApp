@@ -1,4 +1,5 @@
-﻿using Server.DAL.Implementations;
+﻿using Microsoft.EntityFrameworkCore;
+using Server.DAL.Implementations;
 using StreamingApp.BLL.Interfaces.DataAccess;
 using StreamingApp.BLL.Models;
 
@@ -15,5 +16,11 @@ public class MeetingRepository : GenericRepository<Meeting>, IMeetingRepository
         var meeting = await GetObjectByIdAsync(id);
         meeting.Users.Add(user);
         await _dbContext.SaveChangesAsync();
+    }
+
+    public async Task<Meeting> GetMeetingByCode(string code)
+    {
+        return (await _dbContext.Meeting.FirstOrDefaultAsync(m => m.MeetingCode == code))
+            ?? throw new ArgumentNullException();
     }
 }

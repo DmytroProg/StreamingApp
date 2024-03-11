@@ -50,7 +50,29 @@
                  Text="{Binding MeetingName, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             </Border>
             <TextBlock>Your meeting code</TextBlock>
-            <TextBlock Foreground="Red" Text="{Binding MeetingCode}"></TextBlock>
+            <Grid Width="250">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
+                <TextBox Foreground="Red" 
+                         FontSize="22"
+                         TextAlignment="Center"
+                         VerticalAlignment="Center"
+                         Text="{Binding MeetingCode}"
+                         IsReadOnly="True"></TextBox>
+                <Button Grid.Column="1"
+                        Height="40"
+                        Margin="5"
+                        ToolTip="Regenerate meeting code"
+                        ToolTipService.ShowDuration="3000"
+                        Command="{Binding GenerateCodeCommand}">
+                    <Button.Content>
+                        <Image Source="../Icons/circle.png"/>
+                    </Button.Content>
+                </Button>
+            </Grid>
+            
             <Button Margin="40,40,40,20"
             Padding="10"
             MaxWidth="250"

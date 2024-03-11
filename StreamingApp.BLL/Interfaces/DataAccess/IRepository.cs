@@ -7,5 +7,4 @@ public interface IRepository<T>
     Task<IEnumerable<T>> GetAllObjectsAsync();
     Task UpdateObjectAsync(T obj);
     Task DeleteObjectAsync(int id);
-    Task<T> QueryOne(Predicate<T> predicate);
 }

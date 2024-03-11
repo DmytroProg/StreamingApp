@@ -50,7 +50,7 @@ public class UseCaseInteractor
             LogoutRequest logoutReq => await OnLogout(logoutReq),
             RegisterRequest registerReq => await OnRegister(registerReq, client),
             ConnectRequest connectReq => await OnConnect(connectReq, client),
-            CreateMeeting createReq => await OnCreateMeeting(createReq, client),
+            CreateMeetingRequest createReq => await OnCreateMeeting(createReq, client),
             SendMessageRequest sendReq => await OnMessageSend(sendReq, client),
             LeaveMeetingRequest leaveReq => await OnLeaveMeeting(leaveReq, client),
             _ => new ErrorResponse(),
@@ -123,7 +123,7 @@ public class UseCaseInteractor
         }
     }
 
-    private async Task<ResponseBase> OnCreateMeeting(CreateMeeting createReq, TcpClient client)
+    private async Task<ResponseBase> OnCreateMeeting(CreateMeetingRequest createReq, TcpClient client)
     {
         try
         {
@@ -147,7 +147,7 @@ public class UseCaseInteractor
         try
         {
             //var meeting = _meetings.FirstOrDefault(m => m.Id == connectReq.MeetingCode);
-            var meeting = await _meetingService.QueryOne(m => m.MeetingCode == connectReq.MeetingCode);
+            var meeting = await _meetingService.GetMeetingByCode(connectReq.MeetingCode);
             _sendClients = new() { client };
             await _meetingService.AddUserToMeetingAsync(meeting.Id, connectReq.User);
 
@@ -203,8 +203,7 @@ public class UseCaseInteractor
     {
         try
         {
-            var user = await _userService.QueryOne(user => user.Login == loginReq.Login &&
-            user.Password == loginReq.Password);
+            var user = await _userService.GetByLoginAsync(loginReq.Login, loginReq.Password);
 
             _clients.Add(user.Id, client);
             _sendClients.Add(client);

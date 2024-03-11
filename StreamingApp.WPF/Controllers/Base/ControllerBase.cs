@@ -4,7 +4,7 @@ namespace StreamingApp.WPF.Controllers.Base;
 
 public abstract class ControllerBase
 {
-    protected ControllerBase _currentSender;
+    private static ControllerBase _currentSender;
     protected readonly ILogger? _logger;
     protected readonly ITcpClient _tcpClient;
     protected readonly IPresenter _presenter;
@@ -20,6 +20,11 @@ public abstract class ControllerBase
         _tcpClient = tcpClient;
         _presenter = presenter;
         _tcpClient.Received += _tcpClient_Received;
+    }
+
+    public virtual void SetSender()
+    {
+        _currentSender = this;
     }
 
     private void _tcpClient_Received(BLL.Responses.ResponseBase response)

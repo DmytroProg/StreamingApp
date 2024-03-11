@@ -57,6 +57,6 @@ internal class RegistrationViewModel : ViewModelBase
             AvatarImage = "img"
         };
 
-        App.UserController.Register(user);
+        App.UnitController.UserController.Register(user);
     }
 }
