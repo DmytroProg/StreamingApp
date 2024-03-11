@@ -149,7 +149,7 @@
                     <views:ScreenShareControl />
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type vms:CreateMeetingViewModel}">
-                    <views:ScreenShareControl />
+                    <views:CreateMeetingView />
                 </DataTemplate>
             </Grid.Resources>
 

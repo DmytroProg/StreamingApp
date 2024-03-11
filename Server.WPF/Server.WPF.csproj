@@ -8,7 +8,29 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\c10.png" />
+    <None Remove="Images\c20.png" />
+    <None Remove="Images\c21.png" />
+    <None Remove="Images\c22.png" />
+    <None Remove="Images\c23.png" />
+    <None Remove="Images\c24.png" />
+    <None Remove="Images\c25.png" />
+    <None Remove="Images\c26.png" />
+    <None Remove="Images\c27.png" />
+    <None Remove="Images\c28.png" />
+    <None Remove="Images\c29.png" />
+    <None Remove="Images\c30.png" />
+    <None Remove="Images\c31.png" />
+    <None Remove="Images\c32.png" />
+    <None Remove="Images\c33.png" />
+    <None Remove="Images\c34.png" />
+    <None Remove="Images\c35.png" />
+    <None Remove="Images\c36.png" />
+    <None Remove="Images\c37.png" />
+    <None Remove="Images\c38.png" />
+    <None Remove="Images\c39.png" />
     <None Remove="Images\c5.png" />
+    <None Remove="Images\c9.png" />
     <None Remove="Images\clo1.png" />
     <None Remove="Images\clo2.png" />
     <None Remove="Images\clo3.png" />
@@ -17,11 +39,62 @@
     <None Remove="Images\clo6.png" />
     <None Remove="Images\clo7.png" />
     <None Remove="Images\fon1.png" />
+    <None Remove="Images\fon2.png" />
+    <None Remove="Images\s10.png" />
+    <None Remove="Images\s11.png" />
+    <None Remove="Images\s13.png" />
+    <None Remove="Images\s15.png" />
+    <None Remove="Images\s16.png" />
+    <None Remove="Images\s17.png" />
+    <None Remove="Images\s18.png" />
+    <None Remove="Images\s20.png" />
+    <None Remove="Images\s21.png" />
+    <None Remove="Images\s22.png" />
+    <None Remove="Images\s23.png" />
+    <None Remove="Images\s24.png" />
+    <None Remove="Images\s25.png" />
+    <None Remove="Images\s26.png" />
+    <None Remove="Images\s27.png" />
+    <None Remove="Images\s28.png" />
+    <None Remove="Images\s8.png" />
     <None Remove="Images\s9.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Images\c5.png">
+    <Content Include="Images\c21.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\c22.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\c23.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\c26.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\c28.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\c29.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\c30.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\c33.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\c35.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\c37.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\c38.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\c9.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\clo1.png">
@@ -48,7 +121,58 @@
     <Content Include="Images\fon1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\s9.png">
+    <Content Include="Images\fon2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\s10.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\s11.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\s13.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\s15.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\s16.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\s17.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\s18.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\s20.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\s21.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\s22.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\s23.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\s24.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\s25.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\s26.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\s27.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\s28.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\s8.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
