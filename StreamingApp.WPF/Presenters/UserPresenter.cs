@@ -1,5 +1,4 @@
-﻿using StreamingApp.BLL.Interfaces;
-using StreamingApp.BLL.Interfaces.Presenters;
+﻿using StreamingApp.BLL.Interfaces.Presenters;
 using StreamingApp.BLL.Responses;
 using StreamingApp.WPF.Navigations;
 using StreamingApp.WPF.ViewModels;
@@ -29,10 +28,10 @@ internal class UserPresenter : IUserPresenter
         };
     }
 
-    private CreateMeetingViewModel OnCreate(CreateMeetingResponse createResponse)
+    private ScreenShareViewModel OnCreate(CreateMeetingResponse createResponse)
     {
         UserInfo.MeetingId = createResponse.Meeting.Id;
-        return new CreateMeetingViewModel();
+        return new ScreenShareViewModel();
     }
 
     private ViewModelBase OnLogin(LoginResponse response)

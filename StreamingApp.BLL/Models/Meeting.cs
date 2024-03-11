@@ -7,6 +7,6 @@ public class Meeting
     public string? MeetingCode { get; set; }
     public string Title { get; set; } = null!;
     public ICollection<User> Users { get; set; } = null!;
-    public User Admin { get; set; } = null!;
+    public int AdminId { get; set; }
     public ICollection<MessageBase> Messages { get; set; } = null!;
 }

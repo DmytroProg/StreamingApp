@@ -1,4 +1,6 @@
-﻿using StreamingApp.WPF.Navigations;
+﻿using GalaSoft.MvvmLight.Command;
+using StreamingApp.BLL.Models;
+using StreamingApp.WPF.Navigations;
 using StreamingApp.WPF.ViewModels.Base;
 using System;
 using System.Collections.Generic;
@@ -35,10 +37,33 @@ namespace StreamingApp.WPF.ViewModels
         }
 
         public ICommand CreateMeetingCommand { get; }
+        public ICommand GenerateCodeCommand { get; }
 
         public CreateMeetingViewModel()
         {
-            MeetingCode = "_______";
+            GenerateCode();
+            CreateMeetingCommand = new RelayCommand(CreateMeeting);
+            GenerateCodeCommand = new RelayCommand(GenerateCode);
+        }
+
+        private void CreateMeeting()
+        {
+            var meeting = new Meeting()
+            {
+                MeetingCode = this.MeetingCode,
+                AdminId = UserInfo.CurrentUser.Id,
+                Title = this.MeetingName,
+                Messages = new List<MessageBase>(),
+                Users = new List<User>()
+            };
+            App.UnitController.UserController.CreateMeeting(meeting);
+        }
+
+        private void GenerateCode()
+        {
+            MeetingCode = Guid.NewGuid()
+                .ToString()
+                .Substring(0, 6);
         }
     }
 }

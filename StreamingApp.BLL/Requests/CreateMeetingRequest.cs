@@ -3,7 +3,7 @@
 namespace StreamingApp.BLL.Requests;
 
 [Serializable]
-public class CreateMeeting : RequestBase
+public class CreateMeetingRequest : RequestBase
 {
     public Meeting Meeting { get; set; } = null!;
 }

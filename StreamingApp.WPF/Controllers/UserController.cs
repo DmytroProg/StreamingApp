@@ -99,4 +99,20 @@ public class UserController : ControllerBase
             _logger?.LogError(ex);
         }
     }
+
+    public async Task CreateMeeting(Meeting meeting)
+    {
+        try
+        {
+            var request = new CreateMeetingRequest()
+            {
+                Meeting = meeting
+            };
+            await _tcpClient.SendRequestAsync(request);
+        }
+        catch(Exception ex)
+        {
+            _logger?.LogError(ex);
+        }
+    }
 }

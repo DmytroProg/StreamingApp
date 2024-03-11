@@ -67,7 +67,7 @@
             <Button Margin="40,40,40,20"
                     Padding="10"
                     MaxWidth="250"
-                    Content="Сreate Meeting"
+                    Content="Create Meeting"
                     Command="{Binding CreateCommand}"/>
         </StackPanel>
 
