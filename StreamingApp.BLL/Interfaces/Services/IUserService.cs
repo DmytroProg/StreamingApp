@@ -9,4 +9,5 @@ namespace StreamingApp.BLL.Interfaces.Services;
 
 public interface IUserService : IService<User>
 {
+    Task<User> GetByLoginAsync(string login, string password);
 }

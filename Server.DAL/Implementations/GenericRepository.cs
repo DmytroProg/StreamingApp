@@ -38,12 +38,6 @@ public class GenericRepository<T> : IRepository<T> where T : class
         return entity;
     }
 
-    public async Task<T> QueryOne(Predicate<T> predicate)
-    {
-        return await _dbContext.Set<T>().FirstOrDefaultAsync(t => predicate(t))
-            ?? throw new ArgumentNullException();
-    }
-
     public async Task UpdateObjectAsync(T obj)
     {
         _dbContext.Set<T>().Update(obj);

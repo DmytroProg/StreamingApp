@@ -28,5 +28,20 @@ namespace StreamingApp.WPF
         {
             InitializeComponent();
         }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            var result = MessageBox.Show("Are you sure you want to exit?", "Streaming App", 
+                MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if(result == MessageBoxResult.Yes)
+            {
+                if (UserInfo.CurrentUser != null)
+                {
+                    App.UnitController.UserController.Logout();
+                }
+            }
+            else e.Cancel = true;
+        }
     }
 }

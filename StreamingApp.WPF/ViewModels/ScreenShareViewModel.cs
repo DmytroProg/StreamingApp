@@ -36,7 +36,7 @@ internal class ScreenShareViewModel : ViewModelBase
     {
         while (true)
         {
-            var buffer = App.ScreenShareController.SendFrame();
+            var buffer = App.UnitController.ScreenShareController.SendFrame();
             CurrentScreen = (ImageSource?)_converter.ConvertFrom(buffer);
             
             Thread.Sleep(SleepTime);

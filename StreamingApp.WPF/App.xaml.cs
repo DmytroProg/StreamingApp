@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using System.Windows;
 using CompositionRoot;
 using StreamingApp.BLL.Interfaces.Presenters;
+using StreamingApp.WPF.Controllers.Base;
 
 namespace StreamingApp.WPF;
 
@@ -15,21 +16,16 @@ namespace StreamingApp.WPF;
 /// </summary>
 public partial class App : Application
 {
-    public static UserController UserController { get; private set; } = null!;
-    public static MessageController MessageController { get; private set; } = null!;
-    public static ScreenShareController ScreenShareController { get; private set; } = null!;
-
     private readonly NavigationStore _navigationStore;
 
+    public static UnitController UnitController { get; private set; }
     public App()
     {
         using var host = CreateHostBuilder().Build();
         _navigationStore = host.Services.GetRequiredService<NavigationStore>();
         _navigationStore.CurrectViewModel = new LoginViewModel(_navigationStore);
 
-        UserController = host.Services.GetRequiredService<UserController>();
-        MessageController = host.Services.GetRequiredService<MessageController>();
-        ScreenShareController = host.Services.GetRequiredService<ScreenShareController>();
+        UnitController = new UnitController(host);
     }
 
     protected override void OnStartup(StartupEventArgs e)

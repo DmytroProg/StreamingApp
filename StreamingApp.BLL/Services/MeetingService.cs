@@ -36,4 +36,26 @@ public class MeetingService : GenericService<Meeting>, IMeetingService
             throw;
         }
     }
+
+    public Task<Meeting> GetMeetingByCode(string code)
+    {
+        try
+        {
+            if(_repository is IMeetingRepository repo)
+            {
+                return repo.GetMeetingByCode(code);
+            }
+            else
+            {
+                var ex = new ArgumentException(nameof(code), "invalid meeting code was passed");
+                _logger.LogError(ex);
+                throw ex;
+            }
+        }
+        catch(Exception ex)
+        {
+            _logger.LogError(ex);
+            throw;
+        }
+    }
 }

@@ -9,7 +9,6 @@ namespace StreamingApp.BLL.Interfaces.Services
     public interface IService<T>
     {
         Task<T> GetByIdAsync(int id);
-        Task<T> QueryOne(Predicate<T> query);
         Task<T> AddAsync(T obj);
     }
 }

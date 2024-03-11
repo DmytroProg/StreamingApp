@@ -37,6 +37,6 @@ internal class ConnectViewModel : ViewModelBase
         //    IPAddress = System.Net.IPAddress.Parse(IPAddress.Trim()),
         //    Port = Port
         //};
-        App.UserController.Connect(MeetingCode);
+        App.UnitController.UserController.Connect(MeetingCode);
     }
 }

@@ -27,7 +27,7 @@ public class MessageController : ControllerBase
         {
             if (message == null) return;
 
-            message.SenderId = UserController.CurrentUser!.Id;
+            message.SenderId = UserInfo.CurrentUser.Id;
             message.ReceiverId = user.Id;
             message.CreatedAt = DateTime.Now;
 

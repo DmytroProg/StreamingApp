@@ -8,7 +8,8 @@
         xmlns:views="clr-namespace:StreamingApp.WPF.Views"
         xmlns:controls="clr-namespace:StreamingApp.WPF.Controls"
         mc:Ignorable="d"
-        Title="Streaming App" Height="650" Width="1000">
+        Title="Streaming App" Height="650" Width="1000"
+        Closing="Window_Closing">
     <Grid Background="#060405">
         <Grid.Resources>
             <Style TargetType="Border">
