@@ -1,7 +1,6 @@
 ﻿using StreamingApp.BLL.Interfaces;
 using StreamingApp.BLL.Interfaces.DataAccess;
 using StreamingApp.BLL.Interfaces.Services;
-using StreamingApp.BLL.Models;
 using StreamingApp.BLL.Requests;
 using StreamingApp.BLL.Responses;
 using StreamingApp.BLL.Services;
@@ -52,12 +51,14 @@ public class UseCaseInteractor
             RegisterRequest registerReq => await OnRegister(registerReq, client),
             ConnectRequest connectReq => await OnConnect(connectReq, client),
             CreateMeeting createReq => await OnCreateMeeting(createReq, client),
-
+            SendMessageRequest sendReq => await OnMessageSend(sendReq, client),
+            LeaveMeetingRequest leaveReq => await OnLeaveMeeting(leaveReq, client),
             _ => new ErrorResponse(),
         };
 
         if(_sendClients.Count == 0)
         {
+            if (request is LogoutRequest) return;
             _sendClients = _clients.Values.ToList();
         }
 
@@ -67,31 +68,103 @@ public class UseCaseInteractor
         }
     }
 
-    private async Task<CreateMeetingResponse> OnCreateMeeting(CreateMeeting createReq, TcpClient client)
+    private async Task<ResponseBase> OnLeaveMeeting(LeaveMeetingRequest leaveReq, TcpClient client)
     {
-        var meeting = await _meetingService.AddAsync(createReq.Meeting);
-        _sendClients = new() { client };
-
-        return new CreateMeetingResponse()
+        try
         {
-            Meeting = meeting,
-        };
+            var meeting = await _meetingService.GetByIdAsync(leaveReq.MeetingId);
+            var user = meeting.Users.FirstOrDefault(u => u.Id == leaveReq.User.Id);
+            if (user is null) return new ErrorResponse();
+
+            meeting.Users.Remove(user);
+            _sendClients.Clear();
+            foreach(var meetingUser in meeting.Users)
+            {
+                _sendClients.Add(_clients[meetingUser.Id]);
+            }
+
+            return new LeaveMeetingResponse()
+            {
+                LeftUser = user,
+            };
+        }
+        catch(Exception ex)
+        {
+            _logger.LogError(ex);
+            return new ErrorResponse();
+        }
     }
 
-    private async Task<ConnectResponse> OnConnect(ConnectRequest connectReq, TcpClient client)
+    private async Task<ResponseBase> OnMessageSend(SendMessageRequest sendReq, TcpClient client)
     {
-        //var meeting = _meetings.FirstOrDefault(m => m.Id == connectReq.MeetingCode);
-        var meeting = await _meetingService.QueryOne(m => m.MeetingCode == connectReq.MeetingCode);
-        _sendClients = new() { client };
-        await _meetingService.AddUserToMeetingAsync(meeting.Id, connectReq.User);
-
-        return new ConnectResponse()
+        try
         {
-            Meeting = meeting,
-        };
+            int? userId = _clients.Keys.FirstOrDefault(id => sendReq.Sender.Id == id);
+            if (userId is null) return new ErrorResponse();
+
+            var meeting = await _meetingService.GetByIdAsync(sendReq.MeetingId);
+
+            _sendClients.Clear();
+            foreach (var user in meeting.Users)
+            {
+                _sendClients.Add(_clients[user.Id]);
+            }
+
+            return new MessageResponse()
+            {
+                Sender = sendReq.Sender,
+                Message = sendReq.Message,
+            };
+        }
+        catch(Exception ex)
+        {
+            _logger.LogError(ex);
+            return new ErrorResponse();
+        }
     }
 
-    private async Task<LoginResponse> OnRegister(RegisterRequest registerReq, TcpClient client)
+    private async Task<ResponseBase> OnCreateMeeting(CreateMeeting createReq, TcpClient client)
+    {
+        try
+        {
+            var meeting = await _meetingService.AddAsync(createReq.Meeting);
+            _sendClients = new() { client };
+
+            return new CreateMeetingResponse()
+            {
+                Meeting = meeting,
+            };
+        }
+        catch(Exception ex)
+        {
+            _logger.LogError(ex);
+            return new ErrorResponse();
+        }
+    }
+
+    private async Task<ResponseBase> OnConnect(ConnectRequest connectReq, TcpClient client)
+    {
+        try
+        {
+            //var meeting = _meetings.FirstOrDefault(m => m.Id == connectReq.MeetingCode);
+            var meeting = await _meetingService.QueryOne(m => m.MeetingCode == connectReq.MeetingCode);
+            _sendClients = new() { client };
+            await _meetingService.AddUserToMeetingAsync(meeting.Id, connectReq.User);
+
+            return new ConnectResponse()
+            {
+                ConnectedUser = connectReq.User,
+                Meeting = meeting,
+            };
+        }
+        catch(Exception ex)
+        {
+            _logger.LogError(ex);
+            return new ErrorResponse();
+        }
+    }
+
+    private async Task<ResponseBase> OnRegister(RegisterRequest registerReq, TcpClient client)
     {
         try
         {
@@ -107,28 +180,44 @@ public class UseCaseInteractor
         catch (Exception ex)
         {
             _logger.LogError(ex);
-            return null;
+            return new ErrorResponse();
         }
     }
 
-    private Task<ResponseBase> OnLogout(LogoutRequest logoutReq)
+    private async Task<ResponseBase> OnLogout(LogoutRequest logoutReq)
     {
-        _clients.Remove(logoutReq.UserId);
-        UserCountChanged?.Invoke(_clients.Count);
-        return null;
+        try
+        {
+            _clients.Remove(logoutReq.UserId);
+            UserCountChanged?.Invoke(_clients.Count);
+            return null;
+        }
+        catch(Exception ex)
+        {
+            _logger.LogError(ex);
+            return new ErrorResponse();
+        }
     }
 
-    private async Task<LoginResponse> OnLogin(LoginRequest loginReq, TcpClient client)
+    private async Task<ResponseBase> OnLogin(LoginRequest loginReq, TcpClient client)
     {
-        var user = await _userService.QueryOne(user => user.Login == loginReq.Login &&
-        user.Password == loginReq.Password);
-
-        _clients.Add(user.Id, client);
-        _sendClients.Add(client);
-        UserCountChanged?.Invoke(_clients.Count);
-        return new LoginResponse()
+        try
         {
-            User = user,
-        };
+            var user = await _userService.QueryOne(user => user.Login == loginReq.Login &&
+            user.Password == loginReq.Password);
+
+            _clients.Add(user.Id, client);
+            _sendClients.Add(client);
+            UserCountChanged?.Invoke(_clients.Count);
+            return new LoginResponse()
+            {
+                User = user,
+            };
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex);
+            return new ErrorResponse();
+        }
     }
 }
