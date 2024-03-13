@@ -61,7 +61,8 @@
             <StackPanel.Background>
                 <ImageBrush ImageSource="/Images/29.jpg" Stretch="UniformToFill"/>
             </StackPanel.Background>
-            <Button x:Name="connectBT" Width="180" Opacity="0.9" Margin="10">Start Stream</Button>
+            <Button x:Name="connectBT" Width="180" Opacity="0.9" Margin="10"
+                    Command="{Binding StartSharingCommand}">Start Stream</Button>
             <Button x:Name="startStreamBT" Width="180" Opacity="0.9" Margin="10">Stop Stream</Button>
             <Button x:Name="chatBT" Width="180" Opacity="0.9" Margin="10">Share Stream</Button>
             <StackPanel.Style>

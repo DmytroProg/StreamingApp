@@ -7,6 +7,8 @@ using Server.DAL.Repositories;
 using StreamingApp.BLL.Interfaces;
 using StreamingApp.BLL.Interfaces.DataAccess;
 using StreamingApp.BLL.Models;
+using StreamingApp.BLL.Requests;
+using StreamingApp.BLL.Responses;
 using StreamingApp.BLL.UseCase;
 using StreamingApp.Networking.Network;
 using System.Runtime.Versioning;
@@ -24,7 +26,7 @@ public static class HostExtention
     public static void AddDefaultServices(this IServiceCollection services)
     {
         services.AddSingleton<ITcpClient, TcpClientUser>();
-        services.AddSingleton<ITcpServer, TcpClientServer>();
+        services.AddSingleton<ITcpServer,  TcpClientServer>();
     }
 
     public static void AddDbRepositories(this IServiceCollection services)

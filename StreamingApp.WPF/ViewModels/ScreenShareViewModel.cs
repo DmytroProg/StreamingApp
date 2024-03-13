@@ -1,45 +1,33 @@
-﻿using StreamingApp.WPF.ViewModels.Base;
-using System.Threading;
+﻿using StreamingApp.BLL.Interfaces;
+using StreamingApp.WPF.ViewModels.Base;
 using System.Windows.Media;
 
 namespace StreamingApp.WPF.ViewModels;
 
 internal class ScreenShareViewModel : ViewModelBase
 {
-    private const int SleepTime = 100;
-
-    private readonly ImageSourceConverter _converter;
-    private readonly Thread _updateScreenThread;
     private ImageSource? _imageSource;
+    private ImageSourceConverter _converter;
+    private readonly ITcpClient _tcpClient;
 
-    public ScreenShareViewModel()
+    public ScreenShareViewModel(ITcpClient tcpClient)
     {
-        CurrentScreen = null;
+        _tcpClient = tcpClient;
+        //_tcpClient.Received += _tcpClient_Received;
         _converter = new ImageSourceConverter();
-        _updateScreenThread = new Thread(UpdateScreen)
-        {
-            IsBackground = true,
-        };
-        _updateScreenThread.Start();
     }
-    
+
+    private void _tcpClient_Received(byte[] buffer)
+    {
+        //CurrentScreen = (ImageSource?)_converter.ConvertFrom(buffer);
+    }
+
     public ImageSource? CurrentScreen  {
         get => _imageSource;
         set
         {
             _imageSource = value;
             OnPropertyChanged();
-        }
-    }
-
-    private void UpdateScreen()
-    {
-        while (true)
-        {
-            var buffer = App.UnitController.ScreenShareController.SendFrame();
-            CurrentScreen = (ImageSource?)_converter.ConvertFrom(buffer);
-            
-            Thread.Sleep(SleepTime);
         }
     }
 }

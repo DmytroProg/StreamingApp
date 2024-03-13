@@ -1,6 +1,7 @@
 ﻿using StreamingApp.BLL.Interfaces;
 using StreamingApp.BLL.Interfaces.DataAccess;
 using StreamingApp.BLL.Interfaces.Services;
+using StreamingApp.BLL.Models;
 using StreamingApp.BLL.Requests;
 using StreamingApp.BLL.Responses;
 using StreamingApp.BLL.Services;
@@ -18,7 +19,8 @@ public class UseCaseInteractor
 
     private List<TcpClient> _sendClients;
 
-    public UseCaseInteractor(ITcpServer tcpServer, IUserRepository userRepository,
+    public UseCaseInteractor(ITcpServer tcpServer,
+        IUserRepository userRepository,
         IMeetingRepository meetRepository, ILogger logger)
     {
         _tcpServer = tcpServer;
@@ -39,20 +41,23 @@ public class UseCaseInteractor
         }
         catch(Exception ex) {
             _logger.LogError(ex);
+            throw;
         }
     }
+
     private async Task _tcpServer_Received(RequestBase request, TcpClient client)
     {
         _sendClients = new();
         ResponseBase response = request switch
         {
             LoginRequest loginReq => await OnLogin(loginReq, client),
-            LogoutRequest logoutReq => await OnLogout(logoutReq),
+            LogoutRequest logoutReq => OnLogout(logoutReq),
             RegisterRequest registerReq => await OnRegister(registerReq, client),
             ConnectRequest connectReq => await OnConnect(connectReq, client),
             CreateMeetingRequest createReq => await OnCreateMeeting(createReq, client),
             SendMessageRequest sendReq => await OnMessageSend(sendReq, client),
             LeaveMeetingRequest leaveReq => await OnLeaveMeeting(leaveReq, client),
+            //StartSharingRequest shareReq => await OnStartSharing(shareReq, client),
             _ => new ErrorResponse(),
         };
 
@@ -61,10 +66,44 @@ public class UseCaseInteractor
             if (request is LogoutRequest) return;
             _sendClients = _clients.Values.ToList();
         }
+        
+        if (response is StartSharingResponse)
+        {
+            await _tcpServer.SendResponseAsync(client, response);
+        }
 
         foreach (var tcpClient in _sendClients)
         { 
             await _tcpServer.SendResponseAsync(tcpClient, response);
+        }
+
+        
+    }
+
+    private async Task<ResponseBase> OnStartSharing(StartSharingRequest shareReq, TcpClient client)
+    {
+        try
+        {
+            var meeting = await _meetingService.GetByIdAsync(shareReq.MeetingId);
+            var user = meeting.Users.FirstOrDefault(u => u.Id == shareReq.SenderId);
+            if (user is null) return new ErrorResponse();
+
+            _sendClients.Clear();
+            foreach(var receiver in meeting.Users)
+            {
+                if(receiver.Id == shareReq.SenderId) continue;
+                _sendClients.Add(_clients[receiver.Id]);
+            }
+
+            return new StartSharingResponse()
+            {
+                SenderId = shareReq.SenderId,
+            };
+        }
+        catch(Exception ex)
+        {
+            _logger.LogError(ex);
+            return new ErrorResponse();
         }
     }
 
@@ -127,7 +166,9 @@ public class UseCaseInteractor
     {
         try
         {
+            var admin = await _userService.GetByIdAsync(createReq.Meeting.AdminId);
             var meeting = await _meetingService.AddAsync(createReq.Meeting);
+            await _meetingService.AddUserToMeetingAsync(meeting.Id, admin);
             _sendClients = new() { client };
 
             return new CreateMeetingResponse()
@@ -184,7 +225,7 @@ public class UseCaseInteractor
         }
     }
 
-    private async Task<ResponseBase> OnLogout(LogoutRequest logoutReq)
+    private ResponseBase OnLogout(LogoutRequest logoutReq)
     {
         try
         {

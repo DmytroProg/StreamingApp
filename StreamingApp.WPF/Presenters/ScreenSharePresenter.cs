@@ -1,6 +1,8 @@
 ﻿using StreamingApp.BLL.Interfaces;
 using StreamingApp.BLL.Interfaces.Presenters;
 using StreamingApp.BLL.Responses;
+using StreamingApp.WPF.Navigations;
+using StreamingApp.WPF.ViewModels;
 using System.Windows.Controls;
 using System.Windows.Media;
 
@@ -8,14 +10,27 @@ namespace StreamingApp.WPF.Presenters;
 
 internal class ScreenSharePresenter : IScreenSharePresenter
 {
-    public Image CurrentScreen { get; set; }
+    private readonly NavigationStore _navigationStore;
+    private readonly ITcpClient _tcpClient;
+
+    public ScreenSharePresenter(NavigationStore navigationStore, ITcpClient tcpClient)
+    {
+        _navigationStore = navigationStore;
+        _tcpClient = tcpClient;
+    }
+
     public void ChangeView(ResponseBase response)
     {
-        //if (CurrentScreen == null) return;
-        //if(response is SendScreenResponse screenResponse)
-        //{
-        //    CurrentScreen.Source = (ImageSource?)_converter.ConvertFrom(
-        //        screenResponse.Screen);
-        //}
+        if (response is StartSharingResponse frameRes)
+        {
+            if(frameRes.SenderId == UserInfo.CurrentUser.Id)
+            {
+                App.UnitController.ScreenShareController.SendScreenAsync();
+            }
+            else
+            {
+                //_navigationStore.CurrectViewModel = new ScreenShareViewModel(_tcpClient);
+            }
+        }
     }
 }
