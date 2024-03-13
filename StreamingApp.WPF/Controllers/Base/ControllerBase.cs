@@ -1,4 +1,7 @@
 ﻿using StreamingApp.BLL.Interfaces;
+using StreamingApp.BLL.Interfaces.Presenters;
+using StreamingApp.BLL.Requests;
+using StreamingApp.BLL.Responses;
 
 namespace StreamingApp.WPF.Controllers.Base;
 
@@ -27,8 +30,15 @@ public abstract class ControllerBase
         _currentSender = this;
     }
 
-    private void _tcpClient_Received(BLL.Responses.ResponseBase response)
+    private void _tcpClient_Received(ResponseBase response)
     {
+        if(response is StartSharingResponse startRes &&
+            startRes.SenderId != UserInfo.CurrentUser.Id
+            && _presenter is IScreenSharePresenter)
+        {
+            _presenter.ChangeView(response);
+        }
+
         if(_currentSender == this)  
             _presenter.ChangeView(response);
     }

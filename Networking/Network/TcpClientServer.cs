@@ -2,12 +2,10 @@
 using StreamingApp.BLL.Requests;
 using StreamingApp.BLL.Responses;
 using StreamingApp.Networking.Configs;
-using System.Net;
 using System.Net.Sockets;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
-using System.Text.Json;
 
 namespace Networking.Network
 {
@@ -37,18 +35,12 @@ namespace Networking.Network
                 await _networkStream.FlushAsync();
             }
             catch (Exception ex){
-                int a = 0;
                 _logger.LogError(ex);
             }
         }
 
         public async Task StartListenAsync(IConfig config)
         {
-            if (_listener is not null)
-            {
-                throw new NullReferenceException(nameof(_listener));
-            }
-
             try
             {
                 if (config is TcpConfig tcpConfig)
@@ -60,7 +52,6 @@ namespace Networking.Network
                 await WaitForClients();
             }
             catch (Exception ex){
-                int a = 0;
                 _logger.LogError(ex);
             }
         }
@@ -69,6 +60,9 @@ namespace Networking.Network
         {
             while (true)
             {
+                if (_listener is null)
+                    throw new NullReferenceException(nameof(_listener));
+
                 TcpClient client = await _listener.AcceptTcpClientAsync();
 
                 var thread = new Thread(() => Listen(client))
@@ -99,6 +93,16 @@ namespace Networking.Network
             {
                 _logger.LogError(ex);
             }
+        }
+
+        public Task StartListenAsync(string ipAddress, int port)
+        {
+            var config = new TcpConfig()
+            {
+                IPAddress = System.Net.IPAddress.Parse(ipAddress),
+                Port = port
+            };
+            return StartListenAsync(config);
         }
     }
 }

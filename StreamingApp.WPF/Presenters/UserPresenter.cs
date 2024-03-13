@@ -21,17 +21,22 @@ internal class UserPresenter : IUserPresenter
         _navigationStore.CurrectViewModel = response switch
         {
             LoginResponse loginResponse => OnLogin(loginResponse),
-            //ConnectResponse connectResponse => new ChatViewModel(),
-            ConnectResponse connectResponse => new ScreenShareViewModel(),
+            ConnectResponse connectResponse => OnConnect(connectResponse),
             CreateMeetingResponse createResponse => OnCreate(createResponse),
             _ => new ErrorViewModel()
         };
     }
 
-    private ScreenShareViewModel OnCreate(CreateMeetingResponse createResponse)
+    private ViewModelBase OnCreate(CreateMeetingResponse createResponse)
     {
         UserInfo.MeetingId = createResponse.Meeting.Id;
-        return new ScreenShareViewModel();
+        return new TestViewModel();
+    }
+
+    private ViewModelBase OnConnect(ConnectResponse connectResponse)
+    {
+        UserInfo.MeetingId = connectResponse.Meeting.Id;
+        return new TestViewModel();
     }
 
     private ViewModelBase OnLogin(LoginResponse response)

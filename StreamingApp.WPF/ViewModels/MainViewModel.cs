@@ -1,6 +1,9 @@
-﻿using StreamingApp.WPF.Navigations;
+﻿using GalaSoft.MvvmLight.Command;
+using StreamingApp.WPF.Navigations;
 using StreamingApp.WPF.ViewModels.Base;
 using StreamingApp.WPF.ViewModels.ControlsViewModels;
+using System;
+using System.Windows.Input;
 
 namespace StreamingApp.WPF.ViewModels;
 
@@ -33,6 +36,8 @@ internal class MainViewModel : ViewModelBase
     public ViewModelBase UsersListViewModel { get; set; }
     public ViewModelBase ChatViewModel { get; set; }
 
+    public ICommand StartSharingCommand { get; }
+
     public bool IsChatViewModelCurrent => CurrectViewModel is ChatViewModel;
 
     public MainViewModel(NavigationStore navigationStore)
@@ -43,6 +48,13 @@ internal class MainViewModel : ViewModelBase
         UsersListViewModel = ChatViewModel = new LoginActionViewModel();
         IsActive = false;
         IsActiveLogo = true;
+
+        StartSharingCommand = new RelayCommand(StartSharing);
+    }
+
+    private void StartSharing()
+    {
+        App.UnitController.ScreenShareController.StartSharing();
     }
 
     private void OnCurrentViewModelChanged()

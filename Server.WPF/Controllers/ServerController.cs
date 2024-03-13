@@ -1,4 +1,5 @@
-﻿using Server.WPF.ViewModels;
+﻿using Networking;
+using Server.WPF.ViewModels;
 using StreamingApp.BLL.Interfaces;
 using StreamingApp.BLL.UseCase;
 using StreamingApp.Networking.Configs;
@@ -28,13 +29,7 @@ public class ServerController
 
     public async Task ConnectServerAsync()
     {
-        var hostName = Dns.GetHostName();
-        var hostAddress = Dns.GetHostAddresses(hostName);
-        await _useCaseInteractor.ConnectAsync(new TcpConfig()
-        {
-            IPAddress = hostAddress.FirstOrDefault(ip => ip.AddressFamily
-            == System.Net.Sockets.AddressFamily.InterNetwork)!,
-            Port = 8888,
-        });
+        var config = NetworkConfiguration.GetStaticConfig();
+        await _useCaseInteractor.ConnectAsync(config);
     }
 }

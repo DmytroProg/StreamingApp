@@ -1,11 +1,11 @@
 ﻿using StreamingApp.BLL.Interfaces;
 using StreamingApp.Networking.Configs;
-using StreamingApp.BLL.Requests;
-using StreamingApp.BLL.Responses;
 using System.Net.Sockets;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Runtime.Serialization;
+using StreamingApp.BLL.Responses;
+using StreamingApp.BLL.Requests;
 
 namespace StreamingApp.Networking.Network
 {
@@ -25,9 +25,6 @@ namespace StreamingApp.Networking.Network
 
         public async Task SendRequestAsync(RequestBase request)
         {
-            //if (_networkStream is null)
-            //    throw new NullReferenceException(nameof(_networkStream));
-
             try
             {
                 _networkStream = _tcpClient?.GetStream();
@@ -38,9 +35,6 @@ namespace StreamingApp.Networking.Network
                 await _networkStream.FlushAsync();
             }
             catch (Exception ex) { 
-                //return new ErrorResponse(){ 
-                //    ErrorMessage = ex.Message
-                //};
                 _logger.LogError(ex);
             }
         }
@@ -67,12 +61,9 @@ namespace StreamingApp.Networking.Network
 
         private void ReceiveResponses()
         {
-            //if (_networkStream is null)
-            //    throw new NullReferenceException(nameof(_networkStream));
-
             try
             {
-                StreamReader streamReader = null;
+                StreamReader? streamReader = null;
                 while (true)
                 {
                     streamReader = new StreamReader(_networkStream, Encoding.UTF8);

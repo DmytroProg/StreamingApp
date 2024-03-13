@@ -6,7 +6,7 @@ namespace Networking;
 public static class NetworkConfiguration
 {
     public static int Port = 8888;
-    public static TcpConfig GetStaticConfig()
+    public static TcpConfig GetStaticConfig(int? port = null)
     {
         var hostName = Dns.GetHostName();
         var hostAddress = Dns.GetHostAddresses(hostName);
@@ -17,7 +17,7 @@ public static class NetworkConfiguration
         return new TcpConfig()
         {
             IPAddress = ipAddress,
-            Port = NetworkConfiguration.Port,
+            Port = port ?? NetworkConfiguration.Port,
         };
     }
 }

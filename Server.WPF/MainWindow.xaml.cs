@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -24,6 +25,18 @@ namespace Server.WPF
         public MainWindow()
         {
             InitializeComponent();
+            var hostName = Dns.GetHostName();
+            var hostAddress = Dns.GetHostAddresses(hostName);
+            var ipAddress = hostAddress.Where(ip => ip.AddressFamily
+            == System.Net.Sockets.AddressFamily.InterNetwork);
+
+            string text = "";
+            foreach(var ip in ipAddress)
+            {
+                text += ip.ToString() + "\n";
+            }
+
+            MessageBox.Show(text);
         }
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
