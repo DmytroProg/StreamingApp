@@ -15,11 +15,13 @@ namespace StreamingApp.WPF.Controllers;
 public class ScreenShareController : ControllerBase
 {
     private const int SleepTime = 300;
+    private readonly IUdpClient _udpClient;
 
     public ScreenShareController(ILogger? logger, ITcpClient tcpClient, 
-        IScreenSharePresenter presenter)
+        IScreenSharePresenter presenter, IUdpClient udpClient)
         : base(logger, tcpClient, presenter)
     {
+        _udpClient = udpClient;
     }
 
     public byte[] GetFrame()
@@ -35,19 +37,18 @@ public class ScreenShareController : ControllerBase
 
     public async Task StartSharing()
     {
-        throw new NotImplementedException();
         try
         {
-            //var config = NetworkConfiguration.GetStaticConfig(9999);
-            //var request = new StartSharingRequest()
-            //{
-            //    SenderId = UserInfo.CurrentUser.Id,
-            //    MeetingId = UserInfo.MeetingId,
-            //    IpAddress = config.IPAddress.ToString(),
-            //    Port = config.Port,
-            //};
+            var config = NetworkConfiguration.GetStaticConfig(9999);
+            var request = new StartSharingRequest()
+            {
+                SenderId = UserInfo.CurrentUser.Id,
+                MeetingId = UserInfo.MeetingId,
+                IpAddress = config.IPAddress.ToString(),
+                Port = config.Port,
+            };
 
-            //await _tcpClient.SendRequestAsync(request);
+            await _tcpClient.SendRequestAsync(request);
         }
         catch(Exception ex)
         {
@@ -57,11 +58,19 @@ public class ScreenShareController : ControllerBase
 
     public async Task SendScreenAsync()
     {
-        throw new NotImplementedException();
-        while (true)
+        try
         {
-            //await _frameClient.SendRequestAsync(GetFrame());
-            //await Task.Delay(SleepTime);
+            var config = NetworkConfiguration.GetStaticConfig(9999);
+            _udpClient.Connect(config);
+            while (true)
+            {
+                await _udpClient.SendAsync(GetFrame());
+                await Task.Delay(SleepTime);
+            }
+        }
+        catch(Exception ex)
+        {
+            _logger?.LogError(ex);
         }
     }
 }

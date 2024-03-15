@@ -1,7 +1,6 @@
 ﻿using StreamingApp.BLL.Interfaces;
 using StreamingApp.BLL.Interfaces.DataAccess;
 using StreamingApp.BLL.Interfaces.Services;
-using StreamingApp.BLL.Models;
 using StreamingApp.BLL.Requests;
 using StreamingApp.BLL.Responses;
 using StreamingApp.BLL.Services;
@@ -57,7 +56,7 @@ public class UseCaseInteractor
             CreateMeetingRequest createReq => await OnCreateMeeting(createReq, client),
             SendMessageRequest sendReq => await OnMessageSend(sendReq, client),
             LeaveMeetingRequest leaveReq => await OnLeaveMeeting(leaveReq, client),
-            //StartSharingRequest shareReq => await OnStartSharing(shareReq, client),
+            StartSharingRequest shareReq => await OnStartSharing(shareReq, client),
             _ => new ErrorResponse(),
         };
 
@@ -76,8 +75,6 @@ public class UseCaseInteractor
         { 
             await _tcpServer.SendResponseAsync(tcpClient, response);
         }
-
-        
     }
 
     private async Task<ResponseBase> OnStartSharing(StartSharingRequest shareReq, TcpClient client)
