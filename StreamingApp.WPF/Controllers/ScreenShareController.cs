@@ -2,7 +2,6 @@
 using StreamingApp.BLL.Interfaces;
 using StreamingApp.BLL.Interfaces.Presenters;
 using StreamingApp.BLL.Requests;
-using StreamingApp.BLL.Responses;
 using StreamingApp.WPF.Controllers.Base;
 using System;
 using System.IO;
@@ -14,7 +13,7 @@ namespace StreamingApp.WPF.Controllers;
 
 public class ScreenShareController : ControllerBase
 {
-    private const int SleepTime = 300;
+    private const int SleepTime = 1000;
     private readonly IUdpClient _udpClient;
 
     public ScreenShareController(ILogger? logger, ITcpClient tcpClient, 
@@ -64,7 +63,7 @@ public class ScreenShareController : ControllerBase
             _udpClient.Connect(config);
             while (true)
             {
-                await _udpClient.SendAsync(GetFrame());
+                _udpClient.Send(GetFrame());
                 await Task.Delay(SleepTime);
             }
         }

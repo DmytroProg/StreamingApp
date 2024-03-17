@@ -1,5 +1,6 @@
 ﻿using StreamingApp.BLL.Interfaces;
-using StreamingApp.Networking.Configs;
+using System.Diagnostics;
+using System.Net;
 using System.Net.Sockets;
 
 namespace Networking.Network;
@@ -7,25 +8,42 @@ namespace Networking.Network;
 public class UdpClientServer : IUdpServer
 {
     private UdpClient? _udpClient;
+    private IPEndPoint? _endPoint;
+
+    public List<int> ClientsPorts { get; set; }
 
     public event Action<byte[]>? Received;
 
-    public async Task Connect(int port)
+    public UdpClientServer()
     {
-        _udpClient = new UdpClient(port);
-        await Receive();
+        var config = NetworkConfiguration.GetStaticConfig(9999);
+        _endPoint = new IPEndPoint(config.IPAddress, 9999);
+        ClientsPorts = new List<int>();
     }
 
-    public async Task Receive()
+    public void Connect(int port)
     {
-        if (_udpClient is null)
-            throw new NullReferenceException(nameof(_udpClient));
+        _udpClient = new UdpClient(_endPoint.Port);
+        Thread thread = new Thread(Listen);
+        thread.IsBackground = true;
+        thread.Start();
+    }
 
+    public void Listen()
+    {
         while (true)
         {
-            var result = await _udpClient.ReceiveAsync();
+            if (_udpClient is null) continue;
+            var buffer = _udpClient.Receive(ref _endPoint);
+            Debug.WriteLine($"Server receives: {buffer.Length} bytes");
+            Received?.Invoke(buffer);
 
-            Received?.Invoke(result.Buffer);
+            foreach(var port in ClientsPorts)
+            {
+                if (port == _endPoint.Port) continue;
+                _udpClient.Send(buffer, buffer.Length, 
+                    new IPEndPoint(_endPoint.Address, port));
+            }
         }
     }
 }

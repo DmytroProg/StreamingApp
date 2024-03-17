@@ -1,4 +1,5 @@
-﻿using StreamingApp.BLL.Interfaces;
+﻿using Networking;
+using StreamingApp.BLL.Interfaces;
 using StreamingApp.WPF.ViewModels.Base;
 using System;
 using System.Windows.Media;
@@ -9,14 +10,15 @@ internal class ScreenShareViewModel : ViewModelBase
 {
     private ImageSource? _imageSource;
     private ImageSourceConverter _converter;
-    private readonly IUdpServer _udpServer;
+    private readonly IUdpClient _udpClient;
 
-    public ScreenShareViewModel(IUdpServer udpServer)
+    public ScreenShareViewModel(IUdpClient udpServer)
     {
         _converter = new ImageSourceConverter();
-        _udpServer = udpServer;
-        _udpServer.Received += _udpServer_Received;
-        _udpServer.Connect(9999);
+        _udpClient = udpServer;
+        _udpClient.Received += _udpServer_Received;
+        var config = NetworkConfiguration.GetStaticConfig(9999);
+        _udpClient.Connect(config);
     }
 
     private void _udpServer_Received(byte[] buffer)

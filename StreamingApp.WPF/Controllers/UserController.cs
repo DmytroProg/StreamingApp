@@ -15,13 +15,9 @@ namespace StreamingApp.WPF.Controllers;
 
 public class UserController : ControllerBase
 {
-    public UserController(ITcpClient tcpClient, IUserPresenter presenter) 
-        : this(null, tcpClient, presenter)
-    {
-    }
-
-    public UserController(ILogger? logger, ITcpClient tcpClient, IUserPresenter presenter)
-        : base(logger, tcpClient, presenter)
+    public UserController(ILogger? logger, ITcpClient tcpClient, IUdpClient udpClient,
+        IUserPresenter presenter)
+        : base(logger, tcpClient, udpClient, presenter)
     {
     }
 
@@ -74,6 +70,7 @@ public class UserController : ControllerBase
             {
                 User = UserInfo.CurrentUser,
                 MeetingCode = meetingCode,
+                SharingPort = _udpClient.Port
             };
 
             await _tcpClient.SendRequestAsync(request);
@@ -106,7 +103,8 @@ public class UserController : ControllerBase
         {
             var request = new CreateMeetingRequest()
             {
-                Meeting = meeting
+                Meeting = meeting,
+                SharingPort = _udpClient.Port
             };
             await _tcpClient.SendRequestAsync(request);
         }

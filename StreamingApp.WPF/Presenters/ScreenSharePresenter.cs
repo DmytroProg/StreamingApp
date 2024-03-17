@@ -11,12 +11,12 @@ namespace StreamingApp.WPF.Presenters;
 internal class ScreenSharePresenter : IScreenSharePresenter
 {
     private readonly NavigationStore _navigationStore;
-    private readonly IUdpServer _udpServer;
+    private readonly IUdpClient _udpClient;
 
-    public ScreenSharePresenter(NavigationStore navigationStore, IUdpServer udpServer)
+    public ScreenSharePresenter(NavigationStore navigationStore, IUdpClient udpClient)
     {
         _navigationStore = navigationStore;
-        _udpServer = udpServer;
+        _udpClient = udpClient;
     }
 
     public void ChangeView(ResponseBase response)
@@ -29,7 +29,7 @@ internal class ScreenSharePresenter : IScreenSharePresenter
             }
             else
             {
-                _navigationStore.CurrectViewModel = new ScreenShareViewModel(_udpServer);
+                _navigationStore.CurrectViewModel = new ScreenShareViewModel(_udpClient);
             }
         }
     }

@@ -11,6 +11,7 @@ namespace StreamingApp.BLL.UseCase;
 public class UseCaseInteractor
 {
     private readonly ITcpServer _tcpServer;
+    private readonly IUdpServer _udpServer;
     private readonly Dictionary<int, TcpClient> _clients;
     private readonly IUserService _userService;
     private readonly IMeetingService _meetingService;
@@ -18,11 +19,12 @@ public class UseCaseInteractor
 
     private List<TcpClient> _sendClients;
 
-    public UseCaseInteractor(ITcpServer tcpServer,
+    public UseCaseInteractor(ITcpServer tcpServer, IUdpServer udpServer,
         IUserRepository userRepository,
         IMeetingRepository meetRepository, ILogger logger)
     {
         _tcpServer = tcpServer;
+        _udpServer = udpServer;
         _tcpServer.RequestReceived += _tcpServer_Received;
         _clients = new();
         _meetingService = new MeetingService(meetRepository, logger);
@@ -92,6 +94,8 @@ public class UseCaseInteractor
                 _sendClients.Add(_clients[receiver.Id]);
             }
 
+            _udpServer.Connect(9999);
+
             return new StartSharingResponse()
             {
                 SenderId = shareReq.SenderId,
@@ -112,6 +116,7 @@ public class UseCaseInteractor
             var user = meeting.Users.FirstOrDefault(u => u.Id == leaveReq.User.Id);
             if (user is null) return new ErrorResponse();
 
+            _udpServer.ClientsPorts.Remove(leaveReq.SharingPort);
             meeting.Users.Remove(user);
             _sendClients.Clear();
             foreach(var meetingUser in meeting.Users)
@@ -167,6 +172,7 @@ public class UseCaseInteractor
             var meeting = await _meetingService.AddAsync(createReq.Meeting);
             await _meetingService.AddUserToMeetingAsync(meeting.Id, admin);
             _sendClients = new() { client };
+            _udpServer.ClientsPorts.Add(createReq.SharingPort);
 
             return new CreateMeetingResponse()
             {
@@ -188,6 +194,7 @@ public class UseCaseInteractor
             var meeting = await _meetingService.GetMeetingByCode(connectReq.MeetingCode);
             _sendClients = new() { client };
             await _meetingService.AddUserToMeetingAsync(meeting.Id, connectReq.User);
+            _udpServer.ClientsPorts.Add(connectReq.SharingPort);
 
             return new ConnectResponse()
             {

@@ -12,11 +12,6 @@ namespace StreamingApp.WPF.Controllers;
 
 public class MessageController : ControllerBase
 {
-    public MessageController(ITcpClient tcpClient, IMessagePresenter presenter)
-        : this(null, tcpClient, presenter)
-    {
-    }
-
     public MessageController(ILogger? logger, ITcpClient tcpClient, IMessagePresenter presenter)
         : base(logger, tcpClient, presenter)
     {

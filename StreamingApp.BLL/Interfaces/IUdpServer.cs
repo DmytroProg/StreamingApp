@@ -2,7 +2,7 @@
 
 public interface IUdpServer
 {
-    Task Connect(int port);
-
-    event Action<byte[]>? Received;
+    List<int> ClientsPorts { get; set; }
+    void Connect(int port);
+    void Listen();
 }

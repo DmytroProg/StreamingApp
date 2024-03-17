@@ -6,4 +6,5 @@ namespace StreamingApp.BLL.Requests;
 public class CreateMeetingRequest : RequestBase
 {
     public Meeting Meeting { get; set; } = null!;
+    public int SharingPort { get; set; }
 }
