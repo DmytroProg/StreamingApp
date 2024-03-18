@@ -32,13 +32,13 @@ internal class MainViewModel : ViewModelBase
         }
     }
 
-    public ViewModelBase? CurrectViewModel { get => _navigationStore.CurrectViewModel; }
+    public ViewModelBase? CurrentViewModel { get => _navigationStore.CurrectViewModel; }
     public ViewModelBase UsersListViewModel { get; set; }
     public ViewModelBase ChatViewModel { get; set; }
 
     public ICommand StartSharingCommand { get; }
 
-    public bool IsChatViewModelCurrent => CurrectViewModel is ChatViewModel;
+    public bool IsChatViewModelCurrent => CurrentViewModel is ChatViewModel;
 
     public MainViewModel(NavigationStore navigationStore)
     {
@@ -60,19 +60,19 @@ internal class MainViewModel : ViewModelBase
     private void OnCurrentViewModelChanged()
     {
         CheckCurrentViewModel();
-        OnPropertyChanged(nameof(CurrectViewModel));
+        OnPropertyChanged(nameof(CurrentViewModel));
     }
 
     private void CheckCurrentViewModel()
     {
-        if(CurrectViewModel is ChatViewModel)
+        if(CurrentViewModel is ChatViewModel)
         {
             ChatViewModel = new ChatViewModel();
             UsersListViewModel = new UsersListViewModel();
             OnPropertyChanged(nameof(ChatViewModel));
             OnPropertyChanged(nameof(UsersListViewModel));
         }
-        if (!(CurrectViewModel is RegistrationViewModel) && !(CurrectViewModel is LoginViewModel))
+        if (!(CurrentViewModel is RegistrationViewModel) && !(CurrentViewModel is LoginViewModel))
         {
             IsActive = true;
             IsActiveLogo = false;

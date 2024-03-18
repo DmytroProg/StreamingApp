@@ -94,7 +94,7 @@ public class UseCaseInteractor
                 _sendClients.Add(_clients[receiver.Id]);
             }
 
-            _udpServer.Connect(9999);
+            //_udpServer.Connect(9999);
 
             return new StartSharingResponse()
             {
@@ -172,7 +172,6 @@ public class UseCaseInteractor
             var meeting = await _meetingService.AddAsync(createReq.Meeting);
             await _meetingService.AddUserToMeetingAsync(meeting.Id, admin);
             _sendClients = new() { client };
-            _udpServer.ClientsPorts.Add(createReq.SharingPort);
 
             return new CreateMeetingResponse()
             {
@@ -194,7 +193,6 @@ public class UseCaseInteractor
             var meeting = await _meetingService.GetMeetingByCode(connectReq.MeetingCode);
             _sendClients = new() { client };
             await _meetingService.AddUserToMeetingAsync(meeting.Id, connectReq.User);
-            _udpServer.ClientsPorts.Add(connectReq.SharingPort);
 
             return new ConnectResponse()
             {

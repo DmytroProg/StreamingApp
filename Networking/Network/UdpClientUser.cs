@@ -11,9 +11,6 @@ public class UdpClientUser : IUdpClient
     private UdpClient? _udpClient;
     private IPEndPoint? _endPoint;
     private const int MaxBufferSize = 62 * 1024;
-    private int _port;
-
-    public int Port => _port;
 
     public event Action<byte[]>? Received;
 
@@ -22,10 +19,12 @@ public class UdpClientUser : IUdpClient
         if (config is IPConfig ipConfig)
         {
             _endPoint = new IPEndPoint(ipConfig.IPAddress, ipConfig.Port);
-            // TODO: change to the safer way
 
-            _port = _endPoint.Port + new Random().Next(1, 9999);
-            _udpClient = new UdpClient(_port);
+            _udpClient = new UdpClient();
+            _udpClient.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
+            _udpClient.Client.Bind(_endPoint);
+
+            _udpClient.JoinMulticastGroup(IPAddress.Parse("239.0.0.1"));
         }
         else throw new NotImplementedException();
 
@@ -36,8 +35,11 @@ public class UdpClientUser : IUdpClient
 
     public void Send(byte[] buffer)
     {
-        Debug.WriteLine($"Client sends: {buffer.Length} bytes");
-        _udpClient?.Send(buffer, Math.Min(MaxBufferSize, buffer.Length), _endPoint);
+        using var udpClient = new UdpClient();
+        udpClient.JoinMulticastGroup(IPAddress.Parse("239.0.0.1"));
+        var endPoint = new IPEndPoint(IPAddress.Parse("239.0.0.1"), 9999);
+        Debug.WriteLine($"Client sends: {buffer.Length} bytes | endPoint: {endPoint.Address}:{_endPoint.Port}");
+        udpClient.Send(buffer, Math.Min(MaxBufferSize, buffer.Length), endPoint);
         //for (long i = 0; i < buffer.Length; i += MaxBufferSize)
         //{
 
@@ -51,9 +53,8 @@ public class UdpClientUser : IUdpClient
     {
         while (true)
         {
-            if (_udpClient is null) continue;
             var buffer = _udpClient.Receive(ref _endPoint);
-            Debug.WriteLine($"Client receives: {buffer.Length} bytes");
+            Debug.WriteLine($"Client receives: {buffer.Length} bytes | ref endPoint: {_endPoint.Address}:{_endPoint.Port}");
             Received?.Invoke(buffer);
         }
     }

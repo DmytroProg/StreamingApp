@@ -155,7 +155,7 @@
                 </DataTemplate>
             </Grid.Resources>
 
-            <ContentControl Content="{Binding CurrectViewModel}"></ContentControl>
+            <ContentControl Content="{Binding CurrentViewModel}"></ContentControl>
         </Grid>
     </Grid>
     

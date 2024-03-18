@@ -38,12 +38,12 @@ public class UdpClientServer : IUdpServer
             Debug.WriteLine($"Server receives: {buffer.Length} bytes");
             Received?.Invoke(buffer);
 
-            foreach(var port in ClientsPorts)
-            {
-                if (port == _endPoint.Port) continue;
-                _udpClient.Send(buffer, buffer.Length, 
-                    new IPEndPoint(_endPoint.Address, port));
-            }
+            //foreach(var port in ClientsPorts)
+            //{
+            //    if (port == _endPoint.Port) continue;
+            //    _udpClient.Send(buffer, buffer.Length, 
+            //        new IPEndPoint(_endPoint.Address, port));
+            //}
         }
     }
 }

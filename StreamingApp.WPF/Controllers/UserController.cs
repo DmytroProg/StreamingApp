@@ -69,8 +69,7 @@ public class UserController : ControllerBase
             var request = new ConnectRequest()
             {
                 User = UserInfo.CurrentUser,
-                MeetingCode = meetingCode,
-                SharingPort = _udpClient.Port
+                MeetingCode = meetingCode
             };
 
             await _tcpClient.SendRequestAsync(request);
@@ -104,7 +103,6 @@ public class UserController : ControllerBase
             var request = new CreateMeetingRequest()
             {
                 Meeting = meeting,
-                SharingPort = _udpClient.Port
             };
             await _tcpClient.SendRequestAsync(request);
         }

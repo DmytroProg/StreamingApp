@@ -2,7 +2,6 @@
 
 public interface IUdpClient
 {
-    int Port { get; }
     void Connect(IConfig config);
     void Send(byte[] buffer);
 

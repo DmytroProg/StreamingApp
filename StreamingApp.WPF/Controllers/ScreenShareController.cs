@@ -5,7 +5,6 @@ using StreamingApp.BLL.Requests;
 using StreamingApp.WPF.Controllers.Base;
 using System;
 using System.IO;
-using System.Net;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 
