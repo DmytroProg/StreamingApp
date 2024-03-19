@@ -33,12 +33,6 @@ public abstract class ControllerBase
         _presenter = presenter;
 
         _tcpClient.Received += _tcpClient_Received;
-
-        if (_udpClient != null)
-        {
-            var config = NetworkConfiguration.GetStaticConfig(9999);
-            _udpClient.Connect(config);
-        }
     }
 
     public virtual void SetSender()
@@ -53,6 +47,7 @@ public abstract class ControllerBase
             && _presenter is IScreenSharePresenter)
         {
             _presenter.ChangeView(response);
+            return;
         }
 
         if(_currentSender == this)  

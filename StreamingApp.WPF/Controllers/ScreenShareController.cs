@@ -1,4 +1,5 @@
 ﻿using Networking;
+using Networking.Network;
 using StreamingApp.BLL.Interfaces;
 using StreamingApp.BLL.Interfaces.Presenters;
 using StreamingApp.BLL.Requests;
@@ -6,6 +7,7 @@ using StreamingApp.WPF.Controllers.Base;
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media.Imaging;
 
 namespace StreamingApp.WPF.Controllers;
@@ -14,6 +16,7 @@ public class ScreenShareController : ControllerBase
 {
     private const int SleepTime = 1000;
     private readonly IUdpClient _udpClient;
+    private int segmentsCount;
 
     public ScreenShareController(ILogger? logger, ITcpClient tcpClient, 
         IScreenSharePresenter presenter, IUdpClient udpClient)
@@ -38,12 +41,14 @@ public class ScreenShareController : ControllerBase
         try
         {
             var config = NetworkConfiguration.GetStaticConfig(9999);
+            var frame = GetFrame();
+            segmentsCount = (int)Math.Ceiling((decimal)(frame.Length / UdpClientUser.MaxBufferSize));
+            MessageBox.Show($"frame: {frame.Length}\nsegments: {segmentsCount}");
             var request = new StartSharingRequest()
             {
                 SenderId = UserInfo.CurrentUser.Id,
                 MeetingId = UserInfo.MeetingId,
-                IpAddress = config.IPAddress.ToString(),
-                Port = config.Port,
+                SegmentsCount = segmentsCount,
             };
 
             await _tcpClient.SendRequestAsync(request);
@@ -59,7 +64,7 @@ public class ScreenShareController : ControllerBase
         try
         {
             var config = NetworkConfiguration.GetStaticConfig(9999);
-            _udpClient.Connect(config);
+            _udpClient.Connect(config, (byte)segmentsCount);
             while (true)
             {
                 _udpClient.Send(GetFrame());

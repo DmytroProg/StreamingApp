@@ -12,18 +12,25 @@ internal class ScreenShareViewModel : ViewModelBase
     private ImageSourceConverter _converter;
     private readonly IUdpClient _udpClient;
 
-    public ScreenShareViewModel(IUdpClient udpServer)
+    public ScreenShareViewModel(IUdpClient udpServer, byte segmentsCount)
     {
         _converter = new ImageSourceConverter();
         _udpClient = udpServer;
         _udpClient.Received += _udpServer_Received;
         var config = NetworkConfiguration.GetStaticConfig(9999);
-        _udpClient.Connect(config);
+        _udpClient.Connect(config, segmentsCount);
     }
 
     private void _udpServer_Received(byte[] buffer)
     {
-        CurrentScreen = (ImageSource?)_converter.ConvertFrom(buffer);
+        try
+        {
+            CurrentScreen = (ImageSource?)_converter.ConvertFrom(buffer);
+        }
+        catch(Exception ex)
+        {
+
+        }
     }
 
     public ImageSource? CurrentScreen  {
@@ -33,5 +40,10 @@ internal class ScreenShareViewModel : ViewModelBase
             _imageSource = value;
             OnPropertyChanged();
         }
+    }
+
+    ~ScreenShareViewModel()
+    {
+        _udpClient.Received -= _udpServer_Received;
     }
 }

@@ -3,8 +3,6 @@ using StreamingApp.BLL.Interfaces.Presenters;
 using StreamingApp.BLL.Responses;
 using StreamingApp.WPF.Navigations;
 using StreamingApp.WPF.ViewModels;
-using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace StreamingApp.WPF.Presenters;
 
@@ -29,7 +27,7 @@ internal class ScreenSharePresenter : IScreenSharePresenter
             }
             else
             {
-                _navigationStore.CurrectViewModel = new ScreenShareViewModel(_udpClient);
+                _navigationStore.CurrectViewModel = new ScreenShareViewModel(_udpClient, (byte)frameRes.SegmentsCount);
             }
         }
     }

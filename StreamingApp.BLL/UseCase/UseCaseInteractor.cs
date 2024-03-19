@@ -99,6 +99,7 @@ public class UseCaseInteractor
             return new StartSharingResponse()
             {
                 SenderId = shareReq.SenderId,
+                SegmentsCount = shareReq.SegmentsCount,
             };
         }
         catch(Exception ex)
