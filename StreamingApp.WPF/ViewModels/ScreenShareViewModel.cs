@@ -2,6 +2,7 @@
 using StreamingApp.BLL.Interfaces;
 using StreamingApp.WPF.ViewModels.Base;
 using System;
+using System.Diagnostics;
 using System.Windows.Media;
 
 namespace StreamingApp.WPF.ViewModels;
@@ -27,9 +28,8 @@ internal class ScreenShareViewModel : ViewModelBase
         {
             CurrentScreen = (ImageSource?)_converter.ConvertFrom(buffer);
         }
-        catch(Exception ex)
+        catch(Exception)
         {
-
         }
     }
 

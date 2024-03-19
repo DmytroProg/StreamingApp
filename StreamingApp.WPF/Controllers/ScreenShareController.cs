@@ -14,7 +14,7 @@ namespace StreamingApp.WPF.Controllers;
 
 public class ScreenShareController : ControllerBase
 {
-    private const int SleepTime = 1000;
+    private const int SleepTime = 500;
     private readonly IUdpClient _udpClient;
     private int segmentsCount;
 
