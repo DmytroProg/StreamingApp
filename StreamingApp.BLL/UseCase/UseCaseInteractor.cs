@@ -1,7 +1,6 @@
 ﻿using StreamingApp.BLL.Interfaces;
 using StreamingApp.BLL.Interfaces.DataAccess;
 using StreamingApp.BLL.Interfaces.Services;
-using StreamingApp.BLL.Models;
 using StreamingApp.BLL.Requests;
 using StreamingApp.BLL.Responses;
 using StreamingApp.BLL.Services;
@@ -12,6 +11,7 @@ namespace StreamingApp.BLL.UseCase;
 public class UseCaseInteractor
 {
     private readonly ITcpServer _tcpServer;
+    private readonly IUdpServer _udpServer;
     private readonly Dictionary<int, TcpClient> _clients;
     private readonly IUserService _userService;
     private readonly IMeetingService _meetingService;
@@ -19,11 +19,12 @@ public class UseCaseInteractor
 
     private List<TcpClient> _sendClients;
 
-    public UseCaseInteractor(ITcpServer tcpServer,
+    public UseCaseInteractor(ITcpServer tcpServer, IUdpServer udpServer,
         IUserRepository userRepository,
         IMeetingRepository meetRepository, ILogger logger)
     {
         _tcpServer = tcpServer;
+        _udpServer = udpServer;
         _tcpServer.RequestReceived += _tcpServer_Received;
         _clients = new();
         _meetingService = new MeetingService(meetRepository, logger);
@@ -57,7 +58,7 @@ public class UseCaseInteractor
             CreateMeetingRequest createReq => await OnCreateMeeting(createReq, client),
             SendMessageRequest sendReq => await OnMessageSend(sendReq, client),
             LeaveMeetingRequest leaveReq => await OnLeaveMeeting(leaveReq, client),
-            //StartSharingRequest shareReq => await OnStartSharing(shareReq, client),
+            StartSharingRequest shareReq => await OnStartSharing(shareReq, client),
             _ => new ErrorResponse(),
         };
 
@@ -76,8 +77,6 @@ public class UseCaseInteractor
         { 
             await _tcpServer.SendResponseAsync(tcpClient, response);
         }
-
-        
     }
 
     private async Task<ResponseBase> OnStartSharing(StartSharingRequest shareReq, TcpClient client)
@@ -95,9 +94,12 @@ public class UseCaseInteractor
                 _sendClients.Add(_clients[receiver.Id]);
             }
 
+            //_udpServer.Connect(9999);
+
             return new StartSharingResponse()
             {
                 SenderId = shareReq.SenderId,
+                SegmentsCount = shareReq.SegmentsCount,
             };
         }
         catch(Exception ex)
@@ -115,6 +117,7 @@ public class UseCaseInteractor
             var user = meeting.Users.FirstOrDefault(u => u.Id == leaveReq.User.Id);
             if (user is null) return new ErrorResponse();
 
+            _udpServer.ClientsPorts.Remove(leaveReq.SharingPort);
             meeting.Users.Remove(user);
             _sendClients.Clear();
             foreach(var meetingUser in meeting.Users)

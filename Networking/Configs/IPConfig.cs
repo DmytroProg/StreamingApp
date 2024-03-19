@@ -3,7 +3,7 @@ using System.Net;
 
 namespace StreamingApp.Networking.Configs;
 
-public class TcpConfig : IConfig
+public class IPConfig : IConfig
 {
     public IPAddress IPAddress { get; set; } = null!;
     public int Port { get; set; }

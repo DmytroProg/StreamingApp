@@ -3,20 +3,18 @@ using StreamingApp.BLL.Interfaces.Presenters;
 using StreamingApp.BLL.Responses;
 using StreamingApp.WPF.Navigations;
 using StreamingApp.WPF.ViewModels;
-using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace StreamingApp.WPF.Presenters;
 
 internal class ScreenSharePresenter : IScreenSharePresenter
 {
     private readonly NavigationStore _navigationStore;
-    private readonly ITcpClient _tcpClient;
+    private readonly IUdpClient _udpClient;
 
-    public ScreenSharePresenter(NavigationStore navigationStore, ITcpClient tcpClient)
+    public ScreenSharePresenter(NavigationStore navigationStore, IUdpClient udpClient)
     {
         _navigationStore = navigationStore;
-        _tcpClient = tcpClient;
+        _udpClient = udpClient;
     }
 
     public void ChangeView(ResponseBase response)
@@ -29,7 +27,7 @@ internal class ScreenSharePresenter : IScreenSharePresenter
             }
             else
             {
-                //_navigationStore.CurrectViewModel = new ScreenShareViewModel(_tcpClient);
+                _navigationStore.CurrectViewModel = new ScreenShareViewModel(_udpClient, (byte)frameRes.SegmentsCount);
             }
         }
     }

@@ -44,7 +44,7 @@ namespace StreamingApp.Networking.Network
             try
             {
                 _tcpClient = new TcpClient();
-                if (config is TcpConfig tcpConfig)
+                if (config is IPConfig tcpConfig)
                 {
                     await _tcpClient.ConnectAsync(tcpConfig.IPAddress, tcpConfig.Port);
                     _networkStream = _tcpClient.GetStream();

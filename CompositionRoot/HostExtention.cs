@@ -27,6 +27,8 @@ public static class HostExtention
     {
         services.AddSingleton<ITcpClient, TcpClientUser>();
         services.AddSingleton<ITcpServer,  TcpClientServer>();
+        services.AddSingleton<IUdpClient, UdpClientUser>();
+        services.AddSingleton<IUdpServer, UdpClientServer>();
     }
 
     public static void AddDbRepositories(this IServiceCollection services)

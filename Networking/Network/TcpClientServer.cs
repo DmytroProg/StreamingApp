@@ -43,7 +43,7 @@ namespace Networking.Network
         {
             try
             {
-                if (config is TcpConfig tcpConfig)
+                if (config is IPConfig tcpConfig)
                 {
                     _listener = new TcpListener(tcpConfig.IPAddress, tcpConfig.Port);
                     _listener.Start();
@@ -97,7 +97,7 @@ namespace Networking.Network
 
         public Task StartListenAsync(string ipAddress, int port)
         {
-            var config = new TcpConfig()
+            var config = new IPConfig()
             {
                 IPAddress = System.Net.IPAddress.Parse(ipAddress),
                 Port = port

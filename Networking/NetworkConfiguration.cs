@@ -6,7 +6,7 @@ namespace Networking;
 public static class NetworkConfiguration
 {
     public static int Port = 8888;
-    public static TcpConfig GetStaticConfig(int? port = null)
+    public static IPConfig GetStaticConfig(int? port = null)
     {
         var hostName = Dns.GetHostName();
         var hostAddress = Dns.GetHostAddresses(hostName);
@@ -14,7 +14,7 @@ public static class NetworkConfiguration
         == System.Net.Sockets.AddressFamily.InterNetwork) ??
         throw new ArgumentNullException("IpAddress", "Cannot get available IP address");
 
-        return new TcpConfig()
+        return new IPConfig()
         {
             IPAddress = ipAddress,
             Port = port ?? NetworkConfiguration.Port,
