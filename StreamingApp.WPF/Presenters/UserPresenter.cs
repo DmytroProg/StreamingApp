@@ -30,13 +30,13 @@ internal class UserPresenter : IUserPresenter
     private ViewModelBase OnCreate(CreateMeetingResponse createResponse)
     {
         UserInfo.MeetingId = createResponse.Meeting.Id;
-        return new TestViewModel();
+        return new EmptyMeetingViewModel(createResponse.Meeting);
     }
 
     private ViewModelBase OnConnect(ConnectResponse connectResponse)
     {
         UserInfo.MeetingId = connectResponse.Meeting.Id;
-        return new TestViewModel();
+        return new EmptyMeetingViewModel(connectResponse.Meeting);
     }
 
     private ViewModelBase OnLogin(LoginResponse response)

@@ -62,6 +62,12 @@ public class UseCaseInteractor
             _ => new ErrorResponse(),
         };
 
+        if(response is ErrorResponse)
+        {
+            await _tcpServer.SendResponseAsync(client, response);
+            return;
+        }
+
         if(_sendClients.Count == 0)
         {
             if (request is LogoutRequest) return;

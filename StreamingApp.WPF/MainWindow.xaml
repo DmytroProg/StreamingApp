@@ -47,10 +47,13 @@
         <WrapPanel>
             <Ellipse Width="40" Height="40" Margin="30,4,0,0">
                 <Ellipse.Fill>
-                    <ImageBrush x:Name="userAvatar" ImageSource="/Images/user.JPG"/>
+                    <ImageBrush x:Name="userAvatar" ImageSource="{Binding Avatar}"/>
                 </Ellipse.Fill>
             </Ellipse>
-            <Label Name="userNickLB" Margin="0,0,0,0" FontSize="20">User</Label>
+            <Label Name="userNickLB" 
+                   Margin="0,0,0,0" 
+                   FontSize="20" 
+                   Content="{Binding UserName}"></Label>
         </WrapPanel>
         <Border Grid.Column="1" Grid.ColumnSpan="2" Width="510" Margin="80,10,100,10" Background="White">
             <TextBox x:Name="searchTB"  Width="500" HorizontalAlignment="Left" Margin="4" BorderThickness="0"/>
@@ -152,6 +155,9 @@
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type vms:CreateMeetingViewModel}">
                     <views:CreateMeetingView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vms:EmptyMeetingViewModel}">
+                    <views:EmptyMeetingView />
                 </DataTemplate>
             </Grid.Resources>
 

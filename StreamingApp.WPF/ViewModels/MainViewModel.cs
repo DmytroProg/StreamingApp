@@ -3,18 +3,22 @@ using StreamingApp.WPF.Navigations;
 using StreamingApp.WPF.ViewModels.Base;
 using StreamingApp.WPF.ViewModels.ControlsViewModels;
 using System;
+using System.Drawing;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace StreamingApp.WPF.ViewModels;
 
 internal class MainViewModel : ViewModelBase
 {
+    private readonly ImageSourceConverter _converter;
     private NavigationStore _navigationStore;
     private bool _isActive;
     private bool _isActiveLogo;
     public bool IsActive
     {
-        get => _isActive; 
+        get => _isActive;
         set
         {
             _isActive = value;
@@ -32,6 +36,23 @@ internal class MainViewModel : ViewModelBase
         }
     }
 
+    public ImageSource? Avatar {
+        get
+        {
+            if (UserInfo.CurrentUser is null || UserInfo.CurrentUser.AvatarImage == "0")
+            {
+                return new BitmapImage(new Uri("Images/user.JPG", UriKind.Relative));
+            }
+            else
+            {
+                var buffer = Convert.FromBase64String(UserInfo.CurrentUser.AvatarImage);
+                return (ImageSource?)_converter.ConvertFrom(buffer);
+            }
+        }    
+    }
+
+    public string UserName => UserInfo.CurrentUser is null ? "User" : UserInfo.CurrentUser.Name;
+
     public ViewModelBase? CurrentViewModel { get => _navigationStore.CurrectViewModel; }
     public ViewModelBase UsersListViewModel { get; set; }
     public ViewModelBase ChatViewModel { get; set; }
@@ -42,6 +63,7 @@ internal class MainViewModel : ViewModelBase
 
     public MainViewModel(NavigationStore navigationStore)
     {
+        _converter = new ImageSourceConverter();
         this._navigationStore = navigationStore;
         this._navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
 
@@ -72,15 +94,13 @@ internal class MainViewModel : ViewModelBase
             OnPropertyChanged(nameof(ChatViewModel));
             OnPropertyChanged(nameof(UsersListViewModel));
         }
-        if (!(CurrentViewModel is RegistrationViewModel) && !(CurrentViewModel is LoginViewModel))
+        if(CurrentViewModel is ConnectViewModel)
         {
-            IsActive = true;
-            IsActiveLogo = false;
+            OnPropertyChanged(nameof(Avatar));
+            OnPropertyChanged(nameof(UserName));
         }
-        else 
-        {
-            IsActive = false;
-            IsActiveLogo = true;
-        }
+
+        IsActive = UserInfo.MeetingId != 0;
+        IsActiveLogo = !IsActive;
     }
 }
