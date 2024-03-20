@@ -1,9 +1,10 @@
 ﻿using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 using StreamingApp.WPF.Navigations;
 using StreamingApp.WPF.ViewModels.Base;
 using StreamingApp.WPF.ViewModels.ControlsViewModels;
 using System;
-using System.Drawing;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -13,7 +14,7 @@ namespace StreamingApp.WPF.ViewModels;
 internal class MainViewModel : ViewModelBase
 {
     private readonly ImageSourceConverter _converter;
-    private NavigationStore _navigationStore;
+    private ChatNavigationStore _navigationStore;
     private bool _isActive;
     private bool _isActiveLogo;
     public bool IsActive
@@ -53,25 +54,32 @@ internal class MainViewModel : ViewModelBase
 
     public string UserName => UserInfo.CurrentUser is null ? "User" : UserInfo.CurrentUser.Name;
 
-    public ViewModelBase? CurrentViewModel { get => _navigationStore.CurrectViewModel; }
-    public ViewModelBase UsersListViewModel { get; set; }
-    public ViewModelBase ChatViewModel { get; set; }
+    public ViewModelBase? CurrentViewModel => _navigationStore.CurrentViewModel;
+    public ViewModelBase? UsersListViewModel { get; set; }
+    public ViewModelBase? ChatViewModel => _navigationStore.ChatViewModel;
 
     public ICommand StartSharingCommand { get; }
 
     public bool IsChatViewModelCurrent => CurrentViewModel is ChatViewModel;
 
-    public MainViewModel(NavigationStore navigationStore)
+    public MainViewModel(ChatNavigationStore navigationStore)
     {
         _converter = new ImageSourceConverter();
         this._navigationStore = navigationStore;
+        this._navigationStore.ChatViewModel = new LoginActionViewModel();
         this._navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
+        this._navigationStore.ChatViewModelChanged += OnChatViewModelChanged;
 
-        UsersListViewModel = ChatViewModel = new LoginActionViewModel();
+        UsersListViewModel = new LoginActionViewModel();
         IsActive = false;
         IsActiveLogo = true;
 
         StartSharingCommand = new RelayCommand(StartSharing);
+    }
+
+    private void OnChatViewModelChanged()
+    {
+        OnPropertyChanged(nameof(ChatViewModel));
     }
 
     private void StartSharing()
@@ -87,20 +95,28 @@ internal class MainViewModel : ViewModelBase
 
     private void CheckCurrentViewModel()
     {
-        if(CurrentViewModel is ChatViewModel)
+        Action? changeView = CurrentViewModel switch
         {
-            ChatViewModel = new ChatViewModel();
-            UsersListViewModel = new UsersListViewModel();
-            OnPropertyChanged(nameof(ChatViewModel));
-            OnPropertyChanged(nameof(UsersListViewModel));
-        }
-        if(CurrentViewModel is ConnectViewModel)
-        {
-            OnPropertyChanged(nameof(Avatar));
-            OnPropertyChanged(nameof(UserName));
-        }
+            ViewModels.ChatViewModel => OnChangeMeetingView,
+            MeetingViewModelBase => OnChangeMeetingView,
+            ConnectViewModel => delegate() {
+                OnPropertyChanged(nameof(Avatar));
+                OnPropertyChanged(nameof(UserName));
+            },
+            _ => null,
+        };
 
-        IsActive = UserInfo.MeetingId != 0;
+        IsActive = CurrentViewModel is MeetingViewModelBase;
         IsActiveLogo = !IsActive;
+
+        changeView?.Invoke();
+    }
+
+    private void OnChangeMeetingView()
+    {
+        _navigationStore.ChatViewModel = new ChatViewModel(UserInfo.Meeting);
+        UsersListViewModel = new UsersListViewModel();
+        OnPropertyChanged(nameof(ChatViewModel));
+        OnPropertyChanged(nameof(UsersListViewModel));
     }
 }

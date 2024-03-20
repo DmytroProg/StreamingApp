@@ -2,18 +2,17 @@
 using StreamingApp.BLL.Interfaces;
 using StreamingApp.WPF.ViewModels.Base;
 using System;
-using System.Diagnostics;
 using System.Windows.Media;
 
 namespace StreamingApp.WPF.ViewModels;
 
-internal class ScreenShareViewModel : ViewModelBase
+internal class ScreenShareViewModel : MeetingViewModelBase
 {
     private ImageSource? _imageSource;
     private ImageSourceConverter _converter;
     private readonly IUdpClient _udpClient;
 
-    public ScreenShareViewModel(IUdpClient udpServer, byte segmentsCount)
+    public ScreenShareViewModel(IUdpClient udpServer, byte segmentsCount) : base(null)
     {
         _converter = new ImageSourceConverter();
         _udpClient = udpServer;

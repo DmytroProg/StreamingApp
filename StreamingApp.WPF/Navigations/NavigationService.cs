@@ -16,6 +16,6 @@ internal class NavigationService
 
     public void Navigate()
     {
-        this._navigationStore.CurrectViewModel = _createViewModel();
+        this._navigationStore.CurrentViewModel = _createViewModel();
     }
 }

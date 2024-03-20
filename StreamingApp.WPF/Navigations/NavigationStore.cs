@@ -7,7 +7,7 @@ internal class NavigationStore
 {
     private ViewModelBase? _currentViewModel;
 
-    public ViewModelBase? CurrectViewModel
+    public ViewModelBase? CurrentViewModel
     {
         get => _currentViewModel;
         set

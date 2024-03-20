@@ -10,5 +10,5 @@ namespace StreamingApp.WPF;
 public static class UserInfo
 {
     public static User CurrentUser { get; set; }
-    public static int MeetingId { get; set; }
+    public static Meeting Meeting { get; set; }
 }

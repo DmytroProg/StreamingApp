@@ -7,6 +7,7 @@
         <ResourceDictionary>
 
             <BooleanToVisibilityConverter x:Key="BoolToVisible"/>
+            <local:BooleanHorizontalAlignmentConverter x:Key="HorizontalAlignmentConverter"/>
 
             <SolidColorBrush x:Key="Primary" Color="DarkGoldenrod"/>
             <SolidColorBrush x:Key="PrimaryLight" Color="Gold"/>

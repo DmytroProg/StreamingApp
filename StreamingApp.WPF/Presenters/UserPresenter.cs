@@ -11,14 +11,14 @@ internal class UserPresenter : IUserPresenter
 {
     private readonly NavigationStore _navigationStore;
 
-    public UserPresenter(NavigationStore navigationStore)
+    public UserPresenter(ChatNavigationStore navigationStore)
     {
         _navigationStore = navigationStore;
     }
 
     public void ChangeView(ResponseBase response)
     {
-        _navigationStore.CurrectViewModel = response switch
+        _navigationStore.CurrentViewModel = response switch
         {
             LoginResponse loginResponse => OnLogin(loginResponse),
             ConnectResponse connectResponse => OnConnect(connectResponse),
@@ -29,13 +29,13 @@ internal class UserPresenter : IUserPresenter
 
     private ViewModelBase OnCreate(CreateMeetingResponse createResponse)
     {
-        UserInfo.MeetingId = createResponse.Meeting.Id;
+        UserInfo.Meeting = createResponse.Meeting;
         return new EmptyMeetingViewModel(createResponse.Meeting);
     }
 
     private ViewModelBase OnConnect(ConnectResponse connectResponse)
     {
-        UserInfo.MeetingId = connectResponse.Meeting.Id;
+        UserInfo.Meeting = connectResponse.Meeting;
         return new EmptyMeetingViewModel(connectResponse.Meeting);
     }
 

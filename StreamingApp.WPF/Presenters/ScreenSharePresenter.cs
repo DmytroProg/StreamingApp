@@ -11,7 +11,7 @@ internal class ScreenSharePresenter : IScreenSharePresenter
     private readonly NavigationStore _navigationStore;
     private readonly IUdpClient _udpClient;
 
-    public ScreenSharePresenter(NavigationStore navigationStore, IUdpClient udpClient)
+    public ScreenSharePresenter(ChatNavigationStore navigationStore, IUdpClient udpClient)
     {
         _navigationStore = navigationStore;
         _udpClient = udpClient;
@@ -27,7 +27,7 @@ internal class ScreenSharePresenter : IScreenSharePresenter
             }
             else
             {
-                _navigationStore.CurrectViewModel = new ScreenShareViewModel(_udpClient, (byte)frameRes.SegmentsCount);
+                _navigationStore.CurrentViewModel = new ScreenShareViewModel(_udpClient, (byte)frameRes.SegmentsCount);
             }
         }
     }

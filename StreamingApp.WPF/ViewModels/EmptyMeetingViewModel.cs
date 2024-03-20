@@ -3,11 +3,10 @@ using StreamingApp.WPF.ViewModels.Base;
 
 namespace StreamingApp.WPF.ViewModels;
 
-internal class EmptyMeetingViewModel : ViewModelBase
+internal class EmptyMeetingViewModel : MeetingViewModelBase
 {
-    public Meeting Meeting { get; set; }
 
-    public EmptyMeetingViewModel(Meeting meeting)
+    public EmptyMeetingViewModel(Meeting meeting) : base(meeting)
     {
         Meeting = meeting;
     }

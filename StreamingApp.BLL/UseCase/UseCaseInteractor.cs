@@ -152,17 +152,20 @@ public class UseCaseInteractor
 
             var meeting = await _meetingService.GetByIdAsync(sendReq.MeetingId);
 
+            meeting.Messages.Add(sendReq.Message);
+
             _sendClients.Clear();
             foreach (var user in meeting.Users)
             {
                 _sendClients.Add(_clients[user.Id]);
             }
 
-            return new MessageResponse()
+            var response = new MessageResponse()
             {
-                Sender = sendReq.Sender,
-                Message = sendReq.Message,
+                Meeting = meeting,
             };
+
+            return response;
         }
         catch(Exception ex)
         {

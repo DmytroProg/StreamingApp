@@ -16,14 +16,14 @@ namespace StreamingApp.WPF;
 /// </summary>
 public partial class App : Application
 {
-    private readonly NavigationStore _navigationStore;
+    private readonly ChatNavigationStore _navigationStore;
 
     public static UnitController UnitController { get; private set; }
     public App()
     {
         using var host = CreateHostBuilder().Build();
-        _navigationStore = host.Services.GetRequiredService<NavigationStore>();
-        _navigationStore.CurrectViewModel = new LoginViewModel(_navigationStore);
+        _navigationStore = host.Services.GetRequiredService<ChatNavigationStore>();
+        _navigationStore.CurrentViewModel = new LoginViewModel(_navigationStore);
 
         UnitController = new UnitController(host);
     }
@@ -45,7 +45,7 @@ public partial class App : Application
                 services.AddDefaultServices();
                 services.AddWindowsServices();
 
-                services.AddSingleton<NavigationStore>();
+                services.AddSingleton<ChatNavigationStore>();
                 services.AddSingleton<IUserPresenter, UserPresenter>();
                 services.AddSingleton<IMessagePresenter, MessagePresenter>();
                 services.AddSingleton<IScreenSharePresenter, ScreenSharePresenter>();

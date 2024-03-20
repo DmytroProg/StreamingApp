@@ -7,6 +7,7 @@ using System.IO;
 using System.Threading.Tasks;
 using StreamingApp.BLL.Interfaces.Presenters;
 using StreamingApp.BLL.Responses;
+using StreamingApp.WPF.ViewModels.Base;
 
 namespace StreamingApp.WPF.Controllers;
 
@@ -15,26 +16,29 @@ public class MessageController : ControllerBase
     public MessageController(ILogger? logger, ITcpClient tcpClient, IMessagePresenter presenter)
         : base(logger, tcpClient, presenter)
     {
+        
     }
 
-    public async Task SendMessage(MessageBase message, User user)
+    public ViewModelBase? ChatViewModel { get; set; }
+
+    public async Task SendMessage(MessageBase message)
     {
         try
         {
             if (message == null) return;
 
             message.SenderId = UserInfo.CurrentUser.Id;
-            message.ReceiverId = user.Id;
+            message.SenderName = UserInfo.CurrentUser.Name;
             message.CreatedAt = DateTime.Now;
 
             var request = new SendMessageRequest()
             {
                 Message = message,
+                Sender = UserInfo.CurrentUser,
+                MeetingId = UserInfo.Meeting.Id,
             };
             
             await _tcpClient.SendRequestAsync(request);
-
-            ///_presenter.ChangeView(response);
         }
         catch (Exception ex)
         {

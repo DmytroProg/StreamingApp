@@ -43,11 +43,10 @@ public class ScreenShareController : ControllerBase
             var config = NetworkConfiguration.GetStaticConfig(9999);
             var frame = GetFrame();
             segmentsCount = (int)Math.Ceiling((decimal)(frame.Length / UdpClientUser.MaxBufferSize));
-            MessageBox.Show($"frame: {frame.Length}\nsegments: {segmentsCount}");
             var request = new StartSharingRequest()
             {
                 SenderId = UserInfo.CurrentUser.Id,
-                MeetingId = UserInfo.MeetingId,
+                MeetingId = UserInfo.Meeting.Id,
                 SegmentsCount = segmentsCount,
             };
 

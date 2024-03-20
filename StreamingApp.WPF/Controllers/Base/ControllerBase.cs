@@ -1,14 +1,12 @@
-﻿using Networking;
-using StreamingApp.BLL.Interfaces;
+﻿using StreamingApp.BLL.Interfaces;
 using StreamingApp.BLL.Interfaces.Presenters;
-using StreamingApp.BLL.Requests;
 using StreamingApp.BLL.Responses;
 
 namespace StreamingApp.WPF.Controllers.Base;
 
 public abstract class ControllerBase
 {
-    private static ControllerBase _currentSender;
+    private static ControllerBase? _currentSender;
     protected readonly ILogger? _logger;
     protected readonly ITcpClient _tcpClient;
     protected readonly IUdpClient _udpClient;
@@ -49,8 +47,16 @@ public abstract class ControllerBase
             _presenter.ChangeView(response);
             return;
         }
-
-        if(_currentSender == this)  
+        if(response is MessageResponse && _presenter is IMessagePresenter)
+        {
             _presenter.ChangeView(response);
+            return;
+        }
+
+        if (_currentSender == this)
+        {
+            _presenter.ChangeView(response);
+            _currentSender = null;
+        }
     }
 }

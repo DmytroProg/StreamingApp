@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:StreamingApp.WPF.Controls.MessagesViews"
+             xmlns:controls="clr-namespace:StreamingApp.WPF.Controls.MessagesViews"
+             xmlns:vms="clr-namespace:StreamingApp.WPF.ViewModels.Messages"
              mc:Ignorable="d" 
              d:DesignHeight="180" d:DesignWidth="300"
              MaxWidth="300"
@@ -22,22 +23,22 @@
                    FontSize="16"
                    Margin="15 0"/>
 
-        <!--<Border Grid.Row="1"
-            Background="{StaticResource SecondaryLight}"
+        <Border Grid.Row="1"
+            Background="{StaticResource MainColor}"
             CornerRadius="15 15 15 0"
             HorizontalAlignment="Stretch"
-            Visibility="{Binding IsNotMe, Converter={StaticResource VisibilityConverter}}">
+            Visibility="{Binding IsNotMe, Converter={StaticResource BoolToVisible}}">
             <Grid VerticalAlignment="Stretch">
                 <Grid.Resources>
                     <DataTemplate DataType="{x:Type vms:TextMessageViewModel}">
                         <controls:TextMessageView/>
                     </DataTemplate>
-                    <DataTemplate DataType="{x:Type vms:ImageMessageViewModel}">
+                    <!--<DataTemplate DataType="{x:Type vms:ImageMessageViewModel}">
                         <controls:ImageMessageView/>
                     </DataTemplate>
                     <DataTemplate DataType="{x:Type vms:FileMessageViewModel}">
                         <controls:FileMessageView/>
-                    </DataTemplate>
+                    </DataTemplate>-->
                 </Grid.Resources>
 
                 <ContentControl Content="{Binding .}"
@@ -45,32 +46,26 @@
             </Grid>
         </Border>
         <Border Grid.Row="1"
-            Background="Gray"
+            Background="{StaticResource Primary}"
             CornerRadius="15 15 0 15"
             HorizontalAlignment="Stretch"
-            Visibility="{Binding IsMe, Converter={StaticResource VisibilityConverter}}">
+            Visibility="{Binding IsMe, Converter={StaticResource BoolToVisible}}">
             <Grid VerticalAlignment="Stretch">
                 <Grid.Resources>
                     <DataTemplate DataType="{x:Type vms:TextMessageViewModel}">
                         <controls:TextMessageView/>
                     </DataTemplate>
-                    <DataTemplate DataType="{x:Type vms:ImageMessageViewModel}">
+                    <!--<DataTemplate DataType="{x:Type vms:ImageMessageViewModel}">
                         <controls:ImageMessageView/>
                     </DataTemplate>
                     <DataTemplate DataType="{x:Type vms:FileMessageViewModel}">
                         <controls:FileMessageView/>
-                    </DataTemplate>
+                    </DataTemplate>-->
                 </Grid.Resources>
 
                 <ContentControl Content="{Binding .}"
                             Padding="5"></ContentControl>
             </Grid>
-        </Border>-->
-
-        <Image Grid.Row="1"
-           Grid.Column="1"
-           VerticalAlignment="Bottom"
-           Margin="2"
-           Source="{Binding SendStatus}"/>
+        </Border>
     </Grid>
 </UserControl>
