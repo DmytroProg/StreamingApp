@@ -81,7 +81,17 @@
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <TextBlock FontSize="22">Add avatar</TextBlock>
-                <Border x:Name="selectAvatarBT" Grid.Column="1" Margin="0,0,0,0" Background="Black" BorderThickness="2" BorderBrush="White" Height="40" Width="130">
+                <Border Grid.Column="1"
+                        Margin="15 0"
+                        BorderThickness="2"
+                        Background="Black"
+                        BorderBrush="White">
+                    <Button Content="Select"
+                            Background="Black"
+                            Command="{Binding SelectAvatarCommand}"/>
+                </Border>
+                
+                <!--<Border x:Name="selectAvatarBT" Grid.Column="1" Margin="0,0,0,0" Background="Black" BorderThickness="2" BorderBrush="White" Height="40" Width="130">
                     <Label HorizontalAlignment="Center">Select
                         <Label.Style>
                             <Style TargetType="Label">
@@ -99,7 +109,7 @@
                             </Style>
                         </Label.Style>
                     </Label>
-                </Border>
+                </Border>-->
             </Grid>
 
             <Button Margin="40,40,40,20"
