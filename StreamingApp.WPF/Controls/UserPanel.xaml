@@ -8,10 +8,9 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Margin="-5,5,5,8">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.62*"></ColumnDefinition>
+            <ColumnDefinition Width="0.4*"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition Width="0.6*"></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="0.4*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Ellipse Grid.Column="0" Width="40" Height="40">
             <Ellipse.Fill>
@@ -20,11 +19,6 @@
         </Ellipse>
         <Label Grid.Column="1" Content="{Binding Username}" Foreground="White"></Label>
         <Button Grid.Column="2" Background="#1C1B24">
-            <Button.Content>
-                <Image Source="/Images/se4.png" Height="30" Width="23"/>
-            </Button.Content>
-        </Button>
-        <Button Grid.Column="3" Background="#1C1B24">
             <Button.Content>
                 <Image Source="/Images/br1.png" 
                        Height="30" 

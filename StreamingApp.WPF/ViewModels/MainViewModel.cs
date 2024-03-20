@@ -1,10 +1,9 @@
 ﻿using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Messaging;
 using StreamingApp.WPF.Navigations;
 using StreamingApp.WPF.ViewModels.Base;
 using StreamingApp.WPF.ViewModels.ControlsViewModels;
 using System;
-using System.Windows.Documents;
+using System.Collections.Generic;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -55,7 +54,7 @@ internal class MainViewModel : ViewModelBase
     public string UserName => UserInfo.CurrentUser is null ? "User" : UserInfo.CurrentUser.Name;
 
     public ViewModelBase? CurrentViewModel => _navigationStore.CurrentViewModel;
-    public ViewModelBase? UsersListViewModel { get; set; }
+    public ViewModelBase? UsersListViewModel => _navigationStore.UsersViewModel;
     public ViewModelBase? ChatViewModel => _navigationStore.ChatViewModel;
 
     public ICommand StartSharingCommand { get; }
@@ -67,14 +66,20 @@ internal class MainViewModel : ViewModelBase
         _converter = new ImageSourceConverter();
         this._navigationStore = navigationStore;
         this._navigationStore.ChatViewModel = new LoginActionViewModel();
+        this._navigationStore.UsersViewModel = new LoginActionViewModel();
         this._navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
         this._navigationStore.ChatViewModelChanged += OnChatViewModelChanged;
-
-        UsersListViewModel = new LoginActionViewModel();
+        this._navigationStore.UsersViewModelChanged += OnUsersViewModelChanged;
+        
         IsActive = false;
         IsActiveLogo = true;
 
         StartSharingCommand = new RelayCommand(StartSharing);
+    }
+
+    private void OnUsersViewModelChanged()
+    {
+        OnPropertyChanged(nameof(UsersListViewModel));
     }
 
     private void OnChatViewModelChanged()
@@ -115,7 +120,7 @@ internal class MainViewModel : ViewModelBase
     private void OnChangeMeetingView()
     {
         _navigationStore.ChatViewModel = new ChatViewModel(UserInfo.Meeting);
-        UsersListViewModel = new UsersListViewModel();
+        _navigationStore.UsersViewModel = new UsersListViewModel(new List<UserPanelViewModel>());
         OnPropertyChanged(nameof(ChatViewModel));
         OnPropertyChanged(nameof(UsersListViewModel));
     }

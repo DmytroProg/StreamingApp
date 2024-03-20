@@ -40,23 +40,6 @@ public abstract class ControllerBase
 
     private void _tcpClient_Received(ResponseBase response)
     {
-        if(response is StartSharingResponse startRes &&
-            startRes.SenderId != UserInfo.CurrentUser.Id
-            && _presenter is IScreenSharePresenter)
-        {
-            _presenter.ChangeView(response);
-            return;
-        }
-        if(response is MessageResponse && _presenter is IMessagePresenter)
-        {
-            _presenter.ChangeView(response);
-            return;
-        }
-
-        if (_currentSender == this)
-        {
-            _presenter.ChangeView(response);
-            _currentSender = null;
-        }
+        _presenter.ChangeView(response);
     }
 }

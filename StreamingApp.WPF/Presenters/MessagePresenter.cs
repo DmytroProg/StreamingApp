@@ -26,7 +26,7 @@ internal class MessagePresenter : IMessagePresenter
         _navigationStore.ChatViewModel = response switch
         {
             MessageResponse messageResponse => OnMessageReceived(messageResponse),
-            _ => new ErrorViewModel()
+            _ => _navigationStore.ChatViewModel,
         };
     }
 

@@ -1,15 +1,19 @@
 ﻿using StreamingApp.BLL.Interfaces.Presenters;
+using StreamingApp.BLL.Models;
 using StreamingApp.BLL.Responses;
 using StreamingApp.WPF.Navigations;
 using StreamingApp.WPF.ViewModels;
 using StreamingApp.WPF.ViewModels.Base;
+using StreamingApp.WPF.ViewModels.ControlsViewModels;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace StreamingApp.WPF.Presenters;
 
 internal class UserPresenter : IUserPresenter
 {
-    private readonly NavigationStore _navigationStore;
+    private readonly ChatNavigationStore _navigationStore;
 
     public UserPresenter(ChatNavigationStore navigationStore)
     {
@@ -20,11 +24,48 @@ internal class UserPresenter : IUserPresenter
     {
         _navigationStore.CurrentViewModel = response switch
         {
+            ErrorResponse => new ErrorViewModel(),
             LoginResponse loginResponse => OnLogin(loginResponse),
             ConnectResponse connectResponse => OnConnect(connectResponse),
             CreateMeetingResponse createResponse => OnCreate(createResponse),
-            _ => new ErrorViewModel()
+            _ => _navigationStore.CurrentViewModel,
         };
+
+        _navigationStore.UsersViewModel = response switch
+        {
+            CreateMeetingResponse createResponse => OnUserConnected(createResponse),
+            ConnectResponse connectResponse => OnUserConnected(connectResponse),
+            StartSharingResponse shareResponse => OnUserShare(
+                _navigationStore.UsersViewModel as UsersListViewModel, shareResponse.SenderId),
+            _ => _navigationStore.UsersViewModel,
+        };
+    }
+
+    private ViewModelBase? OnUserShare(UsersListViewModel viewModel, int id)
+    {
+        viewModel.Users.First(u => u.UserId == id).IsVideoOn = true;
+
+        return viewModel;
+    }
+
+    private ViewModelBase? OnUserConnected(ConnectResponse connectResponse)
+    {
+        return UserConnected(connectResponse.Meeting.Users);
+    }
+
+    private ViewModelBase? OnUserConnected(CreateMeetingResponse connectResponse)
+    {
+        return UserConnected(connectResponse.Meeting.Users);
+    }
+
+    private ViewModelBase? UserConnected(ICollection<User> Users)
+    {
+        var users = new List<UserPanelViewModel>();
+        foreach (var user in Users)
+        {
+            users.Add(new UserPanelViewModel(user));
+        }
+        return new UsersListViewModel(users);
     }
 
     private ViewModelBase OnCreate(CreateMeetingResponse createResponse)
