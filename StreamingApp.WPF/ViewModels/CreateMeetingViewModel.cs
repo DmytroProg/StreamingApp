@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace StreamingApp.WPF.ViewModels
@@ -21,6 +22,11 @@ namespace StreamingApp.WPF.ViewModels
             get => _meetingName;
             set
             {
+                if (value.Length > 40)
+                {
+                    MessageBox.Show("The name must be less than 40 characters long");
+                    return;
+                }
                 _meetingName = value;
                 OnPropertyChanged();
             }

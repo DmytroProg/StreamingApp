@@ -20,6 +20,11 @@ internal class RegistrationViewModel : ViewModelBase
         get => _nickname;
         set
         {
+            if (value.Length >= 15)
+            {
+                MessageBox.Show("Nickname should be more than 15 characters long");
+                return;
+            }
             _nickname = value;
             OnPropertyChanged();
         }
@@ -30,6 +35,11 @@ internal class RegistrationViewModel : ViewModelBase
         get => _login;
         set
         {
+            if (value.Length >= 15)
+            {
+                MessageBox.Show("Login should be more than 15 characters long");
+                return;
+            }
             _login = value;
             OnPropertyChanged();
         }
@@ -40,6 +50,11 @@ internal class RegistrationViewModel : ViewModelBase
         get => _password;
         set
         {
+            if (value.Length <= 5)
+            {
+                MessageBox.Show("The password must contain at least 6 characters");
+                return;
+            }
             _password = value;
             OnPropertyChanged();
         }
@@ -76,7 +91,6 @@ internal class RegistrationViewModel : ViewModelBase
             Password = Password,
             AvatarImage = Avatar ?? "0"
         };
-
         App.UnitController.UserController.Register(user);
     }
 }

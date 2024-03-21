@@ -3,6 +3,7 @@ using StreamingApp.BLL.Interfaces;
 using StreamingApp.BLL.Models;
 using System;
 using System.Collections.ObjectModel;
+using System.Net;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -57,8 +58,15 @@ internal class MainViewModel : ViewModelBase
         get => _ipAddress;
         set
         {
-            _ipAddress = value;
-            OnPropertyChanged();
+            if (value != null && IPAddress.TryParse(value, out IPAddress _))
+            {
+                _ipAddress = value;
+                OnPropertyChanged();
+            }
+            else
+            {
+                MessageBox.Show("Invalid IP address");
+            }
         }
     }
 
@@ -67,8 +75,15 @@ internal class MainViewModel : ViewModelBase
         get => _port;
         set
         {
-            _port = value;
-            OnPropertyChanged();
+            if (int.TryParse(value, out int port) && port >= 1024 && port <= 65535)
+            {
+                _port = value;
+                OnPropertyChanged();
+            }
+            else
+            {
+                MessageBox.Show("Invalid port number");
+            }
         }
     }
     public ICommand ListenCommand { get; }
@@ -91,7 +106,6 @@ internal class MainViewModel : ViewModelBase
         try
         {
             IsSettingsPopupOpen = true;
-            //MessageBox.Show($"IsSettingsPopupOpen: {IsSettingsPopupOpen}");
         }
         catch (Exception ex)
         {

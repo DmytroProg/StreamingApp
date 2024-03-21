@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using StreamingApp.WPF.Navigations;
 using StreamingApp.WPF.ViewModels.Base;
+using System.Windows.Forms;
 using System.Windows.Input;
 
 namespace StreamingApp.WPF.ViewModels;
@@ -43,6 +44,11 @@ class LoginViewModel : ViewModelBase
 
     public void LoginUser()
     {
+        if (string.IsNullOrEmpty(Login) || string.IsNullOrEmpty(Password))
+        {
+            MessageBox.Show("The login or password field cannot be empty");
+            return;
+        }
         App.UnitController.UserController.Login(Login, Password);
     }
 }
