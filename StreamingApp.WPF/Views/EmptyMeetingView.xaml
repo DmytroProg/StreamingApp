@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:StreamingApp.WPF.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded">
     <UserControl.Resources>
         <Style TargetType="TextBlock">
             <Setter Property="TextAlignment" Value="Center"/>
@@ -15,7 +15,14 @@
         </Style>
     </UserControl.Resources>
     <Grid>
-        <Grid.ColumnDefinitions>
+        
+        <!--<Grid.Background>
+            <ImageBrush x:Name="bgi" ImageSource="/Images/64.jpg" Stretch="UniformToFill"></ImageBrush>
+        </Grid.Background>-->
+        
+        <MediaElement Name="bg" LoadedBehavior="Manual" UnloadedBehavior="Stop"  Stretch="UniformToFill" IsMuted="True"/>
+        
+        <!--<Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.5*"/>
             <ColumnDefinition/>
             <ColumnDefinition Width="0.5*"/>
@@ -24,9 +31,9 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
-        </Grid.RowDefinitions>
-        <StackPanel Grid.Column="1"
-                    Grid.Row="1">
+        </Grid.RowDefinitions>-->
+        <StackPanel Margin="20">
+            <TextBlock Foreground="Green" FontSize="32">Meeting created!</TextBlock>
             <TextBlock Text="{Binding Meeting.Title, StringFormat={}Title: {0}}"/>
             <TextBlock Text="{Binding Meeting.MeetingCode, StringFormat={}Code: {0}}"/>
         </StackPanel>    

@@ -87,4 +87,10 @@ public class UdpClientUser : IUdpClient
             }
         }
     }
+
+    public void Close()
+    {
+      _udpClient?.Close();
+      _udpClient?.Dispose();
+    }
 }

@@ -6,6 +6,7 @@ using StreamingApp.BLL.Requests;
 using StreamingApp.WPF.Controllers.Base;
 using System;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
@@ -56,6 +57,11 @@ public class ScreenShareController : ControllerBase
         {
             _logger?.LogError(ex);
         }
+    }
+
+    public async Task StopSharing()
+    {
+        _udpClient.Close();
     }
 
     public async Task SendScreenAsync()

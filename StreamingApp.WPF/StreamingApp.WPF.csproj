@@ -99,6 +99,7 @@
     <None Remove="Images\stream.png" />
     <None Remove="Images\user.JPG" />
     <None Remove="Images\v1.mp4" />
+    <None Remove="Images\v10.mp4" />
     <None Remove="Images\v2.mp4" />
     <None Remove="Images\v3.mp4" />
     <None Remove="Images\v4.mp4" />
@@ -376,6 +377,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\v1.mp4">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\v10.mp4">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\v2.mp4">

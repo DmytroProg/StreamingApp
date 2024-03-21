@@ -60,6 +60,7 @@ internal class MainViewModel : ViewModelBase
     public ViewModelBase? ChatViewModel => _navigationStore.ChatViewModel;
 
     public ICommand StartSharingCommand { get; }
+    public ICommand StopSharingCommand { get; }
 
     public bool IsChatViewModelCurrent => CurrentViewModel is ChatViewModel;
 
@@ -77,6 +78,7 @@ internal class MainViewModel : ViewModelBase
         IsActiveLogo = true;
 
         StartSharingCommand = new RelayCommand(StartSharing);
+        StopSharingCommand = new RelayCommand(StopSharing);
     }
 
     private void OnUsersViewModelChanged()
@@ -94,6 +96,12 @@ internal class MainViewModel : ViewModelBase
         App.UnitController.ScreenShareController.StartSharing();
         _drawWindow = new DrawWindow();
         _drawWindow.Show();
+    }
+
+    private void StopSharing()
+    {
+        App.UnitController.ScreenShareController.StopSharing();
+        _drawWindow.Close();
     }
 
     private void OnCurrentViewModelChanged()
