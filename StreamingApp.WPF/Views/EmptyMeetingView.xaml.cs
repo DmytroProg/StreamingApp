@@ -24,5 +24,26 @@ namespace StreamingApp.WPF.Views
         {
             InitializeComponent();
         }
+
+        private void PlayVideo(string videoFilePath)
+        {
+            try
+            {
+                bg.Source = new Uri(videoFilePath);
+                bg.Play();
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Помилка: {ex.Message}");
+            }
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            string videoFilePath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images\\v10.mp4");
+            PlayVideo(videoFilePath);
+            
+        }
     }
 }
