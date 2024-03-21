@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace StreamingApp.WPF.ViewModels.ControlsViewModels;
 
@@ -12,8 +13,6 @@ class UsersListViewModel : ViewModelBase
     public UsersListViewModel(ICollection<UserPanelViewModel> users)
     {
         Users = new ObservableCollection<UserPanelViewModel>(users);
-
-        //Users.Add(new UserPanelViewModel("Dmitro", "/Images/user.JPG"));
-        //Users.Add(new UserPanelViewModel("Vitalic", "/Images/user.JPG") { IsVideoOn = true});
+        OnPropertyChanged(nameof(Users));
     }
 }

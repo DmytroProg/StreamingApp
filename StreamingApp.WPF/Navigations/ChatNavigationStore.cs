@@ -24,7 +24,7 @@ internal class ChatNavigationStore : NavigationStore
         set
         {
             _usersViewModel = value;
-            OnChatViewModelChanged();
+            OnUsersViewModelChanged();
         }
     }
 

@@ -1,6 +1,7 @@
 ﻿using StreamingApp.BLL.Interfaces;
 using StreamingApp.BLL.Interfaces.DataAccess;
 using StreamingApp.BLL.Interfaces.Services;
+using StreamingApp.BLL.Models;
 using StreamingApp.BLL.Requests;
 using StreamingApp.BLL.Responses;
 using StreamingApp.BLL.Services;
@@ -125,11 +126,7 @@ public class UseCaseInteractor
 
             _udpServer.ClientsPorts.Remove(leaveReq.SharingPort);
             meeting.Users.Remove(user);
-            _sendClients.Clear();
-            foreach(var meetingUser in meeting.Users)
-            {
-                _sendClients.Add(_clients[meetingUser.Id]);
-            }
+            SendToMeetingMembers(meeting);
 
             return new LeaveMeetingResponse()
             {
@@ -153,19 +150,12 @@ public class UseCaseInteractor
             var meeting = await _meetingService.GetByIdAsync(sendReq.MeetingId);
 
             meeting.Messages.Add(sendReq.Message);
+            SendToMeetingMembers(meeting);
 
-            _sendClients.Clear();
-            foreach (var user in meeting.Users)
-            {
-                _sendClients.Add(_clients[user.Id]);
-            }
-
-            var response = new MessageResponse()
+            return new MessageResponse()
             {
                 Meeting = meeting,
             };
-
-            return response;
         }
         catch(Exception ex)
         {
@@ -181,7 +171,7 @@ public class UseCaseInteractor
             var admin = await _userService.GetByIdAsync(createReq.Meeting.AdminId);
             var meeting = await _meetingService.AddAsync(createReq.Meeting);
             await _meetingService.AddUserToMeetingAsync(meeting.Id, admin);
-            _sendClients = new() { client };
+            SendToMeetingMembers(meeting);
 
             return new CreateMeetingResponse()
             {
@@ -201,8 +191,8 @@ public class UseCaseInteractor
         {
             //var meeting = _meetings.FirstOrDefault(m => m.Id == connectReq.MeetingCode);
             var meeting = await _meetingService.GetMeetingByCode(connectReq.MeetingCode);
-            _sendClients = new() { client };
             await _meetingService.AddUserToMeetingAsync(meeting.Id, connectReq.User);
+            SendToMeetingMembers(meeting);
 
             return new ConnectResponse()
             {
@@ -270,6 +260,15 @@ public class UseCaseInteractor
         {
             _logger.LogError(ex);
             return new ErrorResponse();
+        }
+    }
+
+    private void SendToMeetingMembers(Meeting meeting)
+    {
+        _sendClients.Clear();
+        foreach (var user in meeting.Users)
+        {
+            _sendClients.Add(_clients[user.Id]);
         }
     }
 }

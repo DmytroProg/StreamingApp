@@ -12,6 +12,8 @@ namespace StreamingApp.WPF.ViewModels;
 
 internal class MainViewModel : ViewModelBase
 {
+    private DrawWindow _drawWindow;
+
     private readonly ImageSourceConverter _converter;
     private ChatNavigationStore _navigationStore;
     private bool _isActive;
@@ -90,6 +92,8 @@ internal class MainViewModel : ViewModelBase
     private void StartSharing()
     {
         App.UnitController.ScreenShareController.StartSharing();
+        _drawWindow = new DrawWindow();
+        _drawWindow.Show();
     }
 
     private void OnCurrentViewModelChanged()
@@ -102,8 +106,8 @@ internal class MainViewModel : ViewModelBase
     {
         Action? changeView = CurrentViewModel switch
         {
-            ViewModels.ChatViewModel => OnChangeMeetingView,
-            MeetingViewModelBase => OnChangeMeetingView,
+            //ViewModels.ChatViewModel => OnChangeMeetingView,
+            //MeetingViewModelBase => OnChangeMeetingView,
             ConnectViewModel => delegate() {
                 OnPropertyChanged(nameof(Avatar));
                 OnPropertyChanged(nameof(UserName));
@@ -123,5 +127,13 @@ internal class MainViewModel : ViewModelBase
         _navigationStore.UsersViewModel = new UsersListViewModel(new List<UserPanelViewModel>());
         OnPropertyChanged(nameof(ChatViewModel));
         OnPropertyChanged(nameof(UsersListViewModel));
+    }
+
+    ~MainViewModel()
+    {
+        _drawWindow.Close();
+        _navigationStore.CurrentViewModelChanged -= OnCurrentViewModelChanged;
+        _navigationStore.UsersViewModelChanged -= OnUsersViewModelChanged;
+        _navigationStore.ChatViewModelChanged -= OnChatViewModelChanged;
     }
 }

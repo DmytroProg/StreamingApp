@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:controls="clr-namespace:StreamingApp.WPF.Controls"
+             xmlns:vms="clr-namespace:StreamingApp.WPF.ViewModels.ControlsViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="300">
     <Grid>
@@ -23,8 +24,8 @@
 
                 <ItemsControl ItemsSource="{Binding Users}">
                     <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <controls:UserPanel DataContext="{Binding .}"/>
+                        <DataTemplate DataType="{x:Type vms:UserPanelViewModel}">
+                            <controls:UserPanel/>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>

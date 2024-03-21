@@ -8,6 +8,7 @@ using StreamingApp.WPF.ViewModels.ControlsViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 
 namespace StreamingApp.WPF.Presenters;
 
@@ -58,14 +59,10 @@ internal class UserPresenter : IUserPresenter
         return UserConnected(connectResponse.Meeting.Users);
     }
 
-    private ViewModelBase? UserConnected(ICollection<User> Users)
+    private ViewModelBase? UserConnected(ICollection<User> users)
     {
-        var users = new List<UserPanelViewModel>();
-        foreach (var user in Users)
-        {
-            users.Add(new UserPanelViewModel(user));
-        }
-        return new UsersListViewModel(users);
+        return new UsersListViewModel(
+            users.Select(u => new UserPanelViewModel(u)).ToList());
     }
 
     private ViewModelBase OnCreate(CreateMeetingResponse createResponse)

@@ -3,6 +3,8 @@ using StreamingApp.WPF.ViewModels.Base;
 using System.Windows.Media.Imaging;
 using System.Windows.Media;
 using System;
+using System.Diagnostics;
+using System.Windows;
 
 namespace StreamingApp.WPF.ViewModels.ControlsViewModels;
 
@@ -18,14 +20,21 @@ internal class UserPanelViewModel : ViewModelBase
     {
         get
         {
-            if (_avatarIcon == "0")
+            try
+            {
+                if (_avatarIcon == "0")
+                {
+                    return new BitmapImage(new Uri("Images/user.JPG", UriKind.Relative));
+                }
+                else
+                {
+                    var buffer = Convert.FromBase64String(_avatarIcon);
+                    return (ImageSource?)_converter.ConvertFrom(buffer);
+                }
+            }
+            catch (Exception)
             {
                 return new BitmapImage(new Uri("Images/user.JPG", UriKind.Relative));
-            }
-            else
-            {
-                var buffer = Convert.FromBase64String(_avatarIcon);
-                return (ImageSource?)_converter.ConvertFrom(buffer);
             }
         }
     }

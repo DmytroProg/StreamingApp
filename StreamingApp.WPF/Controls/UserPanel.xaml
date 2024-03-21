@@ -14,7 +14,7 @@
         </Grid.ColumnDefinitions>
         <Ellipse Grid.Column="0" Width="40" Height="40">
             <Ellipse.Fill>
-                <ImageBrush ImageSource="{Binding AvatarIcon}"/>
+                <ImageBrush ImageSource="{Binding AvatarIcon, UpdateSourceTrigger=PropertyChanged}"/>
             </Ellipse.Fill>
         </Ellipse>
         <Label Grid.Column="1" Content="{Binding Username}" Foreground="White"></Label>
